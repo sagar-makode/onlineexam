@@ -1,0 +1,50 @@
+/* LiveExam.css */
+
+.question-palette {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  /* .question-palette h3 {
+    color: #007bff;
+  }
+   */
+   .question-button {
+    width: 40px; /* Set a fixed width */
+    height: 40px; /* Set a fixed height */
+    margin: 10px;
+    border-radius: 50%; /* Set border-radius to 50% for a circular shape */
+    transition: background-color 0.3s, color 0.3s;
+  }
+  /* .question-button.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+   */
+
+    .navigation-buttons {
+    
+    margin-top: 30%; /* Push the buttons to the bottom of the column */
+   } 
+
+   ul {
+    list-style: none; /* Remove default list-style */
+    padding: 0; /* Remove default padding */
+  }
+  
+  li {
+    margin-bottom: 10px; /* Add some spacing between options */
+  }
+  
+  label {
+    display: block; /* Ensure each option is on a new line */
+  }
+
+.answered {
+    background-color: #4CAF50; /* Green color */
+    color: #fff; /* White text */
+    border: none;
+}

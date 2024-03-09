@@ -14,6 +14,10 @@ export default function Navbar() {
         <Link className="nav-link active" aria-current="page" to="/">Home</Link>
         <Link className="nav-link active" to="/exam">Create New Exam</Link>
         <Link className="nav-link active" to="/overview">Show OVerview</Link>
+        <Link className="nav-link active" to="/liveexam">Live Exam</Link>
+
+
+        
       </div>
     </div>
   </div>

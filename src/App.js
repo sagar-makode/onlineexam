@@ -4,6 +4,7 @@ import Exam from './component/admin/ExamCreation'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminHome from './component/admin/AdminHome';
 import Overview from './component/admin/Overview';
+import LiveExam from './userexam/LiveExam';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
           <Navbar />
           <Routes>
             <Route exact path='/' element={<AdminHome />} />
+            <Route exact path='/liveexam' element={<LiveExam />} />
+
             <Route exact path='exam' element={<Exam />} />
             <Route exact path="overview" element={<Overview/>} />
           </Routes>
