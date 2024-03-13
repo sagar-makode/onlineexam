@@ -25,7 +25,7 @@ function* handleSignup(action) {
     try {
       const response = yield call(axios.post, "http://localhost:5000/teacherlogin", action.payload);
       
-      console.log("callSuccess", response);
+      console.log("Teacher call Success", response);
   
       if (response.data) {
         // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
@@ -41,7 +41,7 @@ function* handleSignup(action) {
     try {
       const response = yield call(axios.post, "http://localhost:5000/studentlogin", action.payload);
       
-      console.log("callSuccess", response);
+      console.log("Student call Success", response);
   
       if (response.data) {
         // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
