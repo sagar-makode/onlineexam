@@ -6,6 +6,7 @@ import AdminHome from './component/admin/AdminHome';
 import Overview from './component/admin/Overview';
 import LiveExam from './userexam/LiveExam';
 import Signup from './UserSignUp/Signup';
+import SignIn from './UserSignIn/SignIn';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
             <Route exact path='/exam' element={<Exam />} />
             <Route exact path="/overview" element={<Overview/>} />
             <Route exact path="/register" element={<Signup/>} />
+            <Route exact path="/signin" element={<SignIn/>} />
+
 
           </Routes>
         </div>

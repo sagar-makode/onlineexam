@@ -1,7 +1,7 @@
 // sagas/userSaga.js
 
 import { put, takeLatest,call } from 'redux-saga/effects';
-import { SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS } from '../actions/userActions';
+import { SIGNIN_REQUEST, SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, STUDENT_SIGNIN_REQUEST, TEACHER_SIGNIN_REQUEST } from '../actions/userActions';
 import axios from 'axios';
 
 
@@ -20,8 +20,43 @@ function* handleSignup(action) {
     }
   }
 
+
+  function* handleTeacherSignin(action) {
+    try {
+      const response = yield call(axios.post, "http://localhost:5000/teacherlogin", action.payload);
+      
+      console.log("callSuccess", response);
+  
+      if (response.data) {
+        // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
+      }
+    } catch (error) {
+      console.error(error);
+      // yield put({ type: SIGNIN_FAILURE });
+    }
+  }
+
+
+  function* handleStudentSignin(action) {
+    try {
+      const response = yield call(axios.post, "http://localhost:5000/studentlogin", action.payload);
+      
+      console.log("callSuccess", response);
+  
+      if (response.data) {
+        // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
+      }
+    } catch (error) {
+      console.error(error);
+      // yield put({ type: SIGNIN_FAILURE });
+    }
+  }
 function* userSaga() {
   yield takeLatest(SIGNUP_REQUEST, handleSignup);
+  yield takeLatest(TEACHER_SIGNIN_REQUEST, handleTeacherSignin);
+  yield takeLatest(STUDENT_SIGNIN_REQUEST, handleStudentSignin);
+
+
 }
 
 export default userSaga;
