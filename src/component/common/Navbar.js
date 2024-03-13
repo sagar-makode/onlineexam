@@ -15,6 +15,8 @@ export default function Navbar() {
         <Link className="nav-link active" to="/exam">Create New Exam</Link>
         <Link className="nav-link active" to="/overview">Show OVerview</Link>
         <Link className="nav-link active" to="/liveexam">Live Exam</Link>
+        <Link className="nav-link active" to="/register">Sign Up</Link>
+
 
 
         
