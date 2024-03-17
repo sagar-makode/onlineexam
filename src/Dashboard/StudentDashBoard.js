@@ -37,11 +37,11 @@ function StudentDashBoard() {
     // setSelectedTest(test); // Set the selected test
     // setActiveTab('liveExam');
     
-    const testData = test.questions
+    // const testData = test.questions
 
     dispatch(selectedTest(test));
     
-    navigate(`/liveexam`, { state: { testData } });
+    navigate(`/liveexam`, { state: { test } });
     
 
   };

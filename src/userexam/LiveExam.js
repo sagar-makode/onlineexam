@@ -7,9 +7,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const LiveExam = () => {
     const location = useLocation();
-    const questions = location.state.testData;
+    const test = location.state.test;
+    console.log(test);
+
+    const questions = test.questions
+
     // console.log(location);
-    
+ 
     
     const quest = useSelector((state) => state.tests.currentselectedTest);
     
@@ -17,11 +21,11 @@ const LiveExam = () => {
     // console.log(questions , "this data");
 
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
-    console.log(currentQuestion);
+    // console.log(currentQuestion);
     const [userAnswers, setUserAnswers] = useState(Array(questions.length).fill(null));
     // const [Answers, setAnswers] = useState(Array(questions.length).fill(null));
 
-    console.log(userAnswers);
+    // console.log(userAnswers);
    
     
 
@@ -29,7 +33,7 @@ const LiveExam = () => {
     const [remainingTime, setRemainingTime] = useState(0); // Remaining time in seconds
 
     // Receive exam duration from backend (in minutes)
-    console.log(questions);
+    // console.log(questions);
     const examDurationInMinutes = questions.totalMinutes; // Example duration, replace it with your backend value
     const examDurationInSeconds = examDurationInMinutes * 60;
     const endTime = new Date();
@@ -102,7 +106,7 @@ const LiveExam = () => {
     };
     const navigate = useNavigate()
     const handleSubmitTest= () => {
-        navigate('/result', { state: { userAnswers } });
+        navigate('/result', { state: { userAnswers, test } });
     };
 
     const handleClearResponse = () => {
