@@ -67,7 +67,11 @@ const LiveExam = () => {
             // Handle end of questions behavior here
             console.log("End of questions reached");
         } else {
-            setCurrentQuestion(questions[nextIndex]);
+            // setCurrentQuestion(questions[nextIndex]);
+            setCurrentQuestion({
+                ...questions[nextIndex],
+                answer: userAnswers[questions[nextIndex].questionNumber - 1]
+            });
         }
     };
 
