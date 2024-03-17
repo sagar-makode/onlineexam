@@ -7,6 +7,9 @@ import Overview from './component/admin/Overview';
 import LiveExam from './userexam/LiveExam';
 import Signup from './UserSignUp/Signup';
 import SignIn from './UserSignIn/SignIn';
+import Dashboard from './Dashboard/Dashboard';
+import TestResult from './userexam/TestResult';
+
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
             <Route exact path="/overview" element={<Overview/>} />
             <Route exact path="/register" element={<Signup/>} />
             <Route exact path="/signin" element={<SignIn/>} />
+            <Route exact path="/dashboard" element={<Dashboard/>} />
+            <Route exact path="/result" element={<TestResult/>} />
+
+            
 
 
           </Routes>

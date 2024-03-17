@@ -2,6 +2,16 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 export default function Navbar() {
+
+    const handleLogout = () => {
+      // Clear the token from session storage
+      sessionStorage.removeItem('token');
+      
+      // Optionally, perform additional logout-related actions here
+      // For example, redirect the user to the login page
+      // window.location.href = '/login';
+    }
+  
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -17,6 +27,8 @@ export default function Navbar() {
         <Link className="nav-link active" to="/liveexam">Live Exam</Link>
         <Link className="nav-link active" to="/register">Sign Up</Link>
         <Link className="nav-link active" to="/signin">Sign In</Link>
+        <Link className="nav-link active" onClick={handleLogout} >Sign Out</Link>
+
 
 
         
