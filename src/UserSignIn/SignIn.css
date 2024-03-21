@@ -1,0 +1,149 @@
+
+input {
+    border: none;
+    border-bottom: 2px solid black;
+    margin-top: 1.5rem;
+    width: 100%;
+    outline: none; 
+    font-size: 16px; 
+}
+input:focus {
+    border-bottom: 2px solid blue; /* Change underline color on focus */
+  }
+  
+input:hover:not(:focus) {
+    border-bottom: 2px solid red; /* Change underline color on hover */
+  }
+
+.bg-img{
+    background-image: url('../assets/loginSignupImage.png');
+    background-size: cover;
+    height: 90vh;
+    width: auto;     
+}
+
+.signInDetails{
+    margin-top: 3rem;
+}
+
+.createNewAccount{
+    display: block;
+    margin-top: 1.5rem;
+}
+
+.forgotPassword{
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.signInButton{
+    margin-top: 1.5rem;
+    display: flex;
+}
+
+.socialSites{
+    margin-top: 1.5rem;
+}
+
+.otherSites{
+    display: flex;
+    margin-top: 2.5rem;
+    justify-content: space-between;
+}
+
+.signInTitle{
+    margin-bottom: 2rem;
+}
+
+.customSignIn-btn{
+    background-color: #91713c;
+    color: white;
+    height: 3rem;
+    width: 8rem;
+    border-radius: 1rem;
+
+}
+
+.socialSiteMessage{
+    border-bottom: 2px solid rgb(200, 200, 200);
+    
+}
+
+.customSocial-btn{
+    width: 12rem;
+    height: 3rem;
+}
+
+.checkBox{
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.sideImage{
+    height: 13rem;
+    width: 15rem;
+    mix-blend-mode: screen; 
+}
+
+.loginchangeButton{
+    border-radius: 2rem;
+    width: 20rem;
+    height: 5rem;
+}
+.col-md-4 {
+    position: relative;
+  }
+  
+  /* .admin-slide-in {
+    animation: slideInFromLeft 0.5s ease forwards;
+  }
+  
+  .student-slide-out {
+    animation: slideOutToLeft 0.5s ease forwards;
+  }
+  
+  .student-slide-in {
+    animation: slideInFromRight 0.5s ease forwards;
+  }
+  
+  .admin-slide-out {
+    animation: slideOutToRight 0.5s ease forwards;
+  }
+  
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-10%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideOutToLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-10%);
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(10%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideOutToRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(10%);
+    }
+  }
+   */
