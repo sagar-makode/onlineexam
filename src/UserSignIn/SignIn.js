@@ -44,6 +44,8 @@ const SignIn = () => {
   return (
     <div className="row bg-img">
       {/* This design is for Student Login */}
+      
+
       <div className='col-md-4' hidden={admin} >
         <div className="row d-flex justify-content-center">
           <div className="d-flex justify-content-center ">
@@ -83,11 +85,14 @@ const SignIn = () => {
                   <Link> Create One here</Link>
                 </span>
               </div>
-              <div>
+              <div className="d-flex">
                 <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" />
+                <i className="far fa-envelope d-flex align-items-center border-bottom border-dark border-2"></i>              
               </div>
-              <div >
+              <div className="d-flex">
                 <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
+              <i className="fas fa-lock d-flex align-items-center border-bottom border-dark border-2 input"></i>
+
               </div>
               <div className='  forgotPassword'>
                 <span><span><input type="checkbox" className="form-check-input checkBox" id="rememberMe" name="rememberMe" /></span><span>Remember Me</span></span>

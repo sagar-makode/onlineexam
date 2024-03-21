@@ -15,6 +15,7 @@ input:hover:not(:focus) {
     border-bottom: 2px solid red; /* Change underline color on hover */
   }
 
+
 .bg-img{
     background-image: url('../assets/loginSignupImage.png');
     background-size: cover;
