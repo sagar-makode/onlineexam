@@ -8,8 +8,6 @@ function* fetchUserDataSaga() {
   try {
      // Retrieve token from sessionStorage
      const token = sessionStorage.getItem('token');
-     
-
 
      // Make a request to fetch user data from the backend with token in headers
      const response = yield call(axios.get, "http://localhost:5000/dashboard", {

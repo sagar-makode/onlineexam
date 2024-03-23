@@ -1,220 +1,218 @@
-// SignupForm.js
-import "./Signup.css"
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signupRequest } from '../actions/userActions';
-import SideImage from "../assets/8.png";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { clearMessage, signupRequest } from '../actions/userActions';
+import { Link, useNavigate } from 'react-router-dom';
+import { notification } from 'antd';
 
-const Signup = () => {
+function UserSignUp() {
   const dispatch = useDispatch();
-  const [admin, setAdmin] = useState(false)
+
+  const signupSuccessMessage = useSelector(state => state.user.SignupSucess);
+  const [isStudentSignup, setStudentSignup] = useState(true);
+  const [SignupFormMarginLeft, setSignupFormMarginLeft] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
     mobileNumber: '',
-    password1:'',
-    city:'',
-    country:'',
-    occupation:'',
-    qualification:'',
-    gender:''
-
+    role: "Student"
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: '' });
   };
+
+  // for submit Form
+
+  const navigate = useNavigate()
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(signupRequest(formData));
-    console.log(formData);
+    if (validateForm()) {
+      console.log("empty");
+      dispatch(signupRequest(formData));
+      // Reset form data after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        mobileNumber: '',
+        role: "Student"
+      });
+    }
   };
-  const handleAdmin = () => {
-    setAdmin(admin ? false : true)
-  }
+  // for submit Form
+
+
+  // above toggle button
+  const studentToggleButton = () => {
+    setSignupFormMarginLeft(0);
+    setStudentSignup(true);
+    setFormData({ ...formData, role: "Student" });
+  };
+  const adminToggeleButton = () => {
+    setSignupFormMarginLeft(-50);
+    setStudentSignup(false);
+    setFormData({ ...formData, role: "Teacher" });
+
+  };
+    // above toggle button
+
+
+    // validation Start
+  const validateForm = () => {
+    let errors = {};
+
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Email is invalid';
+    }
+
+    if (!formData.mobileNumber.trim()) {
+      errors.mobileNumber = 'Mobile number is required';
+    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
+      errors.mobileNumber = 'Mobile number is invalid';
+    }
+
+    if (!formData.password.trim()) {
+      errors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+  // validation end
+
+
+  // Success and fail message Start
+  const [notificationShown, setNotificationShown] = useState(false); 
+
+  useEffect(() => {
+    if (signupSuccessMessage && !notificationShown) {
+      setNotificationShown(true);
+      openNotification();
+      setTimeout(() => {
+        navigate('/login'); // Navigate after 5 seconds
+        dispatch(clearMessage())
+      }, 2000);
+    }
+  }, [signupSuccessMessage, notificationShown, navigate,dispatch]);
+
+    const openNotification = () => {
+      const args = {
+        message: "Account Created",
+        description: "Congratulations, Now you are part of our family. Please login to continue.",
+        duration: 2,
+      };
+      notification.open(args);
+    };
+  
+  // Success and fail message end
+
+  
+
 
   return (
-    <div className='row bg-img'>
-
-      {/* This design is for student signup  */}
-      <div className='col-md-4' hidden={admin} >
-        <div className="row d-flex justify-content-center">
-          <div className="d-flex justify-content-center ">
-            <img src={SideImage} className="sideImage mt-8" alt="sideImage" />
+    <div className='maindiv'>
+      <div className='userloginbody'>
+        <div className="wrapper"  >
+          <div className="title-text">
+            <div class="title login" style={{ marginLeft: `${SignupFormMarginLeft}%` }} >Student Signup</div>
+            <div class="title signup">Admin Signup</div>
           </div>
-          <div className="d-flex justify-content-center text-white mt-5">
-            <div>
-              <span>
-                <h3 >OnlineExam.com</h3>
-              </span>
-              <span className="d-flex justify-content-center">
-                <h5>Courses | Test Series</h5>
-              </span>
+          <div className="form-container">
+            <div className="slide-controls">
+              <input type="radio" name="slide" id="login" checked={isStudentSignup} onChange={studentToggleButton} />
+              <input type="radio" name="slide" id="signup" checked={!isStudentSignup} onChange={adminToggeleButton} />
+              <label htmlFor="login" className={`slide login ${isStudentSignup ? 'active' : ''}`}>Student</label>
+              <label htmlFor="signup" className={`slide signup ${!isStudentSignup ? 'active' : ''}`}>Admin</label>
+              <div className="slider-tab"></div>
             </div>
-          </div>
-          <div className="d-flex justify-content-center mt-5">
-            <button className="text-black bg-white loginchangeButton" onClick={handleAdmin}>
-              <h3> Are You admin </h3>
-              <h4>Click Here</h4>
-            </button>
-          </div>
-          <span className="d-flex justify-content-center text-white"> Slogan willbe appear Here</span>
-        </div>
-      </div>
-
-      {/* This signUp from is for Student signup  */}
-      <div className="col-md-8 bg-white">
-        <div className='row d-flex justify-content-center h-100'>
-          <div className="col-md-8 mt-3">
-            <div>
-              <span>
-                <h3>Create Your <b>{admin ? "Teacher" : "Student"}</b> Account</h3>
-              </span>
-              <span className="loginYourAccount">
-                <span>Already Have Account?</span>
-                <Link> Login Here</Link>
-              </span>
-            </div>
-            <div>
-              <form onSubmit={handleSubmit} >
-
-                {/* First Name and Last Name */}
-                <div className="row mt-2">
-                  <div className="col">
-                    <label htmlFor="firstName">First Name*</label>
-                    <input type="text" className="signUpInput"name="firstName" value={formData.firstName} onChange={handleChange} placeholder="Enter your First Name" />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="lastName">Last Name*</label>
-                    <input type="text" className="signUpInput" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Enter your Last Name" />
-                  </div>
+            <div className="form-inner">
+              <form onSubmit={handleSubmit} style={{ marginLeft: `${SignupFormMarginLeft}%` }} className={`login ${isStudentSignup ? 'active' : ''}`}>
+                <div className="field" style={{ marginTop: errors.name ? '10px' : '20px' }}>
+                  <input type="text" className="signUpInput" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your Name" />
                 </div>
+                {errors.name && <div className="  error">{errors.name}</div>}
 
-                {/* PhoneNo and Email Id  */}
-                <div className="row ">
-                  <div className="col">
-                    <label htmlFor="phoneNo">PhoneNo*</label>
-                    <input type="number" className="signUpInput" name="mobileNumber" value={formData.mobileNumber} onChange={handleChange} placeholder="Enter your mobile No" />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="emailId">Email Id*</label>
-                    <input type="email" className="signUpInput" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your Email Id" />
-                  </div>
-                </div>
-
-                {/* Password and confirm Password  */}
-                <div className="row ">
-                  <div className="col">
-                    <label htmlFor="password">Password*</label>
-                    <input type="password" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your Password" />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="confirmPassword">Confirm Password*</label>
-                    <input type="password" className="signUpInput" name="password1" value={formData.password1} onChange={handleChange} placeholder="Confirm your password" />
-                  </div>
-                </div>
-
-                {/* Country and City */}
-                <div className="row">
-                  <div className="col">
-                    <label htmlFor="country">Country*</label>
-                    <input type="text" className="signUpInput" name="country" value={formData.country} onChange={handleChange} placeholder="Enter your country" />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="city">City*</label>
-                    <input type="text" className="signUpInput" name="city" value={formData.city} onChange={handleChange} placeholder="Enter your city" />
-                  </div>
-                </div>
-
-                {/* Occupation and Qualifications  */}
-                <div className="row ">
-                  <div className="col">
-                    <label htmlFor="gender">Occupation*</label>
-                    <input type="text" className="signUpInput" name="occupation" value={formData.occupation} onChange={handleChange} placeholder="Enter your occupation" />
-                  </div>
-                  <div className="col">
-                    <label htmlFor="qualifications">Qualifications*</label>
-                    <input type="text" className="signUpInput" name="qualification" value={formData.qualification} onChange={handleChange} placeholder="Enter your qualification" />
-                  </div>
-                </div>
-                <div>
-                <div className="col">
-                    <label htmlFor="gender">Gender*</label>
-                    <input type="text" className="signUpInput" name="gender" value={formData.gender} onChange={handleChange} placeholder="Enter your gender" />
-                  </div>
-                  <div className="mt-2">
-                <span><span><input type="checkbox" className="form-check-input checkBox" id="rememberMe" name="rememberMe" /></span><span>I am declearing that All the details provided by me is true and I am only resposible for that</span></span>
-
-                  </div>
+                <div className="field" style={{ marginTop: errors.name ? '5px' : '20px' }}>
+                  <input type="email" className="signUpInput" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your Email" />
                 </div>
 
 
-                {/* <div >
-                  <label htmlFor="lastname" className="form-label">Last Name</label>
-                  <input type="text" className="signUpInput" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Enter Your Last Name" />
-                </div>
-                 <div >
-                  <label htmlFor="email" className="form-label">Email</label>
-                  <input type="text" className="signUpInput" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" />
-                </div>
-                <div >
-                  <label htmlFor="password" className="form-label">Password</label>
-                  <input type="text" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
+                {errors.email && <div className="error">{errors.email}</div>}
+
+
+                <div className="field" style={{ marginTop: errors.email ? '5px' : '20px' }}>
+                  <input type="number" className="signUpInput" name="mobileNumber" value={formData.mobileNumber} onChange={handleChange} placeholder="Enter your mobile No" />
                 </div>
 
-                <div > </di
-                  <label htmlFor="mobileNumber" className="form-label">Mobile Number</label>
-                  <input type="number" className="signUpInput" name="mobileNumber" value={formData.mobileNumber} onChange={handleChange} placeholder="Enter Your Mobile Number" />
-               v>
-                <div >
-                  <label htmlFor="role" className="form-label">Role</label>
-                  <select className="signUpInput" name="role" value={formData.role} onChange={handleChange}>
-                    <option value="">Select</option>
-                    <option value="Teacher">Teacher</option>
-                    <option value="Student">Student</option>
-                  </select>
-                </div> */}
+                {errors.mobileNumber && <div className="  error">{errors.mobileNumber}</div>}
 
-                <div className="mt-3">
-                  <button className=" customSignUp-btn"type="submit">Sign Up</button>
+
+                <div class="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
+                  <input type="password" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your Password" />
+                </div>
+                {errors.password && <div className="  error">{errors.password}</div>}
+
+
+                <div class="field lbtn" style={{ marginTop: errors.password ? '15px' : '20px' }}>
+                  <div class="lbtn-layer"></div>
+                  <input type="submit" className='submit' value="Signup" />
+
+                </div>
+                <div className="signup-link">
+                  Already have an account? <Link to="/login">Login here</Link>
+                </div>
+
+              </form>
+              <form onSubmit={handleSubmit} className="signup">
+                <div className="field" style={{ marginTop: errors.name ? '10px' : '20px' }} >
+                  <input type="text" className="signUpInput" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your Name" />
+                </div>
+                {errors.name && <div className="  error">{errors.name}</div>}
+
+                <div className="field" style={{ marginTop: errors.name ? '5px' : '20px' }}>
+                  <input type="email" className="signUpInput" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your Email" />
+                </div>
+                {errors.email && <div className="error">{errors.email}</div>}
+
+                <div className="field" style={{ marginTop: errors.email ? '5px' : '20px' }}>
+                  <input type="number" className="signUpInput" name="mobileNumber" value={formData.mobileNumber} onChange={handleChange} placeholder="Enter your mobile No" />
+                </div>
+                {errors.mobileNumber && <div className="  error">{errors.mobileNumber}</div>}
+
+                <div class="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
+                  <input type="password" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your Password" />
+                </div>
+                {errors.password && <div className="  error">{errors.password}</div>}
+
+
+                <div class="field lbtn " style={{ marginTop: errors.password ? '15px' : '20px' }}>
+                  <div class="lbtn-layer"></div>
+                  <input type="submit" className='submit' value="Signup" />
+                </div>
+                <div className="signup-link">
+                  Already have an account? <Link to="/login">Login here</Link>
                 </div>
               </form>
-                          </div>
-          </div>
-        </div>
-      </div>
-
-      {/* This design is for admin Signup  */}
-      <div className='col-md-4' hidden={!admin}>
-        <div className="row d-flex justify-content-center">
-          <div className="d-flex justify-content-center ">
-            <img src={SideImage} className="sideImage mt-8" alt="sideImage" />
-          </div>
-          <div className="d-flex justify-content-center text-white mt-5">
-            <div>
-              <span>
-                <h3 >OnlineExam.com</h3>
-              </span>
-              <span className="d-flex justify-content-center">
-                <h5>Courses | Test Series</h5>
-              </span>
             </div>
           </div>
-          <div className="d-flex justify-content-center mt-5">
-            <button className="text-black bg-white loginchangeButton" onClick={handleAdmin}>
-              <h3> Are You Student </h3>
-              <h4>Click Here</h4>
-            </button>
-          </div>
-          <span className="d-flex justify-content-center text-white"> Slogan willbe appear Here</span>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default UserSignUp
+

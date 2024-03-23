@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import img from "./icon.jpg"
 import "./LiveExam.css"
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
@@ -15,7 +15,7 @@ const LiveExam = () => {
     // console.log(location);
  
     
-    const quest = useSelector((state) => state.tests.currentselectedTest);
+    // const quest = useSelector((state) => state.tests.currentselectedTest);
     
     // console.log(examData , "this is data");
     // console.log(questions , "this data");
@@ -49,7 +49,9 @@ const LiveExam = () => {
         
         // Cleanup function
         return () => clearInterval(timer);
-    }, []);
+    });
+
+    // add array
 
     // Format remaining time for display
     const formatTime = (timeInSeconds) => {

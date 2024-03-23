@@ -1,146 +1,194 @@
-// SigninForm.js
-import "./SignIn.css"
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { StudentsigninRequest, TeachersigninRequest } from '../actions/userActions';
-import SideImage from "../assets/8.png"
-import { Link } from 'react-router-dom'
+
+import React, { useContext, useEffect, useState } from 'react';
+import './SignIn.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { StudentsigninRequest, TeachersigninRequest, clearMessage } from '../actions/userActions';
+import { Link, useNavigate } from 'react-router-dom';
+import { notification } from 'antd';
+import AuthContext from '../component/common/AuthContext'
 
 
-const SignIn = () => {
+
+
+function SignIn() {
+  const signinSuccessMessage = useSelector(state => state.user.SignINSucess);
+  const signinFailure = useSelector(state => state.user.SignInFailure);
+
+
+  const [isStudentLogin, setStudentLogin] = useState(true);
+  const [loginFormMarginLeft, setLoginFormMarginLeft] = useState(0);
+  const [notificationShown, setNotificationShown] = useState(false); 
+  console.log(signinFailure);
+
+  const studentToggleButton = () => {
+    setLoginFormMarginLeft(0);
+    setStudentLogin(true);
+  };
+
+  const teacherToggeleButton = () => {
+    setLoginFormMarginLeft(-50);
+    setStudentLogin(false);
+  };
+
+  
+
+  const { isAuthenticated, logout , login} = useContext(AuthContext);
+  const handleLin = () => {
+    login();
+  };
+
+
+
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    isAdmin: false
+    password: ''
   });
-  const[admin,setAdmin]=useState(false)
-  console.log(formData);
-
 
   const handleChange = e => {
-    const { name, value, checked } = e.target;
-    // If the input is checkbox, update the state directly with checked value
-    // Otherwise, update the state normally
-    setFormData({ ...formData, [name]: name === 'isAdmin' ? checked : value });
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleAdmin=()=>{
-   setAdmin(admin?false:true) ;
-   setFormData({...formData,isAdmin:admin?false:true})
-   console.log(admin)
-  }
+  const openFailNotification = () => {
+    const args = {
+      message: ( <span style={{ color: 'red' }}>Login Failed</span>),
+      description: ( <span style={{ color: 'red' }}>Please enter valid credentials</span>),
+   
+      // duration: 3,
+      style: {
+        backgroundColor: 'white', // Set background color to a shade of red
+        borderRadius: '8px', // Add border radius
+        border: '2px solid white', // Add border
+        boxShadow: '0 2px 4px white', // Add shadow
+      },
+     
+    };
+    notification.open(args);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-    if (formData.isAdmin) {
-      dispatch(TeachersigninRequest(formData))
+    if (!formData.email || !formData.password) {
+      alert('Please enter both email and password');
+      return;
+    }
+   
+   
+
+    if (isStudentLogin) {
+      console.log(formData);
+      dispatch(StudentsigninRequest(formData));
 
     } else {
 
-      dispatch(StudentsigninRequest(formData));
+      dispatch(TeachersigninRequest(formData))
     }
+
+  
+
   };
 
+
+const navigate = useNavigate()
+
+
+
+useEffect(() => {
+  if (signinFailure ) {
+ 
+    openFailNotification();
+    setTimeout(() => {
+      dispatch(clearMessage())
+    }, 3000);
+  }
+}, [signinFailure,  navigate,dispatch]);
+
+
+
+  useEffect(() => {
+    if (signinSuccessMessage && !notificationShown) {
+      setNotificationShown(true);
+      openNotification();
+      handleLin();
+    
+      setTimeout(() => {
+        navigate('/dashboard'); // Navigate after 5 seconds
+        dispatch(clearMessage())
+      }, 2000);
+    }
+  }, [signinSuccessMessage, notificationShown, navigate,dispatch]);
+
+    const openNotification = () => {
+      const args = {
+        message: "Login Success",
+        description: "Congratulations, You have login Successfully",
+        duration: 2,
+      };
+      notification.open(args);
+    };
+  
+
+
   return (
-    <div className="row bg-img">
-      {/* This design is for Student Login */}
-      
-
-      <div className='col-md-4' hidden={admin} >
-        <div className="row d-flex justify-content-center">
-          <div className="d-flex justify-content-center ">
-            <img src={SideImage} className="sideImage mt-8" alt="sideImage" />
+    <div className='maindiv'>
+      <div className='userloginbody'>
+        <div className="wrapper"  >
+          <div className="title-text">
+            <div class="title login" style={{ marginLeft: `${loginFormMarginLeft}%` }} >Student Login</div>
+            <div class="title signup">Admin Login</div>
           </div>
-          <div className="d-flex justify-content-center text-white mt-5">
-            <div>
-              <span>
-                <h3 >OnlineExam.com</h3>
-              </span>
-              <span className="d-flex justify-content-center">
-                <h5>Courses | Test Series</h5>
-              </span>
+          <div className="form-container">
+            <div className="slide-controls">
+              <input type="radio" name="slide" id="login" checked={isStudentLogin} onChange={studentToggleButton} />
+              <input type="radio" name="slide" id="signup" checked={!isStudentLogin} onChange={teacherToggeleButton} />
+              <label htmlFor="login" className={`slide login ${isStudentLogin ? 'active' : ''}`}>Student</label>
+              <label htmlFor="signup" className={`slide signup ${!isStudentLogin ? 'active' : ''}`}>Admin</label>
+              <div className="slider-tab"></div>
+            </div>
+            <div className="form-inner">
+              <form onSubmit={handleSubmit} style={{ marginLeft: `${loginFormMarginLeft}%` }} className={`login ${isStudentLogin ? 'active' : ''}`}>
+                <div className="field" style={{marginTop:"20px"}}>
+                  <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" />
+                </div>
+                <div className="field" style={{marginTop:"20px"}}>
+                  <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
+                </div>
+                <div className="pass-link"><a href="/" >Forgot password?</a></div>
+                <div className="field lbtn">
+                  <div className="lbtn-layer"></div>
+                  <input type="submit" className='submit' value="Login" />
+                </div>
+
+                <div className="signup-link">
+                  Not a member? <Link to="/register">Signup now</Link>
+                </div>
+              </form>
+              <form onSubmit={handleSubmit} className={`signup ${!isStudentLogin ? 'active' : ''}`}>
+                <div className="field" style={{marginTop:"20px"}}>
+                  <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" />
+                </div>
+                <div className="field" style={{marginTop:"20px"}} >
+                  <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
+                </div>
+                <div className="pass-link"><a href="/">Forgot password?</a></div>
+                <div className="field lbtn">
+                  <div className="lbtn-layer"></div>
+                  <input type="submit" className='submit' value="Login" />
+
+                </div>
+
+                <div className="signup-link">
+                  Not a member? <Link to="/register">Signup now</Link>
+                </div>
+              </form>
             </div>
           </div>
-          <div className="d-flex justify-content-center mt-5">
-            <button className="text-black bg-white loginchangeButton" onClick={handleAdmin}>
-              <h3> Are You admin </h3>
-              <h4>Click Here</h4>
-            </button>
-          </div>
-          <span className="d-flex justify-content-center text-white"> Slogan willbe appear Here</span>
-        </div>
-      </div>
-
-      {/* This is the common design for Student and Teacher */}
-      <div className='col-md-8 bg-white'>
-        <div className='row d-flex justify-content-center h-100'>
-          <div className="col-md-8 signInDetails">
-            <form onSubmit={handleSubmit}>
-              <div className='mb-5'>
-                <span className="signinHeading">
-                  <h2>Login to your <b>{!admin?"Student":"Admin"} </b>Account</h2>
-                </span>
-                <span className="createNewAccount">
-                  <span>Don't have an account?</span>
-                  <Link> Create One here</Link>
-                </span>
-              </div>
-              <div className="d-flex">
-                <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Your Email" />
-                <i className="far fa-envelope d-flex align-items-center border-bottom border-dark border-2"></i>              
-              </div>
-              <div className="d-flex">
-                <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
-              <i className="fas fa-lock d-flex align-items-center border-bottom border-dark border-2 input"></i>
-
-              </div>
-              <div className='  forgotPassword'>
-                <span><span><input type="checkbox" className="form-check-input checkBox" id="rememberMe" name="rememberMe" /></span><span>Remember Me</span></span>
-                <span><Link>Forgot Password?</Link></span>
-              </div>
-              <div className=' text-center signInButton '>
-                <button type="submit" className="customSignIn-btn">Log In</button>
-              </div>
-              <div className='socialSites'>
-                <span><h4 className="socialSiteMessage">OR TRY OUR SOCIALS</h4></span>
-                <span className="otherSites">
-                  <button className="customSocial-btn">facebook</button>
-                  <button className="customSocial-btn">twitter</button>
-                  <button className="customSocial-btn">google</button>
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      {/* This is for admin Login  */}
-      <div className='col-md-4'  hidden={!admin}>
-        <div className="row d-flex justify-content-center">
-          <div className="d-flex justify-content-center ">
-            <img src={SideImage} className="sideImage mt-8" alt="sideImage" />
-          </div>
-          <div className="d-flex justify-content-center text-white mt-5">
-            <div>
-              <span>
-                <h3 >OnlineExam.com</h3>
-              </span>
-              <span className="d-flex justify-content-center">
-                <h5>Courses | Test Series</h5>
-              </span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-5">
-            <button className="text-black bg-white loginchangeButton" onClick={handleAdmin}>
-              <h3> Are You Student </h3>
-              <h4>Click Here</h4>
-            </button>
-          </div>
-          <span className="d-flex justify-content-center text-white"> Slogan willbe appear Here</span>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default SignIn;

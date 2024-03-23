@@ -1,7 +1,7 @@
 // sagas/userSaga.js
 
 import { put, takeLatest,call } from 'redux-saga/effects';
-import {  SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, STUDENT_SIGNIN_REQUEST, TEACHER_SIGNIN_REQUEST } from '../actions/userActions';
+import {  SIGNIN_FAILURE, SIGNIN_SUCCESS, SIGNUP_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, STUDENT_SIGNIN_REQUEST, TEACHER_SIGNIN_REQUEST } from '../actions/userActions';
 import axios from 'axios';
 
 
@@ -28,13 +28,13 @@ function* handleSignup(action) {
       console.log("Teacher call Success", response);
   
       if (response.data.token) {
-        // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
+        yield put({ type: SIGNIN_SUCCESS}); 
         sessionStorage.setItem('token', response.data.token);
-        window.location.href = '/dashboard';
+        // window.location.href = '/dashboard';
       }
     } catch (error) {
-      console.error(error);
-      // yield put({ type: SIGNIN_FAILURE });
+      // console.error(error);
+      yield put({ type: SIGNIN_FAILURE });
     }
   }
 
@@ -46,15 +46,15 @@ function* handleSignup(action) {
       console.log("Student call Success", response);
   
       if (response.data.token) {
-        // yield put({ type: SIGNIN_SUCCESS, payload: response.data }); 
-        window.location.href = '/dashboard';
+        yield put({ type: SIGNIN_SUCCESS}); 
         sessionStorage.setItem('token', response.data.token);
+        // window.location.href = '/dashboard';
         
 
       }
     } catch (error) {
-      console.error(error);
-      // yield put({ type: SIGNIN_FAILURE });
+      yield put({ type: SIGNIN_FAILURE });
+      // console.error(error);
     }
   }
 function* userSaga() {

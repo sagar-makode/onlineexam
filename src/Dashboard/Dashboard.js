@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import "./dashboard.css"
 
 import StudentDashboard from './StudentDashBoard';
 import TeacherDashboard from './TeacherDashBoard';
@@ -12,6 +13,7 @@ const Dashboard = () => {
   
   const dispatch = useDispatch()
   const userData = useSelector(state => state.dashboard.userData);
+  console.log(userData);
 
 
   useEffect(() => {
