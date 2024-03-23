@@ -321,9 +321,9 @@
    /* margin-left: 90px; */
 
   }
-  .sidebar {
-    z-index: 1000; /* Adjust the value as needed */
-  }
+  /* .sidebar {
+    z-index: 1000;
+  } */
   /* .main-container::after {
     content: "";
     display: table;

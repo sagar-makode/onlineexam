@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./dashboard.css"
 
 import StudentDashboard from './StudentDashboard/StudentDashBoard';
@@ -14,6 +14,8 @@ const Dashboard = () => {
   const dispatch = useDispatch()
   const userData = useSelector(state => state.dashboard.userData);
   console.log(userData);
+  const [loading, setLoading] = useState(true);
+
 
 
   useEffect(() => {
@@ -21,6 +23,16 @@ const Dashboard = () => {
     dispatch(fetchUserDataRequest());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (userData.role !== undefined) {
+      setLoading(false);
+    }
+  }, [userData]);
+
+  if (loading) {
+    // You can show a loading spinner or message here
+    return <div>Loading...</div>;
+  }
 
 
   return (

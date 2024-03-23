@@ -64,6 +64,7 @@ function StudentDashBoard() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
   console.log(isSidebarOpen);
 
   const toggleSidebar = () => {
@@ -74,6 +75,8 @@ function StudentDashBoard() {
     setIsDarkMode(!isDarkMode);
   };
 
+
+  
 
 
 
