@@ -132,8 +132,8 @@ function UserSignUp() {
           </div>
           <div className="form-container">
             <div className="slide-controls">
-              <input type="radio" name="slide" id="login" checked={isStudentSignup} onChange={studentToggleButton} />
-              <input type="radio" name="slide" id="signup" checked={!isStudentSignup} onChange={adminToggeleButton} />
+              <input type="radio" name="slide" className='inputs' id="login" checked={isStudentSignup} onChange={studentToggleButton} />
+              <input type="radio" name="slide" id="signup" className='inputs' checked={!isStudentSignup} onChange={adminToggeleButton} />
               <label htmlFor="login" className={`slide login ${isStudentSignup ? 'active' : ''}`}>Student</label>
               <label htmlFor="signup" className={`slide signup ${!isStudentSignup ? 'active' : ''}`}>Admin</label>
               <div className="slider-tab"></div>

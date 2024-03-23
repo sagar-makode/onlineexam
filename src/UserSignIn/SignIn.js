@@ -141,8 +141,8 @@ useEffect(() => {
           </div>
           <div className="form-container">
             <div className="slide-controls">
-              <input type="radio" name="slide" id="login" checked={isStudentLogin} onChange={studentToggleButton} />
-              <input type="radio" name="slide" id="signup" checked={!isStudentLogin} onChange={teacherToggeleButton} />
+              <input type="radio" name="slide" className='inputs' id="login" checked={isStudentLogin} onChange={studentToggleButton} />
+              <input type="radio" name="slide" className='inputs' id="signup" checked={!isStudentLogin} onChange={teacherToggeleButton} />
               <label htmlFor="login" className={`slide login ${isStudentLogin ? 'active' : ''}`}>Student</label>
               <label htmlFor="signup" className={`slide signup ${!isStudentLogin ? 'active' : ''}`}>Admin</label>
               <div className="slider-tab"></div>

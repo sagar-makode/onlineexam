@@ -12,11 +12,11 @@ export default function Navbar() {
 
     const handleLogout = () => {
         logout();
-      };
+    };
     //   const handleLin = () => {
     //     login();
     //   };
-    const { isAuthenticated, logout , login} = useContext(AuthContext);
+    const { isAuthenticated, logout, login } = useContext(AuthContext);
 
     return (
         <div>
@@ -25,7 +25,7 @@ export default function Navbar() {
             <nav className="navbar navbar-expand-lg navbar-dark ">
                 <div className="container-fluid" >
                     <Link className="navbar-brand" style={{ display: "flex", alignItems: "center", fontSize: "20px" }} to="/">
-                        <img src={logopng} alt="Logo" className='logo-image' style={{marginRight:"10px"}} />
+                        <img src={logopng} alt="Logo" className='logo-image' style={{ marginRight: "10px" }} />
                         <div>
                             <strong>ONLINE EXAM</strong>
                             <br />
@@ -40,8 +40,15 @@ export default function Navbar() {
                         <div className="navbar-nav" style={{ fontSize: "16px" }}>
                             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                             <Link className="nav-link active" aria-current="page" to="/">Test Series</Link>
-                            <Link className="nav-link active" aria-current="page" to="/">Contact us</Link>
-                            <Link className="nav-link active" aria-current="page" to="/">About us</Link>
+
+                            {isAuthenticated ? (
+                                <Link className="nav-link active" aria-current="page" to="/dashboard">Dashboard</Link>
+
+                            ) : (
+                                <>
+                                    <Link className="nav-link active" aria-current="page" to="/">Contact us</Link>
+                                    <Link className="nav-link active" aria-current="page" to="/">About us</Link></>
+                            )}
 
                         </div>
                         <div className="navbar-nav ms-auto"> {/* ms-auto will push these links to the right */}
@@ -49,12 +56,13 @@ export default function Navbar() {
                                 <Link className="nav-link active" onClick={handleLogout} to="/">
                                     Sign Out
                                 </Link>
+
                             ) : (
                                 <>
                                     <Link className="nav-link active" to="/register">
                                         Sign Up
                                     </Link>
-                                    <Link className="nav-link active"  to="/login">
+                                    <Link className="nav-link active" to="/login">
                                         Sign In
                                     </Link>
                                 </>

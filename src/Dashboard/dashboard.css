@@ -43,7 +43,7 @@
   
   /* ===== Sidebar ===== */
   .sidebar {
-    /* position: fixed; */
+    position: absolute;
     /* top: 0; */
     left: 0;
     height: 100%;
@@ -161,7 +161,7 @@
   }
   
   .sidebar .menu {
-    margin-top: 40px;
+    margin-top: 10px;
   }
   
   .sidebar li.search-box {
@@ -305,3 +305,27 @@
   .dasboardbody.dark .home .text {
     color: var(--text-color);
   }
+
+
+
+  .main-container{
+    display: flex;
+
+  }
+
+  .main-content{
+   width: 100%;
+   padding-left: 15px; 
+   padding-right: 15px;
+   margin-right: auto;
+   /* margin-left: 90px; */
+
+  }
+  .sidebar {
+    z-index: 1000; /* Adjust the value as needed */
+  }
+  /* .main-container::after {
+    content: "";
+    display: table;
+    clear: both;
+  } */

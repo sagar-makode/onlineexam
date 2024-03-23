@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import "./dashboard.css"
 
-import StudentDashboard from './StudentDashBoard';
+import StudentDashboard from './StudentDashboard/StudentDashBoard';
 import TeacherDashboard from './TeacherDashBoard';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDataRequest } from '../actions/dashboardActions';
