@@ -7,9 +7,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const LiveExam = () => {
     const location = useLocation();
-    const test = location.state.test;
-    console.log(test);
+    // const test = location.state.test;
 
+
+
+    const { test, studentProfileData } = location.state;
+
+    console.log("this is test", {test}, "profile" , {studentProfileData});
+
+    
     const questions = test.questions
 
     // console.log(location);
@@ -108,7 +114,7 @@ const LiveExam = () => {
     };
     const navigate = useNavigate()
     const handleSubmitTest= () => {
-        navigate('/result', { state: { userAnswers, test } });
+        navigate('/result', { state: { userAnswers, test, studentProfileData } });
     };
 
     const handleClearResponse = () => {

@@ -1,9 +1,25 @@
 import React from 'react'
 import "./footer.css"
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logopng from "../assets/Logo Cap.png"
 
 function Footer() {
+
+
+
+    const location = useLocation();
+
+    // Define an array of paths where the footer should be hidden
+    const hideFooterPaths = ['/login', '/register','/dashboard'];
+  
+    // Check if the current path is in the array of paths where the footer should be hidden
+    const shouldHideFooter = hideFooterPaths.includes(location.pathname);
+  
+    // If the current path is in the array, don't render the footer
+    if (shouldHideFooter) {
+      return null;
+    }
+
     return (
         <div className='footerbody'>
 

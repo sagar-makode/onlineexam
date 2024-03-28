@@ -22,7 +22,7 @@ export default function Navbar() {
         <div>
 
 
-            <nav className="navbar navbar-expand-lg navbar-dark ">
+            <nav className={`navbar navbar-expand-lg navbar-dark ${isAuthenticated ? 'fixed-top' : ''}`}>
                 <div className="container-fluid" >
                     <Link className="navbar-brand" style={{ display: "flex", alignItems: "center", fontSize: "20px" }} to="/">
                         <img src={logopng} alt="Logo" className='logo-image' style={{ marginRight: "10px" }} />

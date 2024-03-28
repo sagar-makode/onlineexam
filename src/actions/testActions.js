@@ -7,6 +7,14 @@ export const CURRENT_SELECT_TEST= 'CURRENT_SELECT_TEST';
 
 
 
+export const SUBMIT_TEST= 'SUBMIT_TEST';
+export const TEST_SUBMIT_SUCCESS= 'TEST_SUBMIT_SUCCESS';
+export const TEST_SUBMIT_FAILURE= 'TEST_SUBMIT_FAILURE';
+
+
+
+
+
 
 
 
@@ -33,3 +41,15 @@ export const fetchTests = () => (
     type: CURRENT_SELECT_TEST,
     payload: test,
   });
+
+  export const submitTest = (result) => {
+  console.log("Submitting test result:", result)
+  return {
+    type: SUBMIT_TEST,
+    payload: result,
+  }}
+
+  
+
+  
+  

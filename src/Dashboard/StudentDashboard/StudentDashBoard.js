@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTests, selectedTest } from '../../actions/testActions';
 import avtar from "../../assets/pngegg.png"
+import { Spinner } from 'react-bootstrap';
+
 
 import { useNavigate } from 'react-router-dom';
 import TestSeries from './TestSeries';
+import TestResults from './TestResults';
 
 function StudentDashBoard() {
 
@@ -16,11 +19,13 @@ function StudentDashBoard() {
 
   const studentProfileData = useSelector(state => state.dashboard.userData);
   const testsData = useSelector(state => state.tests.tests);
-  console.log("this is test Data ", testsData);
-  console.log("this isstudnet data Data ", studentProfileData);
+  // console.log("this is test Data ", testsData);
+
 
 
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [loading, setLoading] = useState(false);
+
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -31,10 +36,7 @@ function StudentDashBoard() {
 
   console.log(activeTab);
   const navigate = useNavigate()
-  const tests = {
-    name: "Sagar"
-
-  }
+  
   console.log('Exam Data:', testsData);
 
   const handleAttemptTest = async (test) => {
@@ -45,7 +47,7 @@ function StudentDashBoard() {
 
     dispatch(selectedTest(test));
 
-    navigate(`/liveexam`, { state: { test } });
+    navigate(`/liveexam`, { state: { test, studentProfileData } });
 
 
   };
@@ -54,8 +56,10 @@ function StudentDashBoard() {
 
   useEffect(() => {
     // Fetch tests when component mounts
-    console.log("dash");
+    // console.log("dash");
+    setLoading(true)
     dispatch(fetchTests());
+    setLoading(false)
   }, [dispatch]);
 
 
@@ -82,8 +86,13 @@ function StudentDashBoard() {
 
   return (
 
-
-    <div className={`main-container ${isDarkMode ? 'dasboardbodydark' : 'dasboardbody'}`}>
+    <div>
+         {loading ? (
+        // Render the spinner only when loading is true
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : (   <div className={`main-container ${isDarkMode ? 'dasboardbodydark' : 'dasboardbody'}`}>
       <nav className={`sidebar ${isSidebarOpen ? 'open' : 'close'}`}>
         <header>
           <div className="image-text">
@@ -232,8 +241,8 @@ function StudentDashBoard() {
 
         {activeTab === 'testresult' && (
           <div>
-            {/* Test Series content */}
-            Hiii
+            
+           <TestResults/>
           </div>
         )}
 
@@ -244,7 +253,15 @@ function StudentDashBoard() {
           </div>
         )}
       </div>
+    </div>)}
+
+
+
+
     </div>
+
+
+ 
 
 
   )

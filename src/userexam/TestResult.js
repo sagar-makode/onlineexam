@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 // import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { submitTest } from '../actions/testActions';
+import { Spinner } from 'react-bootstrap';
 
 function TestResult() {
 
   const location = useLocation();
 
-  const { userAnswers, test } = location.state;
+
+  const testSubmitted = useSelector(state => state.tests.testSubmitted);
+  console.log(testSubmitted);
+
+  const { userAnswers, test,studentProfileData } = location.state;
   // const answers = location.state.userAnswers;
 
   // console.log(userAnswers);
-  console.log(test);
+  console.log(studentProfileData);
 
 
 
@@ -45,6 +52,48 @@ function TestResult() {
   const passPercentage = 60; // 60% passing threshold
   const passStatus = percentageObtained >= passPercentage ? 'Pass' : 'Fail';
  
+
+
+  useEffect(() => {
+    sendDataToBackend()
+   
+  }, []);
+
+const dispatch = useDispatch();
+
+
+
+  const  sendDataToBackend = ()=>{
+
+    const data =  {
+      userAnswers : userAnswers,
+      testId : test._id,
+      totalQuestions: totalQuestions,
+      correctAnswers : correctAnswers,
+      totalMarks : totalMarks,
+      obtainedMark : obtainedMarks,
+      passStatus : passStatus,
+      testName : test.testName,
+      name : studentProfileData.name,
+      submitterId : studentProfileData._id
+    }
+    dispatch(submitTest(data))
+
+  }
+
+
+
+  if (!testSubmitted) {
+    // Display Bootstrap spinner while test submission is in progress
+    return (
+      <div className="text-center mt-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
   
   return (
     <div className="container text-center">

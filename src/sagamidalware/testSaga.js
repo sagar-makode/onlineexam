@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import { FETCH_TESTS_REQUEST, FETCH_TESTS_SUCCESS } from '../actions/testActions';
+import { FETCH_TESTS_REQUEST, FETCH_TESTS_SUCCESS, SUBMIT_TEST, TEST_SUBMIT_FAILURE, TEST_SUBMIT_SUCCESS } from '../actions/testActions';
 
 
 // Worker Saga to fetch user data
@@ -33,6 +33,23 @@ function* fetchTestSaga() {
 
 
 
+function* handleSubmitTest(action) {
+  try {
+    console.log("123",action.payload);
+    const response = yield call(axios.patch, "http://localhost:5000/examsubmit", action.payload);
+
+    console.log("callSucess",response);
+    
+    if (response.data) {
+      yield put({ type: TEST_SUBMIT_SUCCESS });
+    }
+  } catch (error) {
+    console.error(error);
+    yield put({ type: TEST_SUBMIT_FAILURE });
+  }
+}
+
+
 
 
 
@@ -40,6 +57,8 @@ function* fetchTestSaga() {
 // Watcher Saga to trigger fetch user data saga
 function* fetchTestDataSaga() {
   yield takeEvery(FETCH_TESTS_REQUEST, fetchTestSaga);
+  yield takeEvery(SUBMIT_TEST, handleSubmitTest);
+
  
 
 }
