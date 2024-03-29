@@ -31,7 +31,7 @@ function UserSignUp() {
   const handleSubmit = e => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("empty");
+    
       dispatch(signupRequest(formData));
       // Reset form data after successful submission
       setFormData({
@@ -127,8 +127,8 @@ function UserSignUp() {
       <div className='userloginbody'>
         <div className="wrapper"  >
           <div className="title-text">
-            <div class="title login" style={{ marginLeft: `${SignupFormMarginLeft}%` }} >Student Signup</div>
-            <div class="title signup">Admin Signup</div>
+            <div className="title login" style={{ marginLeft: `${SignupFormMarginLeft}%` }} >Student Signup</div>
+            <div className="title signup">Admin Signup</div>
           </div>
           <div className="form-container">
             <div className="slide-controls">
@@ -160,14 +160,14 @@ function UserSignUp() {
                 {errors.mobileNumber && <div className="  error">{errors.mobileNumber}</div>}
 
 
-                <div class="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
+                <div className="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
                   <input type="password" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your Password" />
                 </div>
                 {errors.password && <div className="  error">{errors.password}</div>}
 
 
-                <div class="field lbtn" style={{ marginTop: errors.password ? '15px' : '20px' }}>
-                  <div class="lbtn-layer"></div>
+                <div className="field lbtn" style={{ marginTop: errors.password ? '15px' : '20px' }}>
+                  <div className="lbtn-layer"></div>
                   <input type="submit" className='submit' value="Signup" />
 
                 </div>
@@ -192,14 +192,14 @@ function UserSignUp() {
                 </div>
                 {errors.mobileNumber && <div className="  error">{errors.mobileNumber}</div>}
 
-                <div class="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
+                <div className="field" style={{ marginTop: errors.mobileNumber ? '5px' : '20px' }}>
                   <input type="password" className="signUpInput" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your Password" />
                 </div>
                 {errors.password && <div className="  error">{errors.password}</div>}
 
 
-                <div class="field lbtn " style={{ marginTop: errors.password ? '15px' : '20px' }}>
-                  <div class="lbtn-layer"></div>
+                <div className="field lbtn " style={{ marginTop: errors.password ? '15px' : '20px' }}>
+                  <div className="lbtn-layer"></div>
                   <input type="submit" className='submit' value="Signup" />
                 </div>
                 <div className="signup-link">

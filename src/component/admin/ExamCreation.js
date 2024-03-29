@@ -15,13 +15,13 @@ export default function ExamCreation() {
 
   //Used for posting the exam in the backend.
   const handleExamPost = () => {
-    console.log(JSON.stringify(examDataArray))
+   
     axios.post('http://localhost:2000/exam', examDataArray)
       .then(function (response) {
-        console.log(response);
+    
       })
       .catch(function (error) {
-        console.log(error);
+      
       });
   }
 

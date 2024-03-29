@@ -3,43 +3,21 @@ import img from "./icon.jpg"
 import "./LiveExam.css"
 // import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { submitTest } from '../actions/testActions';
+import { useDispatch } from 'react-redux';
+
 
 
 const LiveExam = () => {
     const location = useLocation();
-    // const test = location.state.test;
-
-
-
-    const { test, studentProfileData } = location.state;
-
-    console.log("this is test", {test}, "profile" , {studentProfileData});
-
-    
+    const { test, studentProfileData } = location.state  
     const questions = test.questions
-
-    // console.log(location);
- 
-    
-    // const quest = useSelector((state) => state.tests.currentselectedTest);
-    
-    // console.log(examData , "this is data");
-    // console.log(questions , "this data");
-
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
-    // console.log(currentQuestion);
     const [userAnswers, setUserAnswers] = useState(Array(questions.length).fill(null));
-    // const [Answers, setAnswers] = useState(Array(questions.length).fill(null));
-
-    // console.log(userAnswers);
-   
-    
-
-
     const [remainingTime, setRemainingTime] = useState(0); // Remaining time in seconds
 
-    // Receive exam duration from backend (in minutes)
-    // console.log(questions);
+    const [showSpinner, setShowSpinner] = useState(false); // Control visibility of spinner
+
     const examDurationInMinutes = questions.totalMinutes; // Example duration, replace it with your backend value
     const examDurationInSeconds = examDurationInMinutes * 60;
     const endTime = new Date();
@@ -66,9 +44,6 @@ const LiveExam = () => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
-
-
-
     const handleNext = () => {
         // Implement logic to go to the next question
         const currentIndex = questions.findIndex(q => q.questionNumber === currentQuestion.questionNumber);
@@ -77,7 +52,7 @@ const LiveExam = () => {
         if (nextIndex === 0) {
             // Reached the end of questions
             // Handle end of questions behavior here
-            console.log("End of questions reached");
+    
         } else {
             // setCurrentQuestion(questions[nextIndex]);
             setCurrentQuestion({
@@ -99,22 +74,68 @@ const LiveExam = () => {
     };
 
     const handleSave = () => {
-        // Implement logic to save the current state or answer
-        // console.log('Saved:', currentQuestion);
+        // Implement logic to save the current state or answer 
         const updatedUserAnswers = [...userAnswers];
         const currentQuestionIndex = questions.findIndex(q => q.questionNumber === currentQuestion.questionNumber);
-        console.log(currentQuestionIndex, "question Index");
+       
         updatedUserAnswers[currentQuestionIndex] = currentQuestion.answer == null ? userAnswers[currentQuestionIndex] : currentQuestion.answer;
         setUserAnswers(updatedUserAnswers);
 
-        
-      
-
-
     };
     const navigate = useNavigate()
-    const handleSubmitTest= () => {
-        navigate('/result', { state: { userAnswers, test, studentProfileData } });
+    
+    
+    // Calculating Score
+
+            
+  const calculateScore = () => {
+    console.log("ji");
+    let score = 0;
+    userAnswers.forEach((answer, index) => {
+     
+      if (answer === test.correctAnswers[index]) {
+        score += 1;
+      }
+    });
+    return score;
+  };
+
+
+  const totalQuestions = test.questions.length;
+  const correctAnswers = calculateScore();
+  const totalMarks = test.totalMarks;
+  const obtainedMarks = (correctAnswers / totalQuestions) * totalMarks;
+  const percentageObtained = (obtainedMarks / totalMarks) * 100;
+  // Determine pass or fail status
+  const passPercentage = 60; // 60% passing threshold
+  const passStatus = percentageObtained >= passPercentage ? 'Pass' : 'Fail';
+
+  const dispatch = useDispatch()
+
+  const data =  {
+    userAnswers : userAnswers,
+    testId : test._id,
+    totalQuestions: totalQuestions,
+    correctAnswers : correctAnswers,
+    totalMarks : totalMarks,
+    obtainedMark : obtainedMarks,
+    passStatus : passStatus,
+    testName : test.testName,
+    name : studentProfileData.name,
+    submitterId : studentProfileData._id
+  }
+    const handleSubmitTest= async () => {
+        setShowSpinner(true); // Show spinner when submitting
+
+            try {
+                await dispatch(submitTest(data))
+                navigate('/result', { state: { data } });
+
+            } catch (error) {
+                console.error('Submission failed:', error);
+            setShowSpinner(false); // Hide spinner on failure
+            }
+
     };
 
     const handleClearResponse = () => {
@@ -263,6 +284,11 @@ const LiveExam = () => {
 
                 </div>
             </div>
+            {showSpinner && (
+            <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        )}
 
             
         </div>

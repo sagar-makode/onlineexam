@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import './SignIn.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { StudentsigninRequest, TeachersigninRequest, clearMessage } from '../actions/userActions';
@@ -18,7 +18,7 @@ function SignIn() {
   const [isStudentLogin, setStudentLogin] = useState(true);
   const [loginFormMarginLeft, setLoginFormMarginLeft] = useState(0);
   const [notificationShown, setNotificationShown] = useState(false); 
-  console.log(signinFailure);
+ 
 
   const studentToggleButton = () => {
     setLoginFormMarginLeft(0);
@@ -32,10 +32,11 @@ function SignIn() {
 
   
 
-  const { isAuthenticated, logout , login} = useContext(AuthContext);
-  const handleLin = () => {
+  const { login} = useContext(AuthContext);
+  
+  const handleLin = useCallback(() => {
     login();
-  };
+  }, [login]);
 
 
 
@@ -78,7 +79,7 @@ function SignIn() {
    
 
     if (isStudentLogin) {
-      console.log(formData);
+    
       dispatch(StudentsigninRequest(formData));
 
     } else {
@@ -118,7 +119,7 @@ useEffect(() => {
         dispatch(clearMessage())
       }, 2000);
     }
-  }, [signinSuccessMessage, notificationShown, navigate,dispatch]);
+  }, [signinSuccessMessage, notificationShown,handleLin, navigate,dispatch]);
 
     const openNotification = () => {
       const args = {
@@ -136,8 +137,8 @@ useEffect(() => {
       <div className='userloginbody'>
         <div className="wrapper"  >
           <div className="title-text">
-            <div class="title login" style={{ marginLeft: `${loginFormMarginLeft}%` }} >Student Login</div>
-            <div class="title signup">Admin Login</div>
+            <div className="title login" style={{ marginLeft: `${loginFormMarginLeft}%` }} >Student Login</div>
+            <div className="title signup">Admin Login</div>
           </div>
           <div className="form-container">
             <div className="slide-controls">

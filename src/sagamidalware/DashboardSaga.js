@@ -32,10 +32,10 @@ function* fetchUserDataSaga() {
 
 function* handelCreateTest(action) {
   try {
-    console.log(action.payload, "this is test");
+  
     const response = yield call(axios.post, "http://localhost:5000/createtest", action.payload);
 
-    console.log("Test Created",response);
+
     
     if (response.data) {
       // yield put({ type: SIGNUP_SUCCESS });

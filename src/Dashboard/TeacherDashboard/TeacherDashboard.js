@@ -1,85 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStudentTestresult, fetchTests, selectedTest } from '../../actions/testActions';
-import avtar from "../../assets/pngegg.png"
+import { Link } from 'react-router-dom';
+import avtar from '../../assets/pngegg.png';
 import { Spinner } from 'react-bootstrap';
+import CreateTest from './CreateTest';
+import StudentResult from './StudentResult';
 
+import AllCreatedTest from './AllCreatedTest';
+import { fetchTeacherCreatedTests } from '../../actions/testActions';
 
-import { Link, useNavigate } from 'react-router-dom';
-import TestSeries from './TestSeries';
-import TestResults from './TestResults';
-
-function StudentDashBoard() {
-
-
-
-  const dispatch = useDispatch()
-
-  const studentProfileData = useSelector(state => state.dashboard.userData);
-  const testsData = useSelector(state => state.tests.tests);
-
- 
-
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [loading, setLoading] = useState(false);
-
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-  // const handleTabClick = (tab) => {
-  //   setActiveTab(tab);
-  // };
-
-  
-  const navigate = useNavigate()
+function TeacherDashboard() {
   
 
+    const dispatch = useDispatch()
 
-  const handleAttemptTest = async (test) => {
-    // setSelectedTest(test); // Set the selected test
-    // setActiveTab('liveExam');
-
-    // const testData = test.questions
-
-    dispatch(selectedTest(test));
-
-    navigate(`/liveexam`, { state: { test, studentProfileData } });
-
-
-  };
-
-
-
-  useEffect(() => {
-
-    setLoading(true)
-    dispatch(fetchTests());
-    dispatch(fetchStudentTestresult())
-    setLoading(false)
-  }, [dispatch]);
-
-
-
-
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
   
+    const [activeTab, setActiveTab] = useState('dashboard');
+    const [loading, setLoading] = useState(false);
+    const teacherProfileData = useSelector(state => state.dashboard.userData);
+  
+  
+    const handleTabClick = (tab) => {
+      setActiveTab(tab);
+    };
+
+    
+
+
+  
+  
+  
+    useEffect(() => {
+  
+      setLoading(true)
+     
+      dispatch(fetchTeacherCreatedTests())
+     
+      setLoading(false)
+    }, [dispatch]);
+  
+  
+  
+  
+  
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  
+    const toggleSidebar = () => {
+      setIsSidebarOpen(!isSidebarOpen);
+    };
+  
+    const toggleDarkMode = () => {
+      setIsDarkMode(!isDarkMode);
+    };
+    
+  
+
+
+
+
 
 
 
   return (
-
     <div>
          {loading ? (
         // Render the spinner only when loading is true
@@ -95,8 +79,8 @@ function StudentDashBoard() {
             </span>
 
             <div className="text logo-text">
-              <span className="name">{studentProfileData.name}</span>
-              <span className="profession">{studentProfileData.role}</span>
+              <span className="name">{teacherProfileData.name}</span>
+              <span className="profession">{teacherProfileData.role}</span>
             </div>
           </div>
 
@@ -121,11 +105,11 @@ function StudentDashBoard() {
 
               </li>
 
-              <li className={`nav-link ${activeTab === 'liveTest' ? 'active' : ''}`} onClick={() => handleTabClick('liveTest')}>
+              <li className={`nav-link ${activeTab === 'createTest' ? 'active' : ''}`} onClick={() => handleTabClick('createTest')}>
                 <Link  >
                   <i className='bx bx-notepad icon'></i>
 
-                  <span className="text nav-text">Live Test</span>
+                  <span className="text nav-text">Create Test</span>
 
                 </Link>
 
@@ -134,29 +118,29 @@ function StudentDashBoard() {
 
 
 
-              <li className={`nav-link ${activeTab === 'testSeries' ? 'active' : ''}`} onClick={() => handleTabClick('testSeries')}>
+              <li className={`nav-link ${activeTab === 'allcreatedtest' ? 'active' : ''}`} onClick={() => handleTabClick('allcreatedtest')}>
                 <Link >
                   <i className='bx bxs-folder-open icon'></i>
 
-                  <span className="text nav-text">Test Series</span>
+                  <span className="text nav-text">All Created Test</span>
                 </Link>
               </li>
 
-              <li className={`nav-link ${activeTab === 'testresult' ? 'active' : ''}`} onClick={() => handleTabClick('testresult')}>
+              <li className={`nav-link ${activeTab === 'studentresult' ? 'active' : ''}`} onClick={() => handleTabClick('studentresult')}>
                 <Link >
                   <i className='bx bx-bar-chart icon'></i>
-                  <span className="text nav-text">Test Result</span>
+                  <span className="text nav-text">Student Result</span>
                 </Link>
               </li>
 
 
-              <li className={`nav-link ${activeTab === 'wishlist' ? 'active' : ''}`} onClick={() => handleTabClick('wishlist')}>
+              {/* <li className={`nav-link ${activeTab === 'wishlist' ? 'active' : ''}`} onClick={() => handleTabClick('wishlist')}>
                 <Link >
                   <i className='bx bx-bookmark-heart icon'></i>
                   <span className="text nav-text">Wishlist</span>
 
                 </Link>
-              </li>
+              </li> */}
 
 
               <li className="nav-link">
@@ -203,40 +187,28 @@ function StudentDashBoard() {
             <h1>Dashboard Content</h1>
           </div>
         )}
-        {activeTab === 'liveTest' && (
+        {activeTab === 'createTest' && (
           <div>
             {/* Live Test content */}
-            <h1>Live Test Content</h1>
-            <div className="row">
-              {testsData.map((test, index) => (
-                <div className="col-md-4" key={index}>
-                  <div className="card mb-4 shadow-sm">
-                    <div className="card-body">
-
-                      <h5 className="card-title">{test.testName}</h5>
-                      <p className="card-text">Duration: {test.totalMinutes} minutes</p>
-                      <p className="card-text">Toatal Marks: {test.totalMarks} minutes</p>
-
-                      {/* Add other test information here */}
-                      <button className="btn btn-primary" onClick={() => handleAttemptTest(test)}>Attempt Test</button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* <h1>Create your test</h1> */}
+            <CreateTest/>
+          
           </div>
         )}
-        {activeTab === 'testSeries' && (
+        {activeTab === 'allcreatedtest' && (
           <div>
-            {/* Test Series content */}
-            <TestSeries/>
+          <AllCreatedTest/>
+
           </div>
         )}
 
-        {activeTab === 'testresult' && (
+        {activeTab === 'studentresult' && (
           <div>
             
-           <TestResults/>
+           {/* <studentresults/> */}
+           {/* <h1>Student Result</h1> */}
+           <StudentResult/>
+
           </div>
         )}
 
@@ -253,12 +225,7 @@ function StudentDashBoard() {
 
 
     </div>
-
-
- 
-
-
   )
 }
 
-export default StudentDashBoard
+export default TeacherDashboard

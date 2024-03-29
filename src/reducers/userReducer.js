@@ -39,7 +39,7 @@ const userReducer = (state = initialState, action) => {
         };
 
         case SIGNIN_FAILURE:
-          console.log("fail");
+      
                  return {
           ...state,
           SignInFailure: true

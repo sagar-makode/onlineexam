@@ -10,7 +10,7 @@ function Footer() {
     const location = useLocation();
 
     // Define an array of paths where the footer should be hidden
-    const hideFooterPaths = ['/login', '/register','/dashboard'];
+    const hideFooterPaths = ['/login', '/register','/dashboard',"/liveexam","/result"];
   
     // Check if the current path is in the array of paths where the footer should be hidden
     const shouldHideFooter = hideFooterPaths.includes(location.pathname);

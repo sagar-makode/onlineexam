@@ -11,6 +11,16 @@ export const SUBMIT_TEST= 'SUBMIT_TEST';
 export const TEST_SUBMIT_SUCCESS= 'TEST_SUBMIT_SUCCESS';
 export const TEST_SUBMIT_FAILURE= 'TEST_SUBMIT_FAILURE';
 
+export const FETCH_STUDENT_TEST_RESULT= 'FETCH_STUDENT_TEST_RESULT';
+export const FETCH_STUDENT_TEST_SUCCESS= 'FETCH_STUDENT_TEST_SUCCESS';
+export const FETCH_STUDENT_TEST_FAILURE= 'FETCH_STUDENT_TEST_FAILURE';
+
+export const FETCH_TEACHER_CREATED_TEST= 'FETCH_TEACHER_CREATED_TEST';
+export const FETCH_TEACHER_CREATED_TEST_SUCCESS= 'FETCH_TEACHER_CREATED_TEST_SUCCESS';
+export const FETCH_TEACHER_CREATED_TEST_FAILURE= 'FETCH_TEACHER_CREATED_TEST_FAILURE';
+
+
+
 
 
 
@@ -23,6 +33,25 @@ export const fetchTests = () => (
     {
     type: FETCH_TESTS_REQUEST,
   });
+
+
+  
+export const fetchStudentTestresult = () => (
+  {
+  type: FETCH_STUDENT_TEST_RESULT
+});
+
+
+export const fetchTestsresultSuccess = (testresult) => ({
+  type: FETCH_TESTS_SUCCESS,
+  payload: testresult,
+});
+
+export const fetchTestresultFailure = (error) => ({
+  type: FETCH_STUDENT_TEST_FAILURE,
+  payload: error,
+});
+
   
   // Action creator for successful fetching of tests
   export const fetchTestsSuccess = (tests) => ({
@@ -43,7 +72,7 @@ export const fetchTests = () => (
   });
 
   export const submitTest = (result) => {
-  console.log("Submitting test result:", result)
+
   return {
     type: SUBMIT_TEST,
     payload: result,
@@ -51,5 +80,13 @@ export const fetchTests = () => (
 
   
 
+
+
+
+
+  export const fetchTeacherCreatedTests = () => (
+    {
+    type: FETCH_TEACHER_CREATED_TEST
+  });
   
   

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import "./dashboard.css"
 
 import StudentDashboard from './StudentDashboard/StudentDashBoard';
-import TeacherDashboard from './TeacherDashBoard';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDataRequest } from '../actions/dashboardActions';
+import TeacherDashboard from './TeacherDashboard/TeacherDashboard';
 
 
 const Dashboard = () => {
@@ -13,7 +13,7 @@ const Dashboard = () => {
   
   const dispatch = useDispatch()
   const userData = useSelector(state => state.dashboard.userData);
-  console.log(userData);
+  
   const [loading, setLoading] = useState(true);
 
 
