@@ -4,13 +4,15 @@ import "./LiveExam.css"
 // import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { submitTest } from '../actions/testActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const LiveExam = () => {
     const location = useLocation();
-    const { test, studentProfileData } = location.state  
+    const { test, studentProfileData } = location.state
+    const testSubmitted = useSelector(state => state.tests.testSubmitted);
+
     const questions = test.questions
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [userAnswers, setUserAnswers] = useState(Array(questions.length).fill(null));
@@ -23,6 +25,9 @@ const LiveExam = () => {
     const endTime = new Date();
     endTime.setSeconds(endTime.getSeconds() + examDurationInSeconds);
 
+    const navigate = useNavigate()
+
+
     // Calculate remaining time and update every second
     useEffect(() => {
         const timer = setInterval(() => {
@@ -30,10 +35,18 @@ const LiveExam = () => {
             const difference = Math.floor((endTime - now) / 1000); // Difference in seconds
             setRemainingTime(difference > 0 ? difference : 0);
         }, 1000);
-        
+
         // Cleanup function
         return () => clearInterval(timer);
     });
+
+
+    useEffect(() => {
+        if (testSubmitted) {
+            navigate('/result');
+        }
+        
+    }, [testSubmitted, navigate]);
 
     // add array
 
@@ -52,7 +65,7 @@ const LiveExam = () => {
         if (nextIndex === 0) {
             // Reached the end of questions
             // Handle end of questions behavior here
-    
+
         } else {
             // setCurrentQuestion(questions[nextIndex]);
             setCurrentQuestion({
@@ -70,72 +83,38 @@ const LiveExam = () => {
             ...questions[previousIndex],
             answer: userAnswers[questions[previousIndex].questionNumber - 1]
         });
-    
+
     };
 
     const handleSave = () => {
         // Implement logic to save the current state or answer 
         const updatedUserAnswers = [...userAnswers];
         const currentQuestionIndex = questions.findIndex(q => q.questionNumber === currentQuestion.questionNumber);
-       
+
         updatedUserAnswers[currentQuestionIndex] = currentQuestion.answer == null ? userAnswers[currentQuestionIndex] : currentQuestion.answer;
         setUserAnswers(updatedUserAnswers);
 
     };
-    const navigate = useNavigate()
+
+
+  
+    const dispatch = useDispatch()
+
+    const data = {
+        userAnswers: userAnswers,
+        testId: test._id,
     
-    
-    // Calculating Score
-
-            
-  const calculateScore = () => {
-    console.log("ji");
-    let score = 0;
-    userAnswers.forEach((answer, index) => {
-     
-      if (answer === test.correctAnswers[index]) {
-        score += 1;
-      }
-    });
-    return score;
-  };
-
-
-  const totalQuestions = test.questions.length;
-  const correctAnswers = calculateScore();
-  const totalMarks = test.totalMarks;
-  const obtainedMarks = (correctAnswers / totalQuestions) * totalMarks;
-  const percentageObtained = (obtainedMarks / totalMarks) * 100;
-  // Determine pass or fail status
-  const passPercentage = 60; // 60% passing threshold
-  const passStatus = percentageObtained >= passPercentage ? 'Pass' : 'Fail';
-
-  const dispatch = useDispatch()
-
-  const data =  {
-    userAnswers : userAnswers,
-    testId : test._id,
-    totalQuestions: totalQuestions,
-    correctAnswers : correctAnswers,
-    totalMarks : totalMarks,
-    obtainedMark : obtainedMarks,
-    passStatus : passStatus,
-    testName : test.testName,
-    name : studentProfileData.name,
-    submitterId : studentProfileData._id
-  }
-    const handleSubmitTest= async () => {
-        setShowSpinner(true); // Show spinner when submitting
-
-            try {
-                await dispatch(submitTest(data))
-                navigate('/result', { state: { data } });
-
-            } catch (error) {
-                console.error('Submission failed:', error);
-            setShowSpinner(false); // Hide spinner on failure
-            }
-
+        name: studentProfileData.name,
+        submitterId: studentProfileData._id
+    }
+    const handleSubmitTest = async () => {
+        setShowSpinner(true);
+        try {
+            dispatch(submitTest(data))
+            setShowSpinner(false); 
+        } catch (error) {
+            console.error('Submission failed:', error);
+        }
     };
 
     const handleClearResponse = () => {
@@ -149,8 +128,8 @@ const LiveExam = () => {
 
         setCurrentQuestion(prevQuestion => ({
             ...prevQuestion,
-            answer:null
-           
+            answer: null
+
         }));
 
     };
@@ -169,17 +148,8 @@ const LiveExam = () => {
         handleNext();
     }
 
-
-
     const attemptedQuestions = () => questions.filter((question, index) => userAnswers[index] !== null);
     const remainingQuestions = () => questions.filter((question, index) => userAnswers[index] === null);
-
-
-
-
-
-
-
 
     return (
         <div className='container-fluid'>
@@ -188,11 +158,11 @@ const LiveExam = () => {
                     <div className="navbar-brand">Staff Selection Commission</div>
                     <div className="d-flex justify-content-end">
                         <div className="navbar-brand">
-                        Time Left: {formatTime(remainingTime)}
+                            Time Left: {formatTime(remainingTime)}
 
                         </div>
                     </div>
-                  
+
                 </div>
             </nav>
             <div className="container-fluid mt-3">
@@ -205,21 +175,21 @@ const LiveExam = () => {
                             <ul>
                                 {currentQuestion.options.map((option, index) => (
 
-                                <li key={index}>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            className='m-2'
-                                            name={`question-${currentQuestion.questionNumber}`}
-                                            value={option}
+                                    <li key={index}>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                className='m-2'
+                                                name={`question-${currentQuestion.questionNumber}`}
+                                                value={option}
 
-                                            onChange={() => handleOptionChange(index)}
-                                            checked={currentQuestion.answer === index}
-                                        />
+                                                onChange={() => handleOptionChange(index)}
+                                                checked={currentQuestion.answer === index}
+                                            />
 
-                                        {option}
-                                    </label>
-                                </li>
+                                            {option}
+                                        </label>
+                                    </li>
                                 ))}
                             </ul>
                         </form>
@@ -241,7 +211,7 @@ const LiveExam = () => {
                         <div className="d-flex align-items-center">
                             <img src={img} alt="User Profile" className="img-fluid rounded-circle" style={{ maxWidth: '100px' }} />
                             <div style={{ marginLeft: "10px" }}>
-                                <h3>Sagar Makode</h3>
+                                <h3>{studentProfileData.name}</h3>
                                 {/* Add user name dynamically here */}
                             </div>
                         </div>
@@ -285,12 +255,12 @@ const LiveExam = () => {
                 </div>
             </div>
             {showSpinner && (
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        )}
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            )}
 
-            
+
         </div>
 
 

@@ -1,23 +1,19 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
-import { useLocation } from 'react-router-dom';
 function TestResult() {
 
-  const location = useLocation();
-
-  const { data } = location.state;
- 
-
-  
+  const finalresult = useSelector(state => state.tests.finalresult);
   return (
     <div className="container text-center">
     <h1>Test Result</h1>
-    <p>Total Questions: {data.totalQuestions}</p>
-    <p>Correct Answers: {data.correctAnswers}</p>
-    <p>Total Marks: {data.totalMarks}</p>
-    <p>Obtained Marks: {data.obtainedMark}</p>
-    <p>Status: {data.passStatus}</p>
-    {/* You can add more details or display the result in a different format */}
+    <p>Total Questions: {finalresult.totalQuestions}</p>
+    <p>Correct Answers: {finalresult.correctAnswers}</p>
+    <p>Total Marks: {finalresult.totalMarks}</p>
+    <p>Obtained Marks: {finalresult.obtainedMarks}</p>
+    
+    <p>Percentage: {finalresult.percentageObtained}</p>
+    <p>Status: {finalresult.passStatus}</p>
   </div>
   )
 }

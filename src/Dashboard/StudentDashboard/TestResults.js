@@ -5,7 +5,7 @@ function TestResults() {
 
 
   const studenttestresult = useSelector(state => state.tests.studenttestresult);
-  // console.log(studenttestresult);
+  console.log(studenttestresult);
 
   return (
     <div style={{ marginTop: "10px" }} >
@@ -34,7 +34,7 @@ function TestResults() {
               <td>{result.testName}</td>
               <td>{result.correctAnswers}</td>
               <td>{result.totalQuestions}</td>
-              <td>{result.obtainedMark}</td>
+              <td>{result.obtainedMarks}</td>
               <td>{result.totalMarks}</td>
               <td>{result.passStatus}</td>
             </tr>

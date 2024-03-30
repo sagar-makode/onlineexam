@@ -3,7 +3,7 @@
 export const FETCH_TESTS_REQUEST= 'FETCH_TESTS_REQUEST';
 export const FETCH_TESTS_SUCCESS= 'FETCH_TESTS_SUCCESS';
 export const FETCH_TESTS_FAILURE= 'FETCH_TESTS_FAILURE';
-export const CURRENT_SELECT_TEST= 'CURRENT_SELECT_TEST';
+// export const CURRENT_SELECT_TEST= 'CURRENT_SELECT_TEST';
 
 
 
@@ -18,6 +18,13 @@ export const FETCH_STUDENT_TEST_FAILURE= 'FETCH_STUDENT_TEST_FAILURE';
 export const FETCH_TEACHER_CREATED_TEST= 'FETCH_TEACHER_CREATED_TEST';
 export const FETCH_TEACHER_CREATED_TEST_SUCCESS= 'FETCH_TEACHER_CREATED_TEST_SUCCESS';
 export const FETCH_TEACHER_CREATED_TEST_FAILURE= 'FETCH_TEACHER_CREATED_TEST_FAILURE';
+
+
+
+// export const FETCH_SUBMITED_TEST_ANSWER = 'FETCH_SUBMITED_TEST_ANSWER';
+// export const FETCH_SUBMITED_TEST_ANSWER_SUCCESS = 'FETCH_SUBMITED_TEST_ANSWER_SUCCESS';
+// export const FETCH_SUBMITED_TEST_ANSWER_FAILURE = 'FETCH_SUBMITED_TEST_ANSWER_FAILURE';
+
 
 
 
@@ -66,10 +73,10 @@ export const fetchTestresultFailure = (error) => ({
   });
   
 
-  export const selectedTest = (test) => ({
-    type: CURRENT_SELECT_TEST,
-    payload: test,
-  });
+  // export const selectedTest = (test) => ({
+  //   type: CURRENT_SELECT_TEST,
+  //   payload: test,
+  // });
 
   export const submitTest = (result) => {
 
@@ -81,7 +88,15 @@ export const fetchTestresultFailure = (error) => ({
   
 
 
+  // export const fetchsubmitedTestanswer = (id) => {
 
+  //   console.log("into id", FETCH_SUBMITED_TEST_ANSWER);
+
+  //   return {
+  //     type: FETCH_SUBMITED_TEST_ANSWER,
+  //     payload: id,
+  //   }}
+  
 
 
   export const fetchTeacherCreatedTests = () => (

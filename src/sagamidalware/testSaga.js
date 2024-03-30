@@ -9,19 +9,15 @@ function* fetchTestSaga() {
      // Retrieve token from sessionStorage
 
      const token = sessionStorage.getItem('token');
-     
-
-
+  
      // Make a request to fetch user data from the backend with token in headers
      const response = yield call(axios.get, "http://localhost:5000/tests", {
        headers: {
          Authorization: `Bearer${token}`
        }
      });
-
      const testData = response.data;
-
-
+   
     // Dispatch success action with user role
     yield put({ type: FETCH_TESTS_SUCCESS, payload: testData});
   } catch (error) {
@@ -31,8 +27,6 @@ function* fetchTestSaga() {
 }
 
 
-
-
 function* handleSubmitTest(action) {
   try {
 
@@ -40,7 +34,10 @@ function* handleSubmitTest(action) {
 
     
     if (response.data) {
-      yield put({ type: TEST_SUBMIT_SUCCESS });
+      const data = response.data
+    
+      
+      yield put({ type: TEST_SUBMIT_SUCCESS, payload:data });
     }
   } catch (error) {
     console.error(error);
@@ -102,8 +99,6 @@ function* fetchTeacherCreatedTestSaga() {
     yield put({ type: FETCH_TEACHER_CREATED_TEST_FAILURE, payload: { error: error.message } });
   }
 }
-
-
 
 
 

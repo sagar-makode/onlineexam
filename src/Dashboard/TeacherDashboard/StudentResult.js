@@ -43,7 +43,7 @@ function StudentResult() {
           {studenttresultforteacher.map((result, index) => (
             // Check if submitedBy is not null and not empty
             result.submitedBy && result.submitedBy.length > 0 && (
-              <>
+              <React.Fragment key={index}>
                 {result.submitedBy.map((submittedItem, subIndex) => (
                   <tr key={subIndex}>
                     <th scope="row">{subIndex + 1}</th>
@@ -52,12 +52,12 @@ function StudentResult() {
                     <td>{submittedItem.correctAnswers}</td>
                     <td>{submittedItem.totalQuestions}</td>
 
-                    <td>{submittedItem.obtainedMark}</td>
+                    <td>{submittedItem.obtainedMarks}</td>
                     <td>{submittedItem.totalMarks}</td>
                     <td>{submittedItem.passStatus}</td>
                   </tr>
                 ))}
-              </>
+             </React.Fragment>
             )
           ))}
         </tbody>
