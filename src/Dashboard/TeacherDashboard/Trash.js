@@ -1,34 +1,37 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeacherCreatedTests } from '../../actions/testActions';
-import Trash from '../../assets/trash img.jpg'
-import { DeleteTestDataTemp } from '../../actions/testActions';
+import {  DeleteTestDataPermanently, RestoreDeletedData, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
 
 
-function AllCreatedTest() {
 
-    const trachertestData = useSelector(state => state.tests.teacherCreatedTest);
+function Bin() {
 
+    const trachertestData = useSelector(state => state.tests.teacherCreatedTestInBin);
     const dispatch = useDispatch();
-
     useEffect(() => {
-
-        dispatch(fetchTeacherCreatedTests())
-
+        dispatch(fetchTeacherCreatedTestsinBin())
     }, [dispatch]);
 
 
+    const handleRestoreDeleteTests=(event)=>{
+        const dispatchedData={
+            testId:event.target.id
+        }
+        dispatch(RestoreDeletedData(dispatchedData));
+        console.log(event.target.id)
+    }
     const handleDeleteTest=(event)=>{
         const dispatchedData={
             testId:event.target.id
         }
-        dispatch(DeleteTestDataTemp(dispatchedData));
+        dispatch(DeleteTestDataPermanently(dispatchedData));
     }
 
         return (
         <div>
             <h1>All Created Test</h1>
             <div className="row">
+                {console.log(trachertestData)}
                 {trachertestData.map((test, index) => (
                     <div className="col-md-4" key={index}>
 
@@ -36,14 +39,15 @@ function AllCreatedTest() {
                             <div className="card-body">
                                 <div className='d-flex justify-content-between'>
                                     <h5 className="card-title">Test Name: {test.testName} </h5>
-                                    <img src={Trash} style={{ height: "2.5rem", width: "2.5rem" }} id={test._id} onClick={handleDeleteTest} alt='Trash' />
                                 </div>
                                 <p className="card-text">Category: {test.category}</p>
                                 <p className="card-text">Total Questions: {test.questions.length}</p>
                                 <p className="card-text">Duration: {test.totalMinutes} minutes</p>
-                                <p className="card-text">Toatal Marks: {test.totalMarks} minutes</p>
-
-                              
+                                <p className="card-text">Toatal Marks: {test.totalMarks} minutes</p> 
+                                <div className='d-flex justify-content-between mx-3'>
+                                    <button className='btn btn-primary ' id={test._id} onClick={handleRestoreDeleteTests}> restore</button>
+                                    <button className='btn btn-primary ' onClick={handleDeleteTest}>delete</button>
+                                </div>                             
                             </div>
                         </div>
                     </div>
@@ -53,4 +57,4 @@ function AllCreatedTest() {
     )
 }
 
-export default AllCreatedTest
+export default Bin

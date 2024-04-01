@@ -18,6 +18,17 @@ export const FETCH_STUDENT_TEST_FAILURE= 'FETCH_STUDENT_TEST_FAILURE';
 export const FETCH_TEACHER_CREATED_TEST= 'FETCH_TEACHER_CREATED_TEST';
 export const FETCH_TEACHER_CREATED_TEST_SUCCESS= 'FETCH_TEACHER_CREATED_TEST_SUCCESS';
 export const FETCH_TEACHER_CREATED_TEST_FAILURE= 'FETCH_TEACHER_CREATED_TEST_FAILURE';
+export const FETCH_TEACHER_CREATED_TEST_IN_BIN="FETCH_TEACHER_CREATED_TEST_IN_BIN";
+export const FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS="FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS";
+export const FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE="FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE";
+
+export const DELETE_TEST_DATA="DELETE_TEST_DATA"
+
+export const RESTORE_DELETE_TEST_DATA="RESTORE_DELETE_TEST_DATA"
+
+
+export const TEMP_DELETE_TEST_DATA="TEMP_DELETE_TEST_DATA"
+
 
 
 
@@ -97,11 +108,26 @@ export const fetchTestresultFailure = (error) => ({
   //     payload: id,
   //   }}
   
-
+  export const DeleteTestDataTemp =(testId)=>({
+    type: TEMP_DELETE_TEST_DATA,
+    payload : testId
+  })
+  export const DeleteTestDataPermanently=(testId)=>({
+    type:DELETE_TEST_DATA,
+    payload:testId
+  })
+  export const RestoreDeletedData=(testId)=>({
+    type: RESTORE_DELETE_TEST_DATA,
+    payload : testId
+  })
 
   export const fetchTeacherCreatedTests = () => (
     {
     type: FETCH_TEACHER_CREATED_TEST
   });
+
+export const fetchTeacherCreatedTestsinBin=()=>({
+type: FETCH_TEACHER_CREATED_TEST_IN_BIN
+})
   
   

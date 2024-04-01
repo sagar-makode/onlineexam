@@ -5,16 +5,12 @@ import avtar from '../../assets/pngegg.png';
 import { Spinner } from 'react-bootstrap';
 import CreateTest from './CreateTest';
 import StudentResult from './StudentResult';
-
+import Trash from './Trash'
 import AllCreatedTest from './AllCreatedTest';
-import { fetchTeacherCreatedTests } from '../../actions/testActions';
+import { fetchTeacherCreatedTests, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
 
 function TeacherDashboard() {
-  
-
-    const dispatch = useDispatch()
-
-  
+    const dispatch = useDispatch()  
     const [activeTab, setActiveTab] = useState('dashboard');
     const [loading, setLoading] = useState(false);
     const teacherProfileData = useSelector(state => state.dashboard.userData);
@@ -34,7 +30,8 @@ function TeacherDashboard() {
   
       setLoading(true)
      
-      dispatch(fetchTeacherCreatedTests())
+      dispatch(fetchTeacherCreatedTests());
+      dispatch(fetchTeacherCreatedTestsinBin());
      
       setLoading(false)
     }, [dispatch]);
@@ -161,6 +158,14 @@ function TeacherDashboard() {
               </Link>
             </li>
 
+            <li className={`nav-link ${activeTab === 'trash' ? 'active' : ''}`} onClick={() => handleTabClick("trash")}>
+
+                <Link >
+                  <i className='bx bx-bar-chart icon'></i>
+                  <span className="text nav-text" >Trash</span>
+                </Link>
+              </li>
+
             <li className="mode">
               <div className="sun-moon">
                 <i className='bx bx-moon icon moon'></i>
@@ -198,6 +203,12 @@ function TeacherDashboard() {
         {activeTab === 'allcreatedtest' && (
           <div>
           <AllCreatedTest/>
+
+          </div>
+        )}
+         {activeTab === 'trash' && (
+          <div>
+          <Trash/>
 
           </div>
         )}

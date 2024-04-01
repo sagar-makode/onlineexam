@@ -1,6 +1,6 @@
 // In your reducers/testReducer.js
 
-import { FETCH_STUDENT_TEST_FAILURE, FETCH_STUDENT_TEST_SUCCESS, FETCH_TEACHER_CREATED_TEST_SUCCESS, FETCH_TESTS_FAILURE, FETCH_TESTS_REQUEST, FETCH_TESTS_SUCCESS, TEST_SUBMIT_FAILURE, TEST_SUBMIT_SUCCESS } from "../actions/testActions";
+import { FETCH_STUDENT_TEST_FAILURE, FETCH_STUDENT_TEST_SUCCESS, FETCH_TEACHER_CREATED_TEST_SUCCESS, FETCH_TESTS_FAILURE, FETCH_TESTS_REQUEST, FETCH_TESTS_SUCCESS, TEST_SUBMIT_FAILURE, TEST_SUBMIT_SUCCESS,FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS,FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE} from "../actions/testActions";
 
 const initialState = {
   tests: [],
@@ -74,6 +74,15 @@ const testReducer = (state = initialState, action) => {
       teacherCreatedTest: action.payload,
     }
 
+    case FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE:
+      return{
+        ...state,
+      }
+    case  FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS:
+    return {
+      ...state,
+      teacherCreatedTestInBin: action.payload,
+    }
 
     default:
       return state;
