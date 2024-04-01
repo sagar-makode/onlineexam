@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { CreateTestRequst } from '../../actions/dashboardActions';
+import Trash from "../../assets/cross.png"
 
 function CreateTest() {
 
@@ -46,7 +47,11 @@ function CreateTest() {
         dispatch(CreateTestRequst(testData));
       };
 
-      
+    const deleteQuestion=e=>{
+        const updatedQuestions = questions.filter((_, index) => index !== e);
+        setQuestions(updatedQuestions);
+
+    }
 
     return (
         <div>
@@ -115,6 +120,7 @@ function CreateTest() {
                         <div key={index}>
                             <div className="mb-3">
                                 <label htmlFor={`question${index}`} className="form-label">Question {index + 1}</label>
+                                <div className='d-flex'>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -128,6 +134,13 @@ function CreateTest() {
                                     }}
 
                                 />
+                    <button style={{border:"none"}}  type="button"
+                    onClick={() => deleteQuestion(index)}              
+                >
+                    <img src={Trash} style={{ height: "2.5rem", width: "2.5rem", borderRadius:".5rem" }} alt='Trash' />
+                </button>
+                                </div>
+
                             </div>
                             <div className="row">
                                 {question.options.map((option, optionIndex) => (
