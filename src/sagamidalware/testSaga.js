@@ -1,7 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import { FETCH_STUDENT_TEST_FAILURE, FETCH_STUDENT_TEST_RESULT, FETCH_STUDENT_TEST_SUCCESS, FETCH_TEACHER_CREATED_TEST, FETCH_TEACHER_CREATED_TEST_FAILURE, FETCH_TEACHER_CREATED_TEST_SUCCESS, FETCH_TESTS_REQUEST, FETCH_TESTS_SUCCESS, SUBMIT_TEST, TEST_SUBMIT_FAILURE, TEST_SUBMIT_SUCCESS,TEMP_DELETE_TEST_DATA, FETCH_TEACHER_CREATED_TEST_IN_BIN,FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE, FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS, RESTORE_DELETE_TEST_DATA, DELETE_TEST_DATA} from '../actions/testActions';
-import { DeleteTestDataTemp } from '../actions/dashboardActions';
+import { FETCH_STUDENT_TEST_FAILURE, FETCH_STUDENT_TEST_RESULT, FETCH_STUDENT_TEST_SUCCESS, 
+  FETCH_TEACHER_CREATED_TEST, FETCH_TEACHER_CREATED_TEST_FAILURE, FETCH_TEACHER_CREATED_TEST_SUCCESS, FETCH_TESTS_REQUEST,
+   FETCH_TESTS_SUCCESS, SUBMIT_TEST, TEST_SUBMIT_FAILURE, TEST_SUBMIT_SUCCESS,TEMP_DELETE_TEST_DATA,
+    FETCH_TEACHER_CREATED_TEST_IN_BIN,FETCH_TEACHER_CREATED_TEST_IN_BIN_FAILURE, FETCH_TEACHER_CREATED_TEST_IN_BIN_SUCCESS,
+     RESTORE_DELETE_TEST_DATA, DELETE_TEST_DATA,DELETE_TEST_DATA_FALIURE_MESSAGE,DELETE_TEST_DATA_SUCCESS_MESSAGE,RESTORE_DELETE_TEST_DATA_FALIURE_MESSAGE,RESTORE_DELETE_TEST_DATA_SUCCESS_MESSAGE,TEMP_DELETE_TEST_DATA_FAILURE_MESSAGE,TEMP_DELETE_TEST_DATA_SUCCESS_MESSAGE} from '../actions/testActions';
+// import { DeleteTestDataTemp } from '../actions/dashboardActions';
 
 
 // Worker Saga to fetch user data
@@ -71,9 +75,6 @@ function* fetchStudentResultSaga() {
   }
 }
 
-
-
-
 function* fetchTeacherCreatedTestSaga() {
   try {
      // Retrieve token from sessionStorage
@@ -115,60 +116,56 @@ function* fetchTeacherCreatedTestInBinSaga() {
   }
 }
 
+//Deleting the data from the All created test and sending data in Trash. sending testId as a payload
 function* deleteTestDataTempSaga(action){
-  try {
-    console.log(action.payload.testId)
-    
+  try {    
     const response = yield call(axios.put, "http://localhost:5000/deletetest", action.payload);
-
-    
     if (response.data) {
-      const data = response.data
-    
-      
-      yield put({ type: TEST_SUBMIT_SUCCESS, payload:data });
+      const data = response.data;
+      console.log( response.data);
+      yield put({ type: TEMP_DELETE_TEST_DATA_SUCCESS_MESSAGE, payload:data });
     }
+
   } catch (error) {
     console.error(error);
-    yield put({ type: TEST_SUBMIT_FAILURE });
+    yield put({ type: TEMP_DELETE_TEST_DATA_FAILURE_MESSAGE });
   }
 }
 
-//have to do work
+//Deleting Test Data Permanently by using the Test Id
 function* deleteTestDataPermanentlySaga(action){
   try {
     console.log(action.payload.testId)
+    const api="http://localhost:5000/deletetestpermanently/"+action.payload.testId;
     
-    const response = yield call(axios.delete, "http://localhost:5000/deletetest", action.payload);
+    const response = yield call(axios.delete, api);
 
     
     if (response.data) {
       const data = response.data
-    
+    console.log(response.data);
       
-      yield put({ type: TEST_SUBMIT_SUCCESS, payload:data });
+      yield put({ type: DELETE_TEST_DATA_SUCCESS_MESSAGE, payload:data });
     }
   } catch (error) {
     console.error(error);
-    yield put({ type: TEST_SUBMIT_FAILURE });
+    yield put({ type: DELETE_TEST_DATA_FALIURE_MESSAGE });
   }
 }
 
+// Restoring the data from the backend sending testId as a payload
 function* restoreTestDataSaga(action){
   try {
-    console.log(action.payload.testId, "Hi I am restore")
-    const response = yield call(axios.put, "http://localhost:5000/undodeletedtests", action.payload);
+    const response = yield call(axios.put, "http://localhost:5000/undodeletedtests", action.payload); 
 
-    
     if (response.data) {
-      const data = response.data
-    
-      
-      yield put({ type: TEST_SUBMIT_SUCCESS, payload:data });
+      const data = response.data      
+      yield put({ type: RESTORE_DELETE_TEST_DATA_SUCCESS_MESSAGE, payload:data });
     }
+
   } catch (error) {
     console.error(error);
-    yield put({ type: TEST_SUBMIT_FAILURE });
+    yield put({ type: RESTORE_DELETE_TEST_DATA_FALIURE_MESSAGE});
   }
 }
 

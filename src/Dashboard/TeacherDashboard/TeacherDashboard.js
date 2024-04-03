@@ -15,15 +15,8 @@ function TeacherDashboard() {
     const [loading, setLoading] = useState(false);
     const teacherProfileData = useSelector(state => state.dashboard.userData);
   
-  
     const handleTabClick = (tab) => {
-      setActiveTab(tab);
-    };
-
-    
-
-
-  
+      setActiveTab(tab);  };
   
   
     useEffect(() => {
@@ -161,7 +154,8 @@ function TeacherDashboard() {
             <li className={`nav-link ${activeTab === 'trash' ? 'active' : ''}`} onClick={() => handleTabClick("trash")}>
 
                 <Link >
-                  <i className='bx bx-bar-chart icon'></i>
+             
+                  <i className='bx bx-recycle icon'></i>
                   <span className="text nav-text" >Trash</span>
                 </Link>
               </li>
