@@ -88,7 +88,7 @@ function StudentDashBoard() {
               </li>
 
               <ul className="menu-links">
-                <li className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('dashboard')}>
+                <li className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('studentdashboard')}>
                   <Link >
                     <i className='bx bx-home-alt icon'></i>
                     <span className="text nav-text">Dashboard</span>

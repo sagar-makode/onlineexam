@@ -12,9 +12,8 @@ import Footer from './Footer/Footer';
 import { AuthProvider } from './component/common/AuthContext';
 
 
-
 function App() {
-
+ 
 
   return (
     

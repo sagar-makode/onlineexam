@@ -7,6 +7,7 @@ import CreateTest from './CreateTest';
 import StudentResult from './StudentResult';
 import Trash from './Trash'
 import AllCreatedTest from './AllCreatedTest';
+import Index from "./Index"
 import { fetchTeacherCreatedTests, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
 
 function TeacherDashboard() {
@@ -183,7 +184,8 @@ function TeacherDashboard() {
         {activeTab === 'dashboard' && (
           <div>
             {/* Dashboard content */}
-            <h1>Dashboard Content</h1>
+            {/* <h1>Dashboard Content</h1> */}
+            <Index/>
           </div>
         )}
         {activeTab === 'createTest' && (
