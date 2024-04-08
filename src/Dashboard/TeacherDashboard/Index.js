@@ -34,7 +34,7 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
     const dispatch = useDispatch()
     const [orders, setOrders] = useState(0);
     const [inventory, setInventory] = useState(0);
-    const [students, setstudents] = useState(0);
+    const [noOftests, setnoOftests] = useState(0);
     const [revenue, setRevenue] = useState(0);
 
     const testsData = useSelector(state => state.tests.teacherCreatedTest);
@@ -43,12 +43,10 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
       dispatch(fetchTeacherCreatedTests());
       setOrders(testsData);
     }
-    const AttemptedBy=()=>{
-     let sum=0
-    //  for (let index = 0; index < testsData.length; index++) {
-    //   testsData.submittedBy;
-    //  }
-     setstudents(sum);
+    const noOftestscreated=()=>{
+  
+
+     setnoOftests(testsData.length);
     }
     const getInventory=()=>{
       // console.log(testsData)
@@ -59,7 +57,7 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
     }
     useEffect(() => {
       getOrders(); 
-      AttemptedBy()
+      noOftestscreated()
     }, [dispatch]);
     
   
@@ -81,7 +79,7 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
             title={'Created Tests'}
             value={orders.length}
           />
-          <DashboardCard
+          {/* <DashboardCard
             icon={
               <ShoppingOutlined
                 style={{
@@ -109,7 +107,7 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
               />
             }
             title={'Customer'}
-            value={students}
+            value={noOftests}
           />
           <DashboardCard
             icon={
@@ -125,7 +123,7 @@ import {  fetchTeacherCreatedTests } from '../../actions/testActions';
             }
             title={'Revenue'}
             value={revenue}
-          />
+          /> */}
         </Space>
         <Space style={{marginTop:"3rem",width:"100%"}}>
           <LatestTests />
