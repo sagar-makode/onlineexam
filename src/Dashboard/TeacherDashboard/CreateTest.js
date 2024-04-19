@@ -26,6 +26,7 @@ function CreateTest() {
 
   const testData = {
     teacherId: teacherProfileData._id, // Assuming teacher ID is stored in teacherProfileData.id
+    teacherName : teacherProfileData.name,
     testName : testName,
     totalMinutes : minutes,
     totalMarks : outOfMarks,

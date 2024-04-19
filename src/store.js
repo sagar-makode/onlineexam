@@ -4,6 +4,7 @@ import rootReducer from "./reducers/rootReducer"; // Corrected import statement
 import userSaga from './sagamidalware/userSaga';
 import fetchDashboardData from "./sagamidalware/DashboardSaga";
 import fetchTestDataSaga from "./sagamidalware/testSaga";
+import subscribersSaga from "./sagamidalware/subscribersSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,6 +16,8 @@ const store = configureStore({
 sagaMiddleware.run(userSaga);
 sagaMiddleware.run(fetchDashboardData);
 sagaMiddleware.run(fetchTestDataSaga);
+sagaMiddleware.run(subscribersSaga);
+
 
 
 

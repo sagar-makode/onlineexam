@@ -5,9 +5,10 @@ import avtar from "../../assets/pngegg.png"
 import { Spinner } from 'react-bootstrap';
 
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import TestSeries from './TestSeries';
 import TestResults from './TestResults';
+import AllTests from './AllTests';
 
 function StudentDashBoard() {
 
@@ -16,7 +17,6 @@ function StudentDashBoard() {
   const dispatch = useDispatch()
 
   const studentProfileData = useSelector(state => state.dashboard.userData);
-  const testsData = useSelector(state => state.tests.tests);
 
 
 
@@ -28,11 +28,6 @@ function StudentDashBoard() {
     setActiveTab(tab);
   };
 
-  const navigate = useNavigate()
-
-  const handleAttemptTest = async (test) => {
-    navigate(`/liveexam`, { state: { test, studentProfileData } });
-  };
 
 
   useEffect(() => {
@@ -181,26 +176,9 @@ function StudentDashBoard() {
           )}
           {activeTab === 'liveTest' && (
             <div>
-              {/* Live Test content */}
-              <h1>Live Test Content</h1>
-              <div className="row">
-                {testsData.map((test, index) => (
-                  <div className="col-md-4" key={index}>
-                    <div className="card mb-4 shadow-sm">
-                      <div className="card-body">
-
-                        <h5 className="card-title">{test.testName}</h5>
-                        <p className="card-text">Duration: {test.totalMinutes} minutes</p>
-                        <p className="card-text">Toatal Marks: {test.totalMarks} minutes</p>
-
-                        {/* Add other test information here */}
-                        <button className="btn btn-primary" onClick={() => handleAttemptTest(test)}>Attempt Test</button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <AllTests/>
               </div>
-            </div>
+         
           )}
           {activeTab === 'testSeries' && (
             <div>
