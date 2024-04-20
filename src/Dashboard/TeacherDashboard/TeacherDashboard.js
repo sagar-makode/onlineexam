@@ -14,10 +14,7 @@ function TeacherDashboard() {
     const dispatch = useDispatch()  
     const [activeTab, setActiveTab] = useState('dashboard');
     const [loading, setLoading] = useState(false);
-    const [con,setcon]=useState(0)
     const teacherProfileData = useSelector(state => state.dashboard.userData);
-    const testsData = useSelector(state => state.tests.teacherCreatedTest);
-   
   
     const handleTabClick = (tab) => {
       setActiveTab(tab);  };
