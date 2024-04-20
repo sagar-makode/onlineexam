@@ -1,9 +1,4 @@
-import {
-  DollarCircleOutlined,
-  FileTextOutlined,
-  ShoppingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import {FileTextOutlined} from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,35 +26,10 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const dispatch = useDispatch()
-  const [orders, setOrders] = useState(0);
-  const [inventory, setInventory] = useState(0);
-  const [noOftests, setnoOftests] = useState(0);
-  const [revenue, setRevenue] = useState(0);
-
-  const testsData = useSelector(state => state.tests.teacherCreatedTest);
   const teacherProfileData = useSelector(state => state.dashboard.userData);
+  const testsData = useSelector(state => state.tests.teacherCreatedTest);
+  const noOfTests=testsData.length;
 
-  const getOrders = () => {
-    dispatch(fetchTeacherCreatedTests());
-    setOrders(testsData);
-  }
-  const noOftestscreated = () => {
-
-
-    setnoOftests(testsData.length);
-  }
-  const getInventory = () => {
-    // console.log(testsData)
-  }
-
-  const getRevenue = () => {
-
-  }
-  useEffect(() => {
-    getOrders();
-    noOftestscreated()
-  }, [dispatch]);
 
 
   return (
@@ -78,7 +48,7 @@ function Dashboard() {
             />
           }
           title={'Created Tests'}
-          value={orders.length}
+          value={noOfTests}
         />
          <DashboardCard
           icon={
@@ -95,51 +65,6 @@ function Dashboard() {
           title={'Subscribers'}
           value={teacherProfileData.subscribers.length}
         />
-        {/* <DashboardCard
-            icon={
-              <ShoppingOutlined
-                style={{
-                  color: 'blue',
-                  backgroundColor: 'rgba(0,0,255,0.25)',
-                  borderRadius: 20,
-                  fontSize: 24,
-                  padding: 8,
-                }}
-              />
-            }
-            title={'Inventory'}
-            value={inventory}
-          />
-          <DashboardCard
-            icon={
-              <UserOutlined
-                style={{
-                  color: 'purple',
-                  backgroundColor: 'rgba(0,255,255,0.25)',
-                  borderRadius: 20,
-                  fontSize: 24,
-                  padding: 8,
-                }}
-              />
-            }
-            title={'Customer'}
-            value={noOftests}
-          />
-          <DashboardCard
-            icon={
-              <DollarCircleOutlined
-                style={{
-                  color: 'red',
-                  backgroundColor: 'rgba(255,0,0,0.25)',
-                  borderRadius: 20,
-                  fontSize: 24,
-                  padding: 8,
-                }}
-              />
-            }
-            title={'Revenue'}
-            value={revenue}
-          /> */}
       </Space>
       <Space style={{ marginTop: "3rem", width: "100%" }}>
         <LatestTests />
@@ -164,19 +89,17 @@ function DashboardCard({ title, value, icon }) {
 //For the Table that is showing in the image.
 function LatestTests() {
 
-  const [dataSource, setDataSource] = useState([]);
+ 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
-  const testsData = useSelector(state => state.tests.teacherCreatedTest);
+  const dataSource = useSelector(state => state.tests.teacherCreatedTest);
 
-  const getOrders = () => {
-    dispatch(fetchTeacherCreatedTests());
-    setDataSource(testsData);
-  }
 
   useEffect(() => {
-    setLoading(true);
-    getOrders();
+    if(dataSource==null){
+      setLoading(true);
+    }
+    
     setLoading(false);
   }, [dispatch]);
   const renderGivenByColumn = (submittedBy) => {

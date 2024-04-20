@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {  DeleteTestDataPermanently, RestoreDeletedData, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
+import {  DeleteTestDataPermanently, RestoreDeletedData, fetchTeacherCreatedTests, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 
@@ -13,6 +13,7 @@ function Bin() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchTeacherCreatedTestsinBin())
+        dispatch(fetchTeacherCreatedTests());
     }, [dispatch,clickOnDelete,restoreSuccessMessage]);
 
 
