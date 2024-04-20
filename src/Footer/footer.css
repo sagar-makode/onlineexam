@@ -12,7 +12,7 @@
 }
 footer {
   /* position: sticky; */
-  background: #10182f;
+  background: #0099ff;
   width: 100%;
   bottom: 0px;
   left: 0; 
@@ -172,7 +172,9 @@ footer .content .link-boxes .box {
 }
 footer .bottom-details {
   width: 100%;
-  background: #2e2748;
+  background: #4ab5fd;
+
+
 }
 footer .bottom-details .bottom_text {
   /* max-width: 1250px; */

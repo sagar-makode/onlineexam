@@ -5,10 +5,10 @@ import { fetchteacherSubscribers, subscribeToTeacher, unsubscribetoTeacher } fro
 
 const TermsAndConditions = ({ test, studentProfileData, onAttemptTest }) => {
 
-    const techernamesubcriber = useSelector(state => state.teechernamesubscriber.techerData);
-    const subcribeSuccess = useSelector(state => state.teechernamesubscriber.subcribeSuccess);
-    const unsubcribeSuccess = useSelector(state => state.teechernamesubscriber.unsubcribeSuccess);
-    const isSubscribed = useSelector(state => state.teechernamesubscriber.isSubscribed);
+    const techernamesubcriber = useSelector(state => state.subcriptiondata.techerData);
+    const subcribeSuccess = useSelector(state => state.subcriptiondata.subcribeSuccess);
+    const unsubcribeSuccess = useSelector(state => state.subcriptiondata.unsubcribeSuccess);
+    const isSubscribed = useSelector(state => state.subcriptiondata.isSubscribed);
 
 
     const handleStartTest = () => {
@@ -19,11 +19,11 @@ const TermsAndConditions = ({ test, studentProfileData, onAttemptTest }) => {
 
     const handleSubscribe = () => {
         // Dispatch action to subscribe student to teacher
-        dispatch(subscribeToTeacher(techernamesubcriber._id, studentProfileData._id));
+        dispatch(subscribeToTeacher(techernamesubcriber._id));
     };
 
     const handleUnsubscribe = () => {
-        dispatch(unsubscribetoTeacher(techernamesubcriber._id, studentProfileData._id));
+        dispatch(unsubscribetoTeacher(techernamesubcriber._id));
     };
 
 

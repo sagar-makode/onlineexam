@@ -5,10 +5,12 @@ import avtar from "../../assets/pngegg.png"
 import { Spinner } from 'react-bootstrap';
 
 
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TestSeries from './TestSeries';
 import TestResults from './TestResults';
 import AllTests from './AllTests';
+import Subcriptions from './Subcriptions';
+import ALLCreater from './ALLCreater';
 
 function StudentDashBoard() {
 
@@ -35,6 +37,7 @@ function StudentDashBoard() {
     setLoading(true)
     dispatch(fetchTests());
     dispatch(fetchStudentTestresult())
+   
     setLoading(false)
   }, [dispatch]);
 
@@ -83,7 +86,7 @@ function StudentDashBoard() {
               </li>
 
               <ul className="menu-links">
-                <li className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('studentdashboard')}>
+                <li className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabClick('dashboard')}>
                   <Link >
                     <i className='bx bx-home-alt icon'></i>
                     <span className="text nav-text">Dashboard</span>
@@ -120,7 +123,29 @@ function StudentDashBoard() {
                   </Link>
                 </li>
 
+                <li className={`nav-link ${activeTab === 'subscriptions' ? 'active' : ''}`} onClick={() => handleTabClick('subscriptions')}>
+                  <Link >
+                   
+                      <span className="material-symbols-outlined icon">
+                        subscriptions
+                      </span>
+                   
+                    <span className="text nav-text">Subscriptions</span>
+                  </Link>
+                </li>
 
+
+
+                <li className={`nav-link ${activeTab === 'allcreater' ? 'active' : ''}`} onClick={() => handleTabClick('allcreater')}>
+                  <Link >
+                   
+                      <span className="material-symbols-outlined icon">
+                        groups
+                      </span>
+                   
+                    <span className="text nav-text">ALL Creaters</span>
+                  </Link>
+                </li>
                 <li className={`nav-link ${activeTab === 'wishlist' ? 'active' : ''}`} onClick={() => handleTabClick('wishlist')}>
                   <Link >
                     <i className='bx bx-bookmark-heart icon'></i>
@@ -176,9 +201,9 @@ function StudentDashBoard() {
           )}
           {activeTab === 'liveTest' && (
             <div>
-              <AllTests/>
-              </div>
-         
+              <AllTests />
+            </div>
+
           )}
           {activeTab === 'testSeries' && (
             <div>
@@ -191,6 +216,18 @@ function StudentDashBoard() {
             <div>
 
               <TestResults />
+            </div>
+          )}
+          {activeTab === 'subscriptions' && (
+            <div>
+
+              <Subcriptions />
+            </div>
+          )}
+          {activeTab === 'allcreater' && (
+            <div>
+
+              <ALLCreater />
             </div>
           )}
 

@@ -76,7 +76,8 @@
   left: 0;
   z-index: 0;
   border-radius: 15px;
-  background: -webkit-linear-gradient(left,#3a315a, #51457c, #65569d);
+  /* background: -webkit-linear-gradient(left,#3a315a, #51457c, #65569d); */
+  background-color: #0099ff;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .inputs[type="radio"] {
@@ -173,8 +174,9 @@ form .field input:focus::placeholder {
     #004080,
     #0059b3,
     #0073e6 */
-    #3a315a, #51457c, #65569d
+    /* #3a315a, #51457c, #65569d */
   );
+  background-color: #0099ff;
   border-radius: 15px;
   transition: all 0.4s ease;
 }

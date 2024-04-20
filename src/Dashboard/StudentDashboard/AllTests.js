@@ -25,7 +25,7 @@ function AllTests() {
     
 
     const handleAttemptTestFromTerms = (test) => {
-        console.log("ok");
+       
         navigate(`/liveexam`, { state: { seletedTestData, studentProfileData } });
        
     };

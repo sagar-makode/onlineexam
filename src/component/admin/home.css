@@ -1,0 +1,270 @@
+/* Home.css */
+
+.home-container {
+    position: relative;
+    width: 100%;
+
+    max-width: 900px;
+    /* Limit the container's maximum width */
+    margin: 0 auto;
+    /* Center the container horizontally */
+}
+
+.responsive-image {
+    width: 100%;
+    
+    /* Allow the image to maintain its aspect ratio */
+    position: relative;
+    max-height: auto;
+    /* margin-top: 50px */
+}
+
+.text-overlay{
+    position: absolute;
+    top: 20%;  /*Adjust as needed for vertical positioning */
+   
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 4vw; /* Use viewport-relative font size */
+    white-space: nowrap; /* Prevent text from wrapping */
+    /* overflow: hidden; Hide overflowing text */
+    /* animation: textAnimation 10s linear infinite; Add animation for left to right movement */
+}
+@keyframes textAnimation {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.overlay-container {
+    background: #fff;
+    border-left: px solid #f6f6f8;
+    border-top: 1px solid #f6f6f8;
+    /* display: flex; */
+    width: 100%;
+    position: relative;
+    -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+    margin-top: -90px;
+    flex: 1;
+   
+    
+
+    
+}
+
+
+
+.card {
+    background-color: white;
+    padding: 15px;
+    /* margin: 20px; */
+    border: 1px solid #ccc;
+    box-shadow: 0 px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+
+}
+
+
+.icon-color{
+    color: #0099ff;
+    font-size: 50px;
+}
+rect{
+    background-color: #0099ff;
+    width: 100%;
+    height: 100px;
+
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.tools {
+    
+    display: flex;
+    -ms-flex-align: center;
+    /* align-items: center; */
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+   
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding: 0 50px 42px;
+    /* Reduce the padding on smaller screens */
+}
+
+/* Add media query for smaller screens */
+@media (max-width: 768px) {
+    .tools {
+        flex-direction: row; 
+        justify-content: center; 
+        /* margin-top: -40px;  */
+        
+    }
+    .text-overlay {
+        top: 20%; /* Adjust vertical position for smaller screens */
+        font-size: 5vw; 
+        position: absolute;
+    }
+
+    .overlay-container {
+        position: relative;
+        /* Reset the positioning */
+
+        /* left: auto; */
+        transform: none;
+        margin-bottom: 50px;
+        margin: 2px;
+        border-top: none;
+        
+        /* flex-direction: column; */
+        background: none;
+        border-left: none;
+        border-top: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+
+       
+        
+
+        margin-top: -40px;
+        /* min-width: 250px;  Full width for smaller screens */
+    }
+    .news-container ul {
+        animation: scroll 15s infinite linear; /* Adjust the animation speed */
+    }
+    .card {
+        margin: 2px;
+        
+        padding: 8px; /* Adjust spacing between cards */
+    }
+    .tools{
+        padding: 0px 10px 0px 10px;
+       
+    }
+   .icon-color{
+    margin-bottom: 0px;
+   }
+   .cont{
+    padding-bottom: 30px;
+   }
+
+
+   
+    
+   
+
+}
+@media (max-width:936px) {
+    .overlay-container{
+        margin-bottom: 75px;
+    }
+  
+
+}
+
+@media (min-width: 767px) {
+    .cont {
+        padding: 0 50px 42px;
+
+    }
+}
+/*Slider*/
+.news-container{
+    position: relative;
+    /* margin: 20px auto; */
+
+    overflow: hidden;
+    /* width: 100%; */
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3);
+
+
+}
+.news-container .title{
+    position: absolute;
+    background: #0099ff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    color: white;
+
+    font-weight: bold;
+    z-index: 200;
+}
+
+.news-container ul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    animation: scroll 25s infinite linear;
+    padding: 0;
+
+}
+
+.news-container ul li{
+    white-space: nowrap;
+    padding: 10px 18px;
+    color: black;
+    position: relative;
+    margin: 0;
+}
+.news-container ul li::after{
+    content: "";
+    width: 1px;
+    height: 100%;
+    background: #b8b8b8;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+.news-container ul li:last-child::after{
+    display: none;
+}
+
+.blink {
+    animation: blink 3s infinite;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@keyframes scroll {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+    
+}
+
+
+
+
+/*Forms*/
+
+   

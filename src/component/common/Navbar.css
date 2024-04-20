@@ -1,6 +1,8 @@
 .navbar {
     overflow: hidden; /* Hide any overflowing content */
-    background-color: #2e2748;
+    /* background-color: #2e2748;
+     */
+     background-color: #0099ff;
      /* background-image: url('../../assets/loginSignupImage.png');  */
    /* background-size: cover; */
   }

@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   dashboard : dashboardReducer,
   tests : testReducer,
-  teechernamesubscriber : subscriberReducer
+  subcriptiondata : subscriberReducer
 
 
   

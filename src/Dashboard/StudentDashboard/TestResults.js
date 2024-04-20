@@ -5,7 +5,7 @@ function TestResults() {
 
 
   const studenttestresult = useSelector(state => state.tests.studenttestresult);
-  console.log(studenttestresult);
+  
 
   return (
     <div style={{ marginTop: "10px" }} >

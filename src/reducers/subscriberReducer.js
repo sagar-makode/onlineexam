@@ -1,11 +1,13 @@
-import { FETCH_TEACHER_SUBCRIBERS_SUCCESS, SUBSCRIBE_TO_TEACHER_SUCCESS, UNSUBSCRIBE_TO_TEACHER_SUCCESS } from "../actions/subscribers";
+import { FETCH_ALL_CREATERS_SUCCESS, FETCH_STUDENT_SUBCRIPTIONS_SUCCESS, FETCH_TEACHER_SUBCRIBERS_SUCCESS, SUBSCRIBE_TO_TEACHER_SUCCESS, UNSUBSCRIBE_TO_TEACHER_SUCCESS } from "../actions/subscribers";
 
 
 const initialState = {
   techerData:"",
   subcribeSuccess:false,
   unsubcribeSuccess:false,
-  isSubscribed : false
+  isSubscribed : false,
+  studentSubcriptions:[],
+  allCreterwithSubStatus:[]
 };
 
 const subscriberReducer = (state = initialState, action) => {
@@ -28,6 +30,18 @@ const subscriberReducer = (state = initialState, action) => {
             unsubcribeSuccess: !state.unsubcribeSuccess,
             isSubscribed:false
           };
+
+          case FETCH_STUDENT_SUBCRIPTIONS_SUCCESS:
+          return {
+            ...state,
+            studentSubcriptions: action.payload,   
+          };
+          case FETCH_ALL_CREATERS_SUCCESS:
+            console.log(action.payload);
+            return {
+              ...state,
+              allCreterwithSubStatus: action.payload,   
+            };
     default:
       return state;
   }
