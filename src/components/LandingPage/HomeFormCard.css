@@ -21,14 +21,14 @@
     align-items: center;
     justify-content: center;
     color: white;
-    background: url(./images/blob-primary.png) center center no-repeat;
+    background: url(../assets/blob-primary.png) center center no-repeat;
     background-size: contain;
     transition: .5s;
 }
 
 .service-item:hover .service-icon {
     color: white;
-    background: url(./images/blob-secondary.png) center center no-repeat;
+    background: url(../assets/blob-secondary.png) center center no-repeat;
     background-size: contain;
 }
 

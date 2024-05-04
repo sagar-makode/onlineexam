@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import "./HomeFormCard.css"
-import image1 from "../../assets/2.jpg";
-import image3 from "../../assets/5.jpg";
+import image1 from "../assets/2.jpg";
+import image3 from "../assets/5.jpg";
 
 function HomeFormCard() {
     return (

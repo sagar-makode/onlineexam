@@ -7,7 +7,6 @@ function Subcriptions() {
 
   const studentSubcriptions = useSelector(state => state.subcriptiondata.studentSubcriptions);
 
-
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchStudentSubcriptions())

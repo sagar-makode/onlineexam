@@ -4,7 +4,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
-  
+
   :root {
     /* ===== Colors ===== */
     --body-color: #e4e9f7;
@@ -13,6 +13,7 @@
     --primary-color-light: #f6f5ff;
     --toggle-color: #ddd;
     --text-color: #707070;
+    /* overflow-x: hidden; */
   
     /* ====== Transition ====== */
     --tran-03: all 0.2s ease;
@@ -320,6 +321,7 @@
    padding-right: 15px;
    margin-right: auto;
    margin-top: 83px;
+   background-color:var(--body-color);
    /* margin-left: 90px; */
 
   }

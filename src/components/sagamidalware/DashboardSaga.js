@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { CREATE_TEST_REQUEST, FETCH_USER_DATA_FAILURE, FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS } from '../actions/dashboardActions';
+import { USER_AUTH_STATUS_FAILURE } from '../actions/userActions';
 
 
 // Worker Saga to fetch user data
@@ -18,14 +19,24 @@ function* fetchUserDataSaga() {
 
     
     const userData = response.data;
+  
 
     // Dispatch success action with user role
     yield put({ type: FETCH_USER_DATA_SUCCESS, payload: userData});
   } catch (error) {
     // Dispatch failure action on error
-    yield put({ type: FETCH_USER_DATA_FAILURE, payload: { error: error.message } });
+    if (error.response && error.response.status === 500) {
+      // Redirect to login page
+      yield put({ type: USER_AUTH_STATUS_FAILURE});
+
+    } else {
+      // Dispatch failure action on other errors
+      // console.log(error);
+      yield put({ type: FETCH_USER_DATA_FAILURE, payload: { error: error.message } });
+    }
   }
 }
+
 
 
 

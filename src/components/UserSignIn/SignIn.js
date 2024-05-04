@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StudentsigninRequest, TeachersigninRequest, clearMessage } from '../actions/userActions';
 import { Link, useNavigate } from 'react-router-dom';
 import { notification } from 'antd';
-import AuthContext from '../component/common/AuthContext'
+import AuthContext from '../Navbar/AuthContext'
 
 
 

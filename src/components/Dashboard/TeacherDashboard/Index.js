@@ -2,7 +2,6 @@ import {FileTextOutlined} from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeacherCreatedTests } from '../../actions/testActions';
 
 
 import {

@@ -1,12 +1,13 @@
 // userReducer.js
-import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_MESSAGE, SIGNIN_SUCCESS, SIGNIN_FAILURE } from '../actions/userActions';
+import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_MESSAGE, SIGNIN_SUCCESS, SIGNIN_FAILURE, USER_AUTH_STATUS_FAILURE } from '../actions/userActions';
 
 const initialState = {
   loading: false,
   error: null,
   SignupSucess: false,
   SignINSucess: false,
-  SignInFailure: false
+  SignInFailure: false,
+  isAuthenticated: true
 };
 
 const userReducer = (state = initialState, action) => {
@@ -34,7 +35,8 @@ const userReducer = (state = initialState, action) => {
         return {
           ...state,
   
-          SignINSucess: true
+          SignINSucess: true,
+          isAuthenticated: true
 
         };
 
@@ -43,6 +45,14 @@ const userReducer = (state = initialState, action) => {
                  return {
           ...state,
           SignInFailure: true
+
+        };
+        
+        case USER_AUTH_STATUS_FAILURE:
+      
+                 return {
+          ...state,
+          isAuthenticated:false
 
         };
 

@@ -12,6 +12,11 @@ export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
+export const USER_AUTH_STATUS_FAILURE = 'USER_AUTH_STATUS_FAILURE';
+
+
+
+
 export const signupRequest = userData => ({
   type: SIGNUP_REQUEST,
   payload: userData
