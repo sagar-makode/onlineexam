@@ -1,10 +1,13 @@
-import { FETCH_USER_DATA_FAILURE, FETCH_USER_DATA_SUCCESS } from "../actions/dashboardActions";
+import { CREATE_TEST_FAILURE, CREATE_TEST_SUCCESS, FETCH_USER_DATA_FAILURE, FETCH_USER_DATA_SUCCESS } from "../actions/dashboardActions";
+import { CLEAR_MESSAGE } from "../actions/userActions";
 
 // Define initial state
 const initialState = {
     role: null,
     error: null,
-    userData:""
+    userData:"",
+    testCreatedSuccess:false,
+    testCreatedFailure:false
   };
     
   // Define reducer function
@@ -22,6 +25,22 @@ const initialState = {
           ...state,
           role: null,
           error: action.payload.error
+        };
+        case CREATE_TEST_SUCCESS:
+        return {
+          ...state,
+          testCreatedSuccess: true
+        };
+        case CREATE_TEST_FAILURE:
+          return {
+            ...state,
+            testCreatedFailure: true
+          };
+          case CLEAR_MESSAGE:
+        return {
+          ...state,
+          testCreatedSuccess: false,
+          testCreatedFailure: false
         };
       default:
         return state;

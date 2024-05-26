@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -6,12 +6,12 @@
   font-family: "Poppins", sans-serif;
 }
 .footerbody {
-  /* min-height: 100vh; */
+
   width: 100%;
   background: #eeeceb;
 }
 footer {
-  /* position: sticky; */
+ 
   background: #0099ff;
   width: 100%;
   bottom: 0px;
@@ -22,13 +22,13 @@ footer::before {
   content: "";
   position: absolute;
   left: 0;
-  /* top: 100px; */
+  
   height: 1px;
   width: 100%;
   background: #afafb6;
 }
 footer .content {
-  /* max-width: 1250px; */
+
   margin: auto;
   padding: 30px 40px 10px 40px;
 }
@@ -36,7 +36,7 @@ footer .content  {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin-bottom: 20px; */
+ 
 }
  .logo-details {
   color: #fff;
@@ -177,7 +177,6 @@ footer .bottom-details {
 
 }
 footer .bottom-details .bottom_text {
-  /* max-width: 1250px; */
   margin: auto;
   padding: 20px 40px;
   display: flex;
@@ -247,4 +246,13 @@ footer .bottom-details .bottom_text {
   footer .content .link-boxes .input-box {
     width: 100%;
   }
+} */
+
+.icon-hover:hover {
+  color: black !important;
+  background-color: white !important;
+}
+
+.footerpadding{
+  padding: 20px 40px 0px 40px;
 }

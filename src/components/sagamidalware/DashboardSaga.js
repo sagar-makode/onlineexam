@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import { CREATE_TEST_REQUEST, FETCH_USER_DATA_FAILURE, FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS } from '../actions/dashboardActions';
+import { CREATE_TEST_FAILURE, CREATE_TEST_REQUEST, CREATE_TEST_SUCCESS, FETCH_USER_DATA_FAILURE, FETCH_USER_DATA_REQUEST, FETCH_USER_DATA_SUCCESS } from '../actions/dashboardActions';
 import { USER_AUTH_STATUS_FAILURE } from '../actions/userActions';
 
 
@@ -49,11 +49,12 @@ function* handelCreateTest(action) {
 
     
     if (response.data) {
-      // yield put({ type: SIGNUP_SUCCESS });
+      yield put({ type: CREATE_TEST_SUCCESS});
     }
   } catch (error) {
     console.error(error);
-    // yield put({ type: SIGNUP_FAILURE });
+    yield put({ type: CREATE_TEST_FAILURE});
+
   }
 }
 

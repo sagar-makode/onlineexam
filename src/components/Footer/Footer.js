@@ -1,7 +1,6 @@
 import React from 'react'
 import "./footer.css"
 import { Link, useLocation } from 'react-router-dom'
-import logopng from "../assets/Logo Cap.png"
 
 function Footer() {
 
@@ -10,106 +9,190 @@ function Footer() {
     const location = useLocation();
 
     // Define an array of paths where the footer should be hidden
-    const hideFooterPaths = ['/login', '/register','/dashboard',"/liveexam","/result"];
-  
+    const hideFooterPaths = ['/login', '/register', '/dashboard', "/liveexam", "/result"];
+
     // Check if the current path is in the array of paths where the footer should be hidden
     const shouldHideFooter = hideFooterPaths.includes(location.pathname);
-  
+
     // If the current path is in the array, don't render the footer
     if (shouldHideFooter) {
-      return null;
+        return null;
     }
 
     return (
-        <div className='footerbody'>
 
-            <footer>
-                <div className="content">
-                    {/* <div className="top">
-                       
-                        
-                    </div> */}
-                    <div className="link-boxes">
-                        <ul className="box">
+        <>
+            <div style={{ textDecoration: 'none', marginTop: "px" }}>
 
-                        <div className="logo-details">
-                            {/* <i className="fab fa-slack"></i> */}
-                            <Link className="navbar-brand" style={{ display: "flex", alignItems: "center", fontSize: "20px" }} to="/">
-                                <img src={logopng} alt="Logo" className='logo-image' style={{marginRight:"10px"}} />
-                                <div>
-                                    <strong>ONLINE EXAM</strong>
-                                    <br />
-                                    <div style={{ fontSize: "12px" }}>Test Series | Live Exam</div>
+                <footer className=" text-lg-start text-white" style={{ backgroundColor: '#0099ff' }}>
+
+                    <div className="container-fluid footerpadding">
+                        <section className="">
+                            <div className="row">
+                                {/* col-lg-3 col-md-4 col-sm-6  */}
+                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
+                                    <h5 className=" mb-4 font-weight-bold " style={{ textDecoration: 'underline' }}>Quick Links</h5>
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            <i className="fa fa-home" ></i> Home
+
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/" className="text-white " style={{ textDecoration: 'none' }}>
+                                            <i className="fa fa-users" style={{ marginRight: '5px' }} > </i>
+                                            About Us</Link>
+                                    </p>
+                                    <p>
+                                        <Link className="text-white" style={{ textDecoration: 'none' }}>
+                                            <i className="fa fa-user-secret" style={{ marginRight: '5px' }} > </i>
+
+                                            Privacy Policy</Link>
+                                    </p>
+                                    <p>
+                                        <Link className="text-white" style={{ textDecoration: 'none' }}>
+                                            <i className="fa fa-lock" style={{ marginRight: '5px' }}> </i>
+
+                                            Term & Condition</Link>
+                                    </p>
+                                    <hr className="w-100 clearfix d-md-none" />
+
                                 </div>
-                            </Link>
-                        </div>
-                            {/* <li className="link_name">Company</li> */}
-                            <li className='text-justify'><a href="/" >here we will add the short inforamtion about our wesite whatever it may be ior slogem which attract and give  infornation about the. </a></li>
-                            <li><a href="/">📍Hydrabad , india </a></li>
-                            <li><a href="/">💌 Balauubhaii@gmail.com</a></li>
-                            <li><a href="/">🌐 www.skillingreskilling.com</a></li>
-                        </ul>
-                        <ul className="box">
-                            <li className="link_name">Quick links</li>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/">Courses</a></li>
-                            <li><a href="/">Top Series</a></li>
-                            <li><a href="/">News and Events</a></li>
-                            <li><a href="/">Services</a></li>
-
-                            <li><a href="/">Statistics</a></li>
-
-                            <li><a href="/">Membership</a></li>
-
-                        </ul>
-                        <ul className="box">
-                            <li className="link_name">Test Links</li>
-                            <li><a href="/">MBA Test Series</a></li>
-                            <li><a href="/">RRB Test Series</a></li>
-                            <li><a href="/"> MPSE Test Series</a></li>
-                            <li><a href="/">JEE Test Series</a></li>
-                            <li><a href="/">NEET Test Series</a></li>
-                            <li><a href="/">IELTS Test Series</a></li>
 
 
-                        </ul>
-                        <ul className="box">
-                            <li className="link_name">Help & Support</li>
-                            <li><a href="/">24x7 Live help</a></li>
-                            <li><a href="/">Contact us</a></li>
-                            <li><a href="/">Feedback</a></li>
-                            <li><a href="/">Testimonial</a></li>
-                            <li><a href="/">FAQs</a></li>
-                            <li><a href="/">Safety Tips </a></li>
 
-                        </ul>
-                        <ul className="box input-box">
-                            <li className="link_name">Subscribe</li>
-                            <li><input type="text" placeholder="Enter your email" /></li>
-                            <li><input type="button" value="Subscribe" /></li>
-                            <div className="media-icons">
-                            <a href="/"><i className="fab fa-facebook-f"></i></a>
-                            <a href="/"><i className="fab fa-twitter"></i></a>
-                            <a href="/"><i className="fab fa-instagram"></i></a>
-                            <a href="/"><i className="fab fa-linkedin-in"></i></a>
-                            <a href="/"><i className="fab fa-youtube"></i></a>
-                        </div>
-                        </ul>
-                        
+                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
+                                    <h5 className=" mb-4 font-weight-bold " style={{ textDecoration: 'underline' }}>Test Links</h5>
+
+
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            RRB Test Series
+
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                           MBA Test Series
+
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                          MPSE Test Series
+
+                                        </Link>
+                                    </p>
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                     JEE Test Series
+
+                                        </Link>
+                                    </p>
+       
+
+                                    <hr className="w-100 clearfix d-md-none" />
+
+                                </div>
+
+
+                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
+                                    <h5 className=" mb-4 font-weight-bold" style={{ textDecoration: 'underline', }}>
+                                    Help & Support
+                                    </h5>
+                                    <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            <i className="fa fa-chevron-right" ></i> 24x7 Live help
+
+                                        </Link>
+                                    </p> <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            <i className="fa fa-chevron-right" ></i> Contact us
+
+                                        </Link>
+                                    </p> <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            <i className="fa fa-chevron-right" ></i> Feedback
+
+                                        </Link>
+                                    </p> <p>
+                                        <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
+                                            <i className="fa fa-chevron-right" ></i> FAQs
+
+                                        </Link>
+                                    </p>
+
+                                    <hr className="w-100 clearfix d-md-none" />
+                                </div>
+
+
+
+                                {/* Grid column */}
+                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
+                                    <h5 className="mb-4 font-weight-bold" style={{ textDecoration: 'underline', textAlign: "center" }}> Send Massage Here </h5>
+                                    <form >
+                                        <div className="mb-3 " style={{ textAlign: "center" }}>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter your Message"
+                                                style={{ textAlign: "center" }}
+                                            // value={userFeedback}
+                                            // onChange={handleFeedbackChange}
+                                            />
+                                            <button type="submit" className="btn btn-light my-2" >
+                                                Send
+                                                <i className="fa fa-paper-plane " style={{ marginLeft: "6px" }} ></i>
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+
+                        <hr className="my-3" />
+
+                        <section className="p-3 pt-0">
+                            <div className="row d-flex align-items-center">
+                                <div className="col-md-7 col-lg-8 text-center text-md-start">
+                                    <div className="p-3">
+                                        © 2023 Copyright : &nbsp;
+                                        <Link className="text-white" to="/">
+                                            MakemyExam
+                                        </Link>
+                                    </div>
+                                </div>
+                              
+                              
+
+                                <div className="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                                    <Link className=" btn btn-outline-light btn-floating m-1 text-white icon-hover" role="button">
+                                        <i className="fab fa-facebook-f"></i>
+                                    </Link>
+                                    <Link className="btn btn-outline-light btn-floating m-1 text-white icon-hover" role="button">
+                                    <i className="fab fa-youtube"></i>
+                                    </Link>
+
+
+                                    <Link className="btn btn-outline-light btn-floating m-1 text-white icon-hover" role="button">
+                                    <i className="fab fa-twitter"></i>
+                                    </Link>
+
+                                    <Link className="btn btn-outline-light btn-floating m-1 text-white icon-hover" role="button">
+                                    <i className="fab fa-instagram"></i>
+                                    </Link>
+
+                                    <Link className="btn btn-outline-light btn-floating m-1 text-white icon-hover" role="button">
+                                    <i className="fab fa-linkedin-in"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                </div>
-                <div className="bottom-details">
-                    <div className="bottom_text">
-                        <span className="copyright_text">Copyright © 2024 <a href="/">Online Exam </a>All rights reserved</span>
-                        <span className="policy_terms">
-                            <a href="/">Privacy policy &nbsp;|</a>
-                            <a href="/">Disclaimer &nbsp;|</a>
-                            <a href="/">Terms & condition</a>
-                        </span>
-                    </div>
-                </div>
-            </footer>
-        </div>
+                </footer>
+            </div>
+        </>
     )
 }
 

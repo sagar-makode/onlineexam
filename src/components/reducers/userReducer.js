@@ -1,5 +1,5 @@
 // userReducer.js
-import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_MESSAGE, SIGNIN_SUCCESS, SIGNIN_FAILURE, USER_AUTH_STATUS_FAILURE } from '../actions/userActions';
+import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_MESSAGE, SIGNIN_SUCCESS, SIGNIN_FAILURE, USER_AUTH_STATUS_FAILURE, PROFILE_UPDATE_SUCCESS } from '../actions/userActions';
 
 const initialState = {
   loading: false,
@@ -7,7 +7,9 @@ const initialState = {
   SignupSucess: false,
   SignINSucess: false,
   SignInFailure: false,
-  isAuthenticated: true
+  isAuthenticated: true,
+  updateprofileSucess: false,
+
 };
 
 const userReducer = (state = initialState, action) => {
@@ -61,10 +63,18 @@ const userReducer = (state = initialState, action) => {
           ...state,
           SignupSucess: false,
           SignINSucess: false,
-          SignInFailure: false
+          SignInFailure: false,
+          updateprofileSucess:false
 
 
         };
+        case PROFILE_UPDATE_SUCCESS:
+          return{
+            ...state,
+            updateprofileSucess: true
+          }
+
+        
     default:
       return state;
   }

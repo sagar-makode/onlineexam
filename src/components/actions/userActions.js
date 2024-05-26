@@ -16,6 +16,12 @@ export const USER_AUTH_STATUS_FAILURE = 'USER_AUTH_STATUS_FAILURE';
 
 
 
+export const USER_PROFILE_UPDATE_REQUEST = 'USER_PROFILE_UPDATE_REQUEST';
+export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';
+export const PROFILE_UPDATE_FAILURE = 'PROFILE_UPDATE_FAILURE';
+
+
+
 
 export const signupRequest = userData => ({
   type: SIGNUP_REQUEST,
@@ -52,4 +58,10 @@ export const signupFailure = error => ({
 
 export const clearMessage = () => ({
   type: CLEAR_MESSAGE,
+});
+
+
+export const userProfileUpdateRequest = userData => ({
+  type: USER_PROFILE_UPDATE_REQUEST,
+  payload: userData
 });

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import avtar from '../../assets/pngegg.png';
 import { Spinner } from 'react-bootstrap';
 import CreateTest from './CreateTest';
 import StudentResult from './StudentResult';
@@ -9,13 +8,21 @@ import Trash from './Trash'
 import AllCreatedTest from './AllCreatedTest';
 import Index from "./Index"
 import { fetchTeacherCreatedTests, fetchTeacherCreatedTestsinBin } from '../../actions/testActions';
+import AuthContext from '../../Navbar/AuthContext';
+import UserProfile from './UserProfile';
+import profileImage from "../../assets/profile image.png"
+import GetfirstAndLastName from '../../common/GetfirstAndLastName';
 
 function TeacherDashboard() {
     const dispatch = useDispatch()  
     const [activeTab, setActiveTab] = useState('dashboard');
     const [loading, setLoading] = useState(false);
     const teacherProfileData = useSelector(state => state.dashboard.userData);
-  
+    
+    const { logout } = useContext(AuthContext);
+    const handleLogout = () => {
+      logout();
+    };
     const handleTabClick = (tab) => {
       setActiveTab(tab);  };
   
@@ -40,7 +47,6 @@ function TeacherDashboard() {
       setIsDarkMode(!isDarkMode);
     };
     
-  
 
   return (
     <div>
@@ -55,11 +61,11 @@ function TeacherDashboard() {
         <header>
           <div className="image-text">
             <span className="image">
-              <img src={avtar} alt="" />
+              <img src={teacherProfileData.imagepath || profileImage} alt="" />
             </span>
 
             <div className="text logo-text">
-              <span className="name">{teacherProfileData.name}</span>
+              <span className="name">{GetfirstAndLastName(teacherProfileData.name)}</span>
               <span className="profession">{teacherProfileData.role}</span>
             </div>
           </div>
@@ -129,16 +135,27 @@ function TeacherDashboard() {
                   <span className="text nav-text">Notifications</span>
                 </Link>
               </li>
+              <li className={`nav-link ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => handleTabClick('profile')}>
+                    <Link >
+
+
+                      <span class="material-symbols-outlined icon">
+                        account_circle
+                      </span>
+
+                      <span className="text nav-text">Profile</span>
+                    </Link>
+                  </li>
 
             </ul>
           </div>
 
           <div className="bottom-content">
-            <li className="">
-              <Link >
-                <i className='bx bx-log-out icon'></i>
-                <span className="text nav-text">Logout</span>
-              </Link>
+            <li >
+            <Link onClick={handleLogout} >
+                    <i className='bx bx-log-out icon'></i>
+                    <span className="text nav-text">Logout</span>
+                  </Link>
             </li>
 
             <li className={`nav-link ${activeTab === 'trash' ? 'active' : ''}`} onClick={() => handleTabClick("trash")}>
@@ -149,6 +166,7 @@ function TeacherDashboard() {
                   <span className="text nav-text" >Trash</span>
                 </Link>
               </li>
+              
 
             <li className="mode">
               <div className="sun-moon">
@@ -212,6 +230,15 @@ function TeacherDashboard() {
             <h1>Wishlist Content</h1>
           </div>
         )}
+           {activeTab === 'profile' && (
+              <div>
+                {/* Test Series content */}
+                {/* <h1>Wishlist Content</h1>
+               */}
+                <UserProfile />
+              </div>
+              
+            )}
       </div>
     </div>)}
 
