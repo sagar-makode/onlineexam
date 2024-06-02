@@ -5,6 +5,7 @@ import userSaga from './components/sagamidalware/userSaga';
 import fetchDashboardData from "./components/sagamidalware/DashboardSaga";
 import fetchTestDataSaga from "./components/sagamidalware/testSaga";
 import subscribersSaga from "./components/sagamidalware/subscribersSaga";
+import landingpageSaga from "./components/sagamidalware/landingpageSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,6 +18,8 @@ sagaMiddleware.run(userSaga);
 sagaMiddleware.run(fetchDashboardData);
 sagaMiddleware.run(fetchTestDataSaga);
 sagaMiddleware.run(subscribersSaga);
+sagaMiddleware.run(landingpageSaga);
+
 
 
 

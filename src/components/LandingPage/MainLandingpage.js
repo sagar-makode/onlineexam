@@ -1,104 +1,77 @@
 import React from 'react'
 import "./home.css"
 
-import img from "../assets/photo.png"
+import img1 from "../assets/Landing page 1.jpg"
+import img2 from "../assets/Landing page 2.jpg"
+import img3 from "../assets/Landing page 3.jpg"
+
 import HomeFormCard from './HomeFormCard';
-import { TypeAnimation } from 'react-type-animation';
-
-
-
 
 
 export default function MainLandingpage() {
+
+
   return (
-    <div  >
-      <div style={{ position: "relative" }}>
-        <img src={img} alt="Responsive" className="responsive-image" />
-        <h1 className='text-overlay' >
-          <TypeAnimation
-            sequence={[
-              // Same substring at the start will only be typed out once, initially
-              'Welcome to Online Exam',
-              1000,
-              // wait 1s before replacing "Mice" with "Hamsters"
-              'your one-stop destination',
-              1000,
-              'for creating and taking tests online',
-              1000,
+    <div  className='landingbody'>
 
-
-            ]}
-            wrapper="div"
-            speed={250}
-            // style={{ fontSize: '2em', display: 'inline-block' }}
-            repeat={Infinity}
-          />
-        </h1>
-
-
+      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src={img1} className="d-block w-100" alt="Slide 1" />
+          </div>
+          <div className="carousel-item">
+            <img src={img2} className="d-block w-100" alt="Slide 2" />
+          </div>
+          <div className="carousel-item">
+            <img src={img3} className="d-block w-100" alt="Slide 3" />
+          </div>
+        </div>
       </div>
 
 
 
+      <div className='section'>
+        <div className="box-container">
 
-
-      <div className='tools'>
-        <div className='overlay-container'>
-          <div className="card " >
-            <div className=" text-center p-3 ">
-              {/* <i className="fa fa-3x fa-image icon-color mb-2"></i> */}
-              <span class="material-symbols-outlined icon-color mb-2">
-                calculate
-              </span>
-              <h5 className="mb-1">Quantitative Aptitude</h5>
-              {/* <p className="m-0">Reduce Your Image Size Using This Tool</p> */}
+          <div className="box card">
+            <span className="material-symbols-outlined icon">
+              calculate
+            </span>
+            <div>
+              <h4 className='text-center'>Quantitative Aptitude</h4>
             </div>
           </div>
-        </div>
-        <div className='overlay-container '>
-          <div className="card " >
-            <div className="  text-center p-3">
 
-              <span class="material-symbols-outlined icon-color mb-2">
-                psychology
-              </span>
-              {/* <i className="fa fa-3x fa-object-group icon-color mb-2"></i> */}
-              <h5 className="mb-1">Psychology</h5>
-              {/* <p className="m-0">Convert your Image To One PDF</p> */}
+          <div className="box card">
+            {/* <i className="fas fa-user-graduate"></i> */}
+
+            <span className="material-symbols-outlined icon">
+              psychology
+            </span>
+            <div>
+              <h4>Logical Reasoning</h4>
             </div>
           </div>
-        </div>
-        <div className='overlay-container'>
-          <div className="card " >
-            <div className=" text-center p-3">
 
-              <span class="material-symbols-outlined icon-color mb-2">
-                science
-              </span>
-              {/* <i className="fa fa-3x fa-file-pdf-o icon-color mb-2"></i> */}
-              <h5 className="mb-1">Science</h5>
-              {/* <p className="m-0">Reduce Your PDF Size Using This Tool</p> */}
+          <div className="box card">
+            <span class="material-symbols-outlined icon">
+              public
+            </span>
+            <div>
+              <h4>Current Affairs</h4>
             </div>
           </div>
-        </div>
-        <div className='overlay-container '>
-          <div className="card " >
-            <div className="  text-center p-3">
 
-
-              <span class="material-symbols-outlined icon-color mb-2">
-                experiment
-              </span>
-              {/* <i className="fa fa-3x fa-object-ungroup icon-color mb-2"></i> */}
-              <h5 className="mb-1">Chemistry</h5>
-              {/* <p className="m-0">Convert Your PDF To Image</p> */}
+          <div className="box card">
+            <span class="material-symbols-outlined icon">
+              network_intelligence_history
+            </span>
+            <div>
+              <h4>History</h4>
             </div>
           </div>
+
         </div>
-
-
-
-
 
       </div>
 
@@ -110,35 +83,35 @@ export default function MainLandingpage() {
 
           <ul>
             <li>
-            MBA Test Series<span className='badge bg-danger mx-2 blink'>
+              MBA Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
             <li>
-            RRB Test Series<span className='badge bg-danger mx-2 blink'>
+              RRB Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
             <li>
-            MPSE Test Series<span className='badge bg-danger mx-2 blink'>
+              MPSE Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
             <li>
-            JEE Test Series <span className='badge bg-danger mx-2 blink'>
+              JEE Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
             <li>
-            NEET Test Series <span className='badge bg-danger mx-2 blink'>
+              NEET Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
             <li>
-            IELTS Test Series <span className='badge bg-danger mx-2 blink'>
+              IELTS Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
@@ -146,6 +119,8 @@ export default function MainLandingpage() {
         </div>
 
       </div>
+
+
 
 
       <div >
