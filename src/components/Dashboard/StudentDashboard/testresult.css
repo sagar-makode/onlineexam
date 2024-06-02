@@ -139,15 +139,17 @@ table.table .avatar {
 	margin-right: 10px;
 }
 
-.pagination {
+/* .pagination {
 	float: right;
 	margin: 0 0 5px;
-}
+} */
 
-.pagination li a {
+.pagination{
 	border: none;
+	float: right;
+	margin: 0 0 5px;
 	font-size: 13px;
-	min-width: 30px;
+	min-width: 24px;
 	min-height: 30px;
 	color: #999;
 	margin: 0 2px;

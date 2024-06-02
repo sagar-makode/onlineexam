@@ -14,6 +14,7 @@ import ALLCreater from './ALLCreater';
 import AuthContext from '../../Navbar/AuthContext';
 import UserProfile from './UserProfile';
 import { fetchStudentSubcriptions } from '../../actions/subscribers';
+import Index from './Index';
 
 function StudentDashBoard() {
 
@@ -235,7 +236,7 @@ function StudentDashBoard() {
               <div>
                 {/* Dashboard content */}
                 <h1>Dashboard Content</h1>
-                {/* <SmallStudentDahboard/> */}
+                <Index/>
 
               </div>
             )}

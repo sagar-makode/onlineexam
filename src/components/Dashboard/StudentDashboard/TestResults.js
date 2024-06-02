@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import './testresult.css'
+import { Pagination } from 'react-bootstrap';
 
 function TestResults() {
 
 
   const studenttestresult = useSelector(state => state.tests.studenttestresult);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = studenttestresult.slice(indexOfFirstItem, indexOfLastItem);
+  
+  const totalItems = studenttestresult.length;
+  
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
 
   return (
     <div>
@@ -45,7 +56,7 @@ function TestResults() {
                 <tbody style={{ fontSize: "18px" }}>
                   {studenttestresult.map((result, index) => (
                     <tr key={index}>
-                      <th scope="row">{index + 1}</th>
+                      <th scope="row">{index + 1 + (currentPage - 1) * itemsPerPage}</th>
                       <td>{result.testName}</td>
                       <td>{result.correctAnswers}</td>
                       <td>{result.totalQuestions}</td>
@@ -57,17 +68,20 @@ function TestResults() {
                 </tbody>
               </table>
               <div className="clearfix">
-                <div className="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                <ul className="pagination">
-                  <li className="page-item disabled"><a href="/">Previous</a></li>
-                  <li className="page-item"><a href="/" className="page-link">1</a></li>
-                  <li className="page-item"><a href="/" className="page-link">2</a></li>
-                  <li className="page-item active"><a href="/" className="page-link">3</a></li>
-                  <li className="page-item"><a href="/" className="page-link">4</a></li>
-                  <li className="page-item"><a href="/" className="page-link">5</a></li>
-                  <li className="page-item"><a href="/" className="page-link">Next</a></li>
-                </ul>
-              </div>
+              <div className="hint-text">
+                  Showing <b>{Math.min(currentItems.length, itemsPerPage)}</b> out of <b>{totalItems}</b> entries
+                </div>
+                <Pagination className="d-flex justify-content-center pagination">
+                  <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+                  {[...Array(totalPages)].map((_, index) => (
+                    <Pagination.Item key={index} onClick={() => setCurrentPage(index + 1)} active={index + 1 === currentPage}>
+                      {index + 1}
+                    </Pagination.Item>
+                  ))}
+                  <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+                </Pagination>
+             
+            </div>
             </div>
           </div>
         </div>

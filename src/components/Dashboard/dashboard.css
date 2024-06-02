@@ -345,3 +345,6 @@
   gap: auto; /* Adjust gap as needed */
 }
 
+.custom-icon {
+  font-size:4rem; /* Adjust this value to match the text size */
+}

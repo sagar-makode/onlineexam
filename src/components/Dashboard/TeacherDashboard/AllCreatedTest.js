@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeacherCreatedTests } from '../../actions/testActions';
-import Trash from '../../assets/trash img.jpg'
 import { DeleteTestDataTemp } from '../../actions/testActions';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
@@ -21,9 +20,9 @@ function AllCreatedTest() {
     },[dispatch,clickOnDelete,deleteTestMsg]);
 
 
-    const handleDeleteTest=(event)=>{
+    const handleDeleteTest=(testId)=>{
         const dispatchedData={
-            testId:event.target.id
+            testId:testId
         }
         Swal.fire({
             title: "Are you sure?",
@@ -60,7 +59,19 @@ function AllCreatedTest() {
                             <div className="card-body">
                                 <div className='d-flex justify-content-between'>
                                     <h5 className="card-title">Test Name: {test.testName} </h5>
-                                    <img src={Trash} style={{ height: "2.5rem", width: "2.5rem" }} id={test._id} name={test.testName} onClick={handleDeleteTest} alt='Trash' />
+                                    <button style={{ border: "gray", background: "white" }}
+                                                    type="button"
+                                                    onClick={()=>handleDeleteTest(test._id)}
+                                                    id={test._id} 
+                                                    name={test.testName}
+                                              
+                                                >
+                                                    <span className="material-symbols-outlined text-danger" style={{ fontSize: "35px" }}>
+                                                        delete
+                                                    </span>
+                                                </button>
+                                                
+                                    {/* <img src={Trash} style={{ height: "2.5rem", width: "2.5rem" }} id={test._id} name={test.testName} onClick={handleDeleteTest} alt='Trash' /> */}
                                 </div>
                                 <p className="card-text">Category: {test.category}</p>
                                 <p className="card-text">Total Questions: {test.questions.length}</p>

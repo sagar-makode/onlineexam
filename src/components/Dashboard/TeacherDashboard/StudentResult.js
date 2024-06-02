@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeacherCreatedTests } from '../../actions/testActions';
+import { Pagination } from 'react-bootstrap';
 
 function StudentResult() {
 
 
   const studenttresultforteacher = useSelector(state => state.tests.teacherCreatedTest);
 
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = studenttresultforteacher.slice(indexOfFirstItem, indexOfLastItem);
+  
+  const totalItems = studenttresultforteacher.length;
+  
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,28 +85,25 @@ function StudentResult() {
                   </tbody>
                 </table>
                 <div className="clearfix">
-                  <div className="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                  <ul className="pagination">
-                    <li className="page-item disabled"><a href="/">Previous</a></li>
-                    <li className="page-item"><a href="/" className="page-link">1</a></li>
-                    <li className="page-item"><a href="/" className="page-link">2</a></li>
-                    <li className="page-item active"><a href="/" className="page-link">3</a></li>
-                    <li className="page-item"><a href="/" className="page-link">4</a></li>
-                    <li className="page-item"><a href="/" className="page-link">5</a></li>
-                    <li className="page-item"><a href="/" className="page-link">Next</a></li>
-                  </ul>
+              <div className="hint-text">
+                  Showing <b>{Math.min(currentItems.length, itemsPerPage)}</b> out of <b>{totalItems}</b> entries
                 </div>
+                <Pagination className="d-flex justify-content-center pagination">
+                  <Pagination.Prev disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} />
+                  {[...Array(totalPages)].map((_, index) => (
+                    <Pagination.Item key={index} onClick={() => setCurrentPage(index + 1)} active={index + 1 === currentPage}>
+                      {index + 1}
+                    </Pagination.Item>
+                  ))}
+                  <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
+                </Pagination>
+             
+            </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
 
 
     </div>

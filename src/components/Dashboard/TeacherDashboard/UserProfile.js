@@ -12,7 +12,6 @@ function UserProfile() {
     const trachertestData = useSelector(state => state.tests.teacherCreatedTest);
     const studenttresultforteacher = useSelector(state => state.tests.teacherCreatedTest);
 
-console.log(studenttresultforteacher);
     const [isEditing, setIsEditing] = useState(false); // State to track editing mode
     const [errors, setErrors] = useState({});
     const [showCropModal, setShowCropModal] = useState(false);
@@ -39,8 +38,7 @@ console.log(studenttresultforteacher);
         return { passCount, failCount };
     }
     const { passCount, failCount } = countPassFailStudents(studenttresultforteacher);
-    console.log("Pass count:", passCount);
-    console.log("Fail count:", failCount);
+
 
     const updateprofileSucess = useSelector(state => state.user.updateprofileSucess);
 

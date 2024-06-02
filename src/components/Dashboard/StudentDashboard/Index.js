@@ -1,46 +1,26 @@
-
-
 import React, { useState } from 'react'
-import { Card, Row, Col, Pagination } from "react-bootstrap";
+import { Card, Row,Col,Pagination} from "react-bootstrap";
 import { useSelector } from 'react-redux';
 
 
 
 function Index() {
 
-  const teacherProfileData = useSelector(state => state.dashboard.userData);
-  const studenttresultforteacher = useSelector(state => state.tests.teacherCreatedTest);
+const studentSubcriptions = useSelector(state => state.subcriptiondata.studentSubcriptions);
+const studenttestresult = useSelector(state => state.tests.studenttestresult);
+const passedTestsCount = studenttestresult.filter(test => test.passStatus === "Pass").length;
+const failedTestsCount = studenttestresult.filter(test => test.passStatus === "Fail").length;
 
-  const trachertestData = useSelector(state => state.tests.teacherCreatedTest);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage] = useState(10);
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = trachertestData.slice(indexOfFirstItem, indexOfLastItem);
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = studenttestresult.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalItems = trachertestData.length;
+const totalItems = studenttestresult.length;
 
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  function countPassFailStudents(studenttresultforteacher) {
-    let passCount = 0;
-    let failCount = 0;
-    studenttresultforteacher.forEach(student => {
-      student.submitedBy.forEach(status => {
-        console.log("call 1");
-        if (status.passStatus === "Pass") {
-          passCount++;
-          console.log(passCount);
-        } else if (status.passStatus === "Fail") {
-          failCount++;
-        }
-      })
-    })
-
-    return { passCount, failCount };
-  }
-  const { passCount, failCount } = countPassFailStudents(studenttresultforteacher);
-
+const totalPages = Math.ceil(totalItems / itemsPerPage);
 
 
   return (
@@ -57,8 +37,8 @@ function Index() {
                 </Col>
                 <Col xs="7" className="d-flex flex-column justify-content-center">
                   <div className="numbers">
-                    <p className="card-category">Subscribers</p>
-                    <Card.Title as="h4">{teacherProfileData.subscribers.length}</Card.Title>
+                    <p className="card-category">Subscriptions</p>
+                    <Card.Title as="h4">{studentSubcriptions.length}</Card.Title>
                   </div>
                 </Col>
               </Row>
@@ -76,8 +56,8 @@ function Index() {
                 </Col>
                 <Col xs="7" className="d-flex flex-column justify-content-center">
                   <div className="numbers">
-                    <p className="card-category">Test Created</p>
-                    <Card.Title as="h4">{trachertestData.length}</Card.Title>
+                    <p className="card-category">Test Attempted</p>
+                    <Card.Title as="h4">{studenttestresult.length}</Card.Title>
                   </div>
                 </Col>
               </Row>
@@ -95,8 +75,8 @@ function Index() {
                 </Col>
                 <Col xs="7" className="d-flex flex-column justify-content-center">
                   <div className="numbers">
-                    <p className="card-category">Passed Student</p>
-                    <Card.Title as="h4">{passCount}</Card.Title>
+                    <p className="card-category">Test Passed</p>
+                    <Card.Title as="h4">{passedTestsCount}</Card.Title>
                   </div>
                 </Col>
               </Row>
@@ -114,8 +94,8 @@ function Index() {
                 </Col>
                 <Col xs="7" className="d-flex flex-column justify-content-center">
                   <div className="numbers">
-                    <p className="card-category">Failed Student</p>
-                    <Card.Title as="h4">{failCount}</Card.Title>
+                    <p className="card-category">Test Failed</p>
+                    <Card.Title as="h4">{failedTestsCount}</Card.Title>
                   </div>
                 </Col>
               </Row>
@@ -125,30 +105,23 @@ function Index() {
       </Row>
 
 
-      <h3>Created Exams</h3>
+      <h3>Attempted Exams</h3>
       <div className='main-content-table' >
 
         <div className="row">
 
           <div className="table-responsive">
             <div className="table-wrapper">
-              {/* <div className="table-title">
-                <div className="row">
-                  <div className="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-                    <h2 className="ml-lg-2">Manage Employees</h2>
-                  </div>
-                 
-                </div>
-              </div> */}
               <table className="table table-striped table-hover" style={{ textAlign: "center" }}>
                 <thead>
                   <tr>
-                    <th id='table-header' scope="col">#</th>
+                    <th  id='table-header' scope="col">#</th>
                     <th id='table-header' scope="col">Test Name</th>
-                    <th id='table-header' scope="col">Category</th>
-                    <th id='table-header' scope="col">Duration</th>
-                    <th id='table-header' scope="col">Total Marks</th>
-                    <th id='table-header' scope="col">Submissions</th>
+                    <th  id='table-header' scope="col">Correct Answers</th>
+                    <th  id='table-header' scope="col">Total Questions</th>
+                    <th  id='table-header' scope="col">Obtained Marks</th>
+                    <th  id='table-header' scope="col">Total Marks</th>
+                    <th  id='table-header' scope="col">Status</th>
 
                   </tr>
                 </thead>
@@ -158,16 +131,17 @@ function Index() {
                     <tr key={index}>
                       <th scope="row">{index + 1 + (currentPage - 1) * itemsPerPage}</th>
                       <td>{test.testName}</td>
-                      <td>{test.category}</td>
-                      <td>{test.totalMinutes}</td>
+                      <td>{test.correctAnswers}</td>
+                      <td>{test.totalQuestions}</td>
+                      <td>{test.obtainedMarks}</td>
                       <td>{test.totalMarks}</td>
-                      <td>{test.submitedBy.length}</td>
+                      <td>{test.passStatus}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div className="clearfix">
-                <div className="hint-text">
+              <div className="hint-text">
                   Showing <b>{Math.min(currentItems.length, itemsPerPage)}</b> out of <b>{totalItems}</b> entries
                 </div>
                 <Pagination className="d-flex justify-content-center pagination">
@@ -179,8 +153,8 @@ function Index() {
                   ))}
                   <Pagination.Next disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} />
                 </Pagination>
-
-              </div>
+             
+            </div>
             </div>
           </div>
         </div>
