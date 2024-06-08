@@ -78,24 +78,24 @@ function HomeFormCard() {
                         const creatorImage = creator ? creator.imagepath : profileimag;
                         const categoryImage = getCategoryImage(tests.category);
                         return (
-                            <div key={index} className="col-md-6 col-sm-6 col-lg-3 card-custom">
+                            <div key={index} className="col-6 col-md-4 col-lg-3 card-custom">
                                 <div className="card">
                                     <div className="card-body">
-                                        <div className="d-flex align-items-center">
+                                        <div className="d-flex align-items-start ">
                                             <div className="mr-2">
                                                 <img src={creatorImage} className="avatar-img" alt="Avatar" />
                                             </div>
                                             <div>
-                                                <h6 className="mb-0">{tests.teacherName}</h6>
-                                                <small className="text-muted">Subscribers : {creator?.subscribers.length}</small>
+                                                <p className="m-0 card-user-name">{tests.teacherName}</p>
+                                                <p className="m-0 text-muted card-user-subcriber">Subscribers : {creator?.subscribers.length}</p>
                                             </div>
                                         </div>
-                                        <img src={categoryImage} className="card-img-top mt-3" alt="HTML Tutorial" />
-                                        <h5 className="card-title mt-3">Test Name : {tests.testName}</h5>
-                                        <p className="card-text mb-1"><small className="text-muted">Total Duration : {tests.totalMinutes} Minutes</small></p>
-                                        <p className="card-text mb-3"><small className="text-muted">Category : {tests.category}</small></p>
+                                        <img src={categoryImage} className="card-img-top" alt="HTML Tutorial" />
+                                        <div className="card-title">Test Name : {tests.testName}</div>
+                                        <p className="card-text"><small className="text-muted">Duration : {tests.totalMinutes} Minutes</small></p>
+                                        <p className="card-text"><small className="text-muted">Category : {tests.category}</small></p>
 
-                                        <button className='btn btn-primary'>Start Test</button>
+                                        <button className='btn btn-primary card-text-button mt-1'>Start Test</button>
                                     </div>
                                 </div>
                             </div>
@@ -105,13 +105,13 @@ function HomeFormCard() {
                 {!showAll && <div className="text-center p-3"><button className="btn btn-primary" onClick={() => setShowAll(true)}>Show All</button></div>}
 
 
-                <div className='p-3'>
+                <div className='p-3 creator-list-container'>
                     <h1>ALL Creator List</h1>
-                    <div>
+                    <div className="creator-list" >
                         {visibleCreators.map((creater, index) => (
-                            <div key={index} style={{ display: 'inline-block', margin: '10px 10px' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    <img src={creater.imagepath ? creater.imagepath : profileimag} alt="Creator" style={{ borderRadius: '50%', width: '100px', height: '100px' }} />
+                            <div key={index} className="creator-item">
+                                <div className="creator-item-content">
+                                    <img src={creater.imagepath ? creater.imagepath : profileimag} alt="Creator" className="creator-item-img" />
                                     <div>{creater.name}</div>
                                     <div>Subscribers: {creater.subscribers.length}</div>
                                 </div>

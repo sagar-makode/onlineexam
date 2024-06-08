@@ -12,9 +12,9 @@ export default function MainLandingpage() {
 
 
   return (
-    <div  className='landingbody'>
+    <div className='landingbody'>
 
-      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+      <div id="carouselExampleSlidesOnly" className="carousel slide mb-3 mt-3 mainimage" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src={img1} className="d-block w-100" alt="Slide 1" />
@@ -26,6 +26,14 @@ export default function MainLandingpage() {
             <img src={img3} className="d-block w-100" alt="Slide 3" />
           </div>
         </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
       </div>
 
 
@@ -33,43 +41,48 @@ export default function MainLandingpage() {
       <div className='section'>
         <div className="box-container">
 
-          <div className="box card">
-            <span className="material-symbols-outlined icon">
+
+
+          <div className="box cards">
+            <span className="material-symbols-outlined homeicons">
               calculate
             </span>
             <div>
-              <h4 className='text-center'>Quantitative Aptitude</h4>
+              <h4 className='cardtext text-center' >Aptitude</h4>
             </div>
           </div>
 
-          <div className="box card">
-            {/* <i className="fas fa-user-graduate"></i> */}
-
-            <span className="material-symbols-outlined icon">
-              psychology
-            </span>
-            <div>
-              <h4>Logical Reasoning</h4>
-            </div>
-          </div>
-
-          <div className="box card">
-            <span class="material-symbols-outlined icon">
-              public
-            </span>
-            <div>
-              <h4>Current Affairs</h4>
-            </div>
-          </div>
-
-          <div className="box card">
-            <span class="material-symbols-outlined icon">
+          <div className="box cards">
+            <span class="material-symbols-outlined homeicons">
               network_intelligence_history
             </span>
             <div>
-              <h4>History</h4>
+              <h4 className='cardtext text-center'>History</h4>
             </div>
           </div>
+
+          <div className="box cards">
+            {/* <i className="fas fa-user-graduate"></i> */}
+
+            <span className="material-symbols-outlined homeicons">
+              psychology
+            </span>
+            <div>
+              <h4 className='cardtext text-center' >Logical Reasoning</h4>
+            </div>
+          </div>
+
+
+          <div className="box cards">
+            <span class="material-symbols-outlined homeicons">
+              public
+            </span>
+            <div>
+              <h4 className='cardtext text-center'>Current Affairs</h4>
+            </div>
+          </div>
+
+
 
         </div>
 
@@ -128,8 +141,8 @@ export default function MainLandingpage() {
           <div className='text-center'>
             <div>
               <h4><span style={{ color: "red" }}>-- </span>Online Test<span style={{ color: "red" }}> --</span></h4>
-              <h2 className='mb-4'>Enter the world of real-time assessment with our live exam platform. </h2>
-              <h5 className='mb-4'> "Join thousands of students in experiencing the thrill of live exams from the comfort of your home"</h5>
+              <h4 className='home-text'>Enter the world of real-time assessment with our live exam platform. </h4>
+              <h6 className='home-text2'> "Join thousands of students in experiencing the thrill of live exams from the comfort of your home"</h6>
             </div>
 
           </div>

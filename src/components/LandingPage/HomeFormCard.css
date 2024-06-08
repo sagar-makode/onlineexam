@@ -15,12 +15,86 @@
 .card-body {
    position: relative;
 }
-
-.card-body .d-flex {
-   align-items: center;
+.card-text{
+  margin: 0;
 }
 
 .card-img-top {
+  margin-top: .7rem;
    width: 100%;
    height: auto;
+}
+
+.card-title{
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: .5rem;
+}
+
+@media (max-width: 768px) {
+  .card-user-name{
+
+     font-size: 13px;
+  }
+  .home-card{
+     padding: 0 1.1rem !important
+  }
+  .card-user-subcriber{
+     font-size: 11px;
+  }
+  .card-text{
+     font-size: 13px;
+     margin: 0;
+   }
+  .card-text-button{
+     font-size: 13px;
+     padding: 5px;
+
+
+  }
+
+
+   
+.avatar-img {
+  width: 32px; /* Adjust size as needed */
+  height: 32px; /* Adjust size as needed */
+  border-radius: 50%;
+  margin-right: .6rem;
+}
+
+}
+
+.creator-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.creator-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Add space between items */
+}
+
+.creator-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+
+}
+
+.creator-item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.creator-item-img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
 }
