@@ -1,19 +1,37 @@
 .navbar {
-    overflow: hidden; /* Hide any overflowing content */
-    /* background-color: #2e2748;
-     */
-     background-color: #0099ff;
-     /* background-image: url('../../assets/loginSignupImage.png');  */
-   /* background-size: cover; */
-  }
+  overflow: hidden; /* Hide any overflowing content */
+  /* background-color: #2e2748;
+   */
+   background-color: #0099ff;
+   /* background-image: url('../../assets/loginSignupImage.png');  */
+ /* background-size: cover; */
+}
 
-  .logo-image {
-    width: 70px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin: 0px; /* Adjust margin as needed */
-  }
+.logo-image {
+  width: 70px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0px; /* Adjust margin as needed */
+}
 
-  /* .navbar-brand {
-  display: flex;
-  align-items: flex-end;
-} */
+.logo-heading-sub{
+  font-size: 12px;
+}
+.logo-heading{
+  font-size: 20px; 
+}
+
+@media (max-width: 768px) {
+
+.logo-image {
+  width: 40px;
+}
+.logo-heading{
+  font-size: 18px !important; 
+}
+.logo-heading-sub{
+  font-size: 10px !important;
+}
+
+
+
+}

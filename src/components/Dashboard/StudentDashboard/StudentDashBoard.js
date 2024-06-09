@@ -14,6 +14,7 @@ import ALLCreater from './ALLCreater';
 import AuthContext from '../../Navbar/AuthContext';
 import UserProfile from './UserProfile';
 import { fetchStudentSubcriptions } from '../../actions/subscribers';
+import GetfirstAndLastName from '../../common/GetfirstAndLastName';
 import Index from './Index';
 
 function StudentDashBoard() {
@@ -51,7 +52,7 @@ function StudentDashBoard() {
   }, [dispatch]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
 
   const sidebarRef = useRef(null);
 
@@ -73,9 +74,9 @@ function StudentDashBoard() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
 
 
@@ -88,7 +89,7 @@ function StudentDashBoard() {
         </Spinner>
       ) : (
 
-        <div className={`main-container ${isDarkMode ? 'dasboardbodydark' : 'dasboardbody'}`}>
+        <div className='main-container dasboardbody'>
           <nav className={`sidebar ${isSidebarOpen ? 'open' : 'close'}`} ref={sidebarRef}>
             <header>
               <div className="image-text">
@@ -97,7 +98,7 @@ function StudentDashBoard() {
                 </span>
 
                 <div className="text logo-text">
-                  <span className="name">{studentProfileData.name}</span>
+                  <span className="name">{GetfirstAndLastName(studentProfileData.name)}</span>
                   <span className="profession">{studentProfileData.role}</span>
                 </div>
               </div>
@@ -193,7 +194,7 @@ function StudentDashBoard() {
                     <Link >
 
 
-                      <span class="material-symbols-outlined icon">
+                      <span className="material-symbols-outlined icon">
                         account_circle
                       </span>
 
@@ -212,7 +213,7 @@ function StudentDashBoard() {
                   </Link>
                 </li>
 
-                <li className="mode">
+                {/* <li className="mode">
                   <div className="sun-moon">
                     <i className='bx bx-moon icon moon'></i>
                     <i className='bx bx-sun icon sun'></i>
@@ -222,7 +223,7 @@ function StudentDashBoard() {
                   <div className="toggle-switch" onClick={toggleDarkMode}>
                     <span className="switch" ></span>
                   </div>
-                </li>
+                </li> */}
 
               </div>
             </div>
@@ -236,6 +237,7 @@ function StudentDashBoard() {
               <div>
                 {/* Dashboard content */}
                 <h1>Dashboard Content</h1>
+                {/* <SmallStudentDahboard/> */}
                 <Index/>
 
               </div>
@@ -248,8 +250,8 @@ function StudentDashBoard() {
             )}
             {activeTab === 'testSeries' && (
               <div>
-                {/* Test Series content */}
-                <TestSeries />
+                Test Series
+                {/* <TestSeries /> */}
               </div>
             )}
 

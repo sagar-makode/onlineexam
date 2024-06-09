@@ -9,6 +9,9 @@ import Dashboard from './components/Dashboard/Dashboard';
 import TestResult from './components/userexam/TestResult';
 import Footer from './components/Footer/Footer';
 import { AuthProvider } from './components/Navbar/AuthContext';
+import AllTestRecords from './components/LandingPage/AllTestRecords';
+import AllTopCreators from './components/LandingPage/AllTopCreators';
+
 
 
 function App() {
@@ -29,6 +32,8 @@ function App() {
             <Route exact path="/login" element={<SignIn/>} />
             <Route exact path="/dashboard" element={<Dashboard/>} />
             <Route exact path="/result" element={<TestResult/>} />
+            <Route exact path="/alltest" element={<AllTestRecords/>} />
+            <Route exact path="/allcreators" element={<AllTopCreators/>} />
           </Routes>
           <Footer/>
           </AuthProvider>

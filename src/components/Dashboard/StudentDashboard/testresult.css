@@ -5,6 +5,8 @@
     }
 	.table-responsive{
 		padding: 2px;
+		/* padding-left: calc(var(--bs-gutter-x)* .5); */
+
 	}
 	#table-header {
 		padding: 5px 15px !important;;
@@ -139,16 +141,12 @@ table.table .avatar {
 	margin-right: 10px;
 }
 
-/* .pagination {
-	float: right;
-	margin: 0 0 5px;
-} */
 
-.pagination{
+.pagination {
 	border: none;
+	font-size: 13px;
 	float: right;
 	margin: 0 0 5px;
-	font-size: 13px;
 	min-width: 24px;
 	min-height: 30px;
 	color: #999;

@@ -40,9 +40,9 @@ export default function Navbar() {
                     <Link className="navbar-brand" style={{ display: "flex", alignItems: "center", fontSize: "20px" }} to="/">
                         <img src={logopng} alt="Logo" className='logo-image' style={{ marginRight: "10px" }} />
                         <div>
-                            <strong>ONLINE EXAM</strong>
+                            <strong className='logo-heading'>ONLINE EXAM</strong>
                             <br />
-                            <div style={{ fontSize: "12px" }}>Test Series | Live Exam</div>
+                            <div className='logo-heading-sub'>Test Series | Live Exam</div>
                         </div>
                     </Link>
 

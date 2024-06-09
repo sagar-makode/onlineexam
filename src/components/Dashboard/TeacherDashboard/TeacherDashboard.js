@@ -36,17 +36,18 @@ function TeacherDashboard() {
   
   
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    // const [isDarkMode, setIsDarkMode] = useState(false);
   
   
     const toggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen);
     };
   
-    const toggleDarkMode = () => {
-      setIsDarkMode(!isDarkMode);
-    };
+    // const toggleDarkMode = () => {
+    //   setIsDarkMode(!isDarkMode);
+    // };
     
+  
 
   return (
     <div>
@@ -56,7 +57,7 @@ function TeacherDashboard() {
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-      ) : (   <div className={`main-container ${isDarkMode ? 'dasboardbodydark' : 'dasboardbody'}`}>
+      ) : (   <div className='main-container dasboardbody'>
       <nav className={`sidebar ${isSidebarOpen ? 'open' : 'close'}`}>
         <header>
           <div className="image-text">
@@ -65,6 +66,7 @@ function TeacherDashboard() {
             </span>
 
             <div className="text logo-text">
+          
               <span className="name">{GetfirstAndLastName(teacherProfileData.name)}</span>
               <span className="profession">{teacherProfileData.role}</span>
             </div>
@@ -139,7 +141,7 @@ function TeacherDashboard() {
                     <Link >
 
 
-                      <span class="material-symbols-outlined icon">
+                      <span className="material-symbols-outlined icon">
                         account_circle
                       </span>
 
@@ -168,7 +170,7 @@ function TeacherDashboard() {
               </li>
               
 
-            <li className="mode">
+            {/* <li className="mode">
               <div className="sun-moon">
                 <i className='bx bx-moon icon moon'></i>
                 <i className='bx bx-sun icon sun'></i>
@@ -178,7 +180,7 @@ function TeacherDashboard() {
               <div className="toggle-switch" onClick={toggleDarkMode}>
                 <span className="switch" ></span>
               </div>
-            </li>
+            </li> */}
 
           </div>
         </div>

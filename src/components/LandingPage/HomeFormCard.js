@@ -6,15 +6,17 @@ import profileimag from "../assets/profile image.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTests } from '../actions/testActions';
 import { fetchAllCretaterforHomePage } from '../actions/landingPageActions';
-import Quantitative_Aptitude from "../assets/all_card_image/Quantitative Aptitude.jpg" 
-import History from "../assets/all_card_image/History.jpg" 
-import Logical_reasoning from "../assets/all_card_image/Logical reasoning.jpg" 
-import Computer from "../assets/all_card_image/Computer.jpg" 
-import Economics from "../assets/all_card_image/Economics.jpg" 
-import Geography from "../assets/all_card_image/Economics.jpg" 
-import Mathematics from "../assets/all_card_image/Mathematics.jpg" 
-import Current_affairs from "../assets/all_card_image/Current affairs.jpg" 
-import General_knowledge from "../assets/all_card_image/General knowledge.jpg" 
+import Quantitative_Aptitude from "../assets/all_card_image/Quantitative Aptitude.jpg"
+import History from "../assets/all_card_image/History.jpg"
+import Logical_reasoning from "../assets/all_card_image/Logical reasoning.jpg"
+import Computer from "../assets/all_card_image/Computer.jpg"
+import Economics from "../assets/all_card_image/Economics.jpg"
+import Geography from "../assets/all_card_image/Economics.jpg"
+import Mathematics from "../assets/all_card_image/Mathematics.jpg"
+import Current_affairs from "../assets/all_card_image/Current affairs.jpg"
+import General_knowledge from "../assets/all_card_image/General knowledge.jpg"
+import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,6 +36,7 @@ function HomeFormCard() {
     }, [dispatch]);
     const [showAll, setShowAll] = useState(false);
     const [showAllCreators, setShowAllCreators] = useState(false);
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
     const getCategoryImage = (category) => {
         switch (category) {
@@ -56,7 +59,7 @@ function HomeFormCard() {
             case 'General knowledge':
                 return General_knowledge;
             default:
-                return other; 
+                return other;
         }
     };
 
@@ -64,12 +67,19 @@ function HomeFormCard() {
 
     const allCreterData = useSelector(state => state.landingpagedata.allCreterData);
     const visibleTests = showAll ? testsData : testsData.slice(0, 4);
-    const visibleCreators = showAllCreators ? allCreterData : allCreterData.slice(0, 10);
+    // const visibleCreators = showAllCreators ? allCreterData : allCreterData.slice(0, 10);
+    const maxCreatorsToShow = showAllCreators ? allCreterData.length : isMobile ? 6 : 8;
 
-
+    const visibleCreators = allCreterData.slice(0, maxCreatorsToShow);
+    const navigate = useNavigate()
+    const handelShowallTest = () => {
+        navigate('/alltest')
+    }
+    const handelShowallCreators = () => {
+        navigate('/allcreators')
+    }
     return (
         <>
-
             <div className="container mt-4 home-card">
                 <div className="row">
                     {visibleTests.map((tests, index) => {
@@ -102,23 +112,23 @@ function HomeFormCard() {
                         )
                     })}
                 </div>
-                {!showAll && <div className="text-center p-3"><button className="btn btn-primary" onClick={() => setShowAll(true)}>Show All</button></div>}
+                {!showAll && <div className="text-center mb-2"><button className="btn btn-primary" onClick={handelShowallTest}>Show All</button></div>}
 
 
-                <div className='p-3 creator-list-container'>
-                    <h1>ALL Creator List</h1>
+                <div className='creator-list-container'>
+                    <h4><span style={{ color: "red" }}>-- </span>ALL Top Creators<span style={{ color: "red" }}> --</span></h4>
                     <div className="creator-list" >
                         {visibleCreators.map((creater, index) => (
                             <div key={index} className="creator-item">
                                 <div className="creator-item-content">
                                     <img src={creater.imagepath ? creater.imagepath : profileimag} alt="Creator" className="creator-item-img" />
                                     <div>{creater.name}</div>
-                                    <div>Subscribers: {creater.subscribers.length}</div>
+                                    <div className='sub'>Subscribers: {creater.subscribers.length}</div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    {!showAllCreators && <div className="text-center p-3"><button className="btn btn-primary" onClick={() => setShowAllCreators(true)}>Show All Creators</button></div>}
+                    {!showAllCreators && <div className="text-center p-3"><button className="btn btn-primary" onClick={handelShowallCreators}>Show All Creators</button></div>}
 
                 </div>
             </div>

@@ -30,8 +30,8 @@ function Footer() {
                         <section className="">
                             <div className="row">
                                 {/* col-lg-3 col-md-4 col-sm-6  */}
-                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
-                                    <h5 className=" mb-4 font-weight-bold " style={{ textDecoration: 'underline' }}>Quick Links</h5>
+                                <div className="col-lg-3 col-md-4 col-sm-6 col-6 mx-auto mt-3 footertitle">
+                                    <h5 className="  font-weight-bold " style={{ textDecoration: 'underline' }}>Quick Links</h5>
                                     <p>
                                         <Link to="/home" className="text-white" style={{ textDecoration: 'none' }} >
                                             <i className="fa fa-home" ></i> Home
@@ -61,8 +61,8 @@ function Footer() {
 
 
 
-                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
-                                    <h5 className=" mb-4 font-weight-bold " style={{ textDecoration: 'underline' }}>Test Links</h5>
+                                <div className="col-lg-3 col-md-4 col-sm-6 col-6  mx-auto mt-3 footertitle">
+                                    <h5 className=" font-weight-bold " style={{ textDecoration: 'underline' }}>Test Links</h5>
 
 
                                     <p>
@@ -96,8 +96,8 @@ function Footer() {
                                 </div>
 
 
-                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
-                                    <h5 className=" mb-4 font-weight-bold" style={{ textDecoration: 'underline', }}>
+                                <div className="col-lg-3 col-md-4 col-sm-6  col-6 mx-auto mt-3 footertitle">
+                                    <h5 className="font-weight-bold" style={{ textDecoration: 'underline', }}>
                                     Help & Support
                                     </h5>
                                     <p>
@@ -122,14 +122,13 @@ function Footer() {
                                         </Link>
                                     </p>
 
-                                    <hr className="w-100 clearfix d-md-none" />
                                 </div>
 
 
 
                                 {/* Grid column */}
-                                <div className="col-lg-3 col-md-4 col-sm-6  mx-auto mt-3">
-                                    <h5 className="mb-4 font-weight-bold" style={{ textDecoration: 'underline', textAlign: "center" }}> Send Massage Here </h5>
+                                <div className="col-lg-3 col-md-4 col-sm-6 col-6 mx-auto mt-3 footertitle">
+                                    <h5 className=" font-weight-bold" style={{ textDecoration: 'underline', textAlign: "center" }}> Send Massage Here </h5>
                                     <form >
                                         <div className="mb-3 " style={{ textAlign: "center" }}>
                                             <input
@@ -146,14 +145,15 @@ function Footer() {
                                             </button>
                                         </div>
 
+
                                     </form>
                                 </div>
                             </div>
                         </section>
 
-                        <hr className="my-3" />
+                        <hr className="my-1" />
 
-                        <section className="p-3 pt-0">
+                        <section className="pb-2">
                             <div className="row d-flex align-items-center">
                                 <div className="col-md-7 col-lg-8 text-center text-md-start">
                                     <div className="p-3">

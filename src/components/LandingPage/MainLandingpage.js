@@ -142,7 +142,7 @@ export default function MainLandingpage() {
             <div>
               <h4><span style={{ color: "red" }}>-- </span>Online Test<span style={{ color: "red" }}> --</span></h4>
               <h4 className='home-text'>Enter the world of real-time assessment with our live exam platform. </h4>
-              <h6 className='home-text2'> "Join thousands of students in experiencing the thrill of live exams from the comfort of your home"</h6>
+              {/* <h6 className='home-text2'> "Join thousands of students in experiencing the thrill of live exams from the comfort of your home"</h6> */}
             </div>
 
           </div>
