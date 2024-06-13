@@ -28,6 +28,11 @@ export default function Navbar() {
         };
     }, []);
 
+
+
+    const closeNavbar = () => {
+        setIsNavbarOpen(false);
+    };
     // Define an array of paths where the footer should be hidden
     const hideFooterPaths = ['/dashboard'];
     // Check if the current path is in the array of paths where the footer should be hidden
@@ -40,7 +45,7 @@ export default function Navbar() {
                     <Link className="navbar-brand" style={{ display: "flex", alignItems: "center", fontSize: "20px" }} to="/">
                         <img src={logopng} alt="Logo" className='logo-image' style={{ marginRight: "10px" }} />
                         <div>
-                            <strong className='logo-heading'>ONLINE EXAM</strong>
+                            <strong className='logo-heading'>Make My Exam</strong>
                             <br />
                             <div className='logo-heading-sub'>Test Series | Live Exam</div>
                         </div>
@@ -51,29 +56,31 @@ export default function Navbar() {
                     </button>
                     <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`}>
                         <div className="navbar-nav" style={{ fontSize: "16px" }}>
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                            <Link className="nav-link active" aria-current="page" to="/">Test Series</Link>
+                            <Link className="nav-link active" aria-current="page"  to="/" onClick={closeNavbar} >Home</Link>
+                            <Link className="nav-link active" aria-current="page" to="/alltest" onClick={closeNavbar}>All Test</Link>
+                            <Link className="nav-link active" aria-current="page" to="/allcreators" onClick={closeNavbar}>Creators</Link>
+
 
                             {isAuthenticated ? (
-                                <Link className="nav-link active" aria-current="page" to="/dashboard">Dashboard</Link>
+                                <Link className="nav-link active" aria-current="page" to="/dashboard" onClick={closeNavbar}>Dashboard</Link>
                             ) : (
                                 <>
-                                    <Link className="nav-link active" aria-current="page" to="/">Contact us</Link>
-                                    <Link className="nav-link active" aria-current="page" to="/">About us</Link>
+                                    {/* <Link className="nav-link active" aria-current="page" to="/">Contact us</Link> */}
+                                    <Link className="nav-link active" aria-current="page" to="/aboutus" onClick={closeNavbar}>About us</Link>
                                 </>
                             )}
                         </div>
                         <div className="navbar-nav ms-auto"> {/* ms-auto will push these links to the right */}
                             {isAuthenticated ? (
-                                <Link className="nav-link active" onClick={handleLogout} to="/">
+                                <Link className="nav-link active" onClick={(e) => { handleLogout(); closeNavbar(); }}>
                                     Sign Out
                                 </Link>
                             ) : (
                                 <>
-                                    <Link className="nav-link active" to="/register">
+                                    <Link className="nav-link active" to="/register" onClick={closeNavbar}>
                                         Sign Up
                                     </Link>
-                                    <Link className="nav-link active" to="/login">
+                                    <Link className="nav-link active" to="/login" onClick={closeNavbar}>
                                         Sign In
                                     </Link>
                                 </>

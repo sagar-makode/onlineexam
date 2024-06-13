@@ -6,10 +6,15 @@ import img2 from "../assets/Landing page 2.jpg"
 import img3 from "../assets/Landing page 3.jpg"
 
 import HomeFormCard from './HomeFormCard';
+import { useNavigate } from 'react-router-dom'
 
 
 export default function MainLandingpage() {
+  const navigate = useNavigate();
 
+  const handleCategoryClick = (category) => {
+    navigate('/alltest', { state: { selectedCategory: category } });
+  };
 
   return (
     <div className='landingbody'>
@@ -43,7 +48,7 @@ export default function MainLandingpage() {
 
 
 
-          <div className="box cards">
+          <div className="box cards" onClick={() => handleCategoryClick('Quantitative Aptitude')} >
             <span className="material-symbols-outlined homeicons">
               calculate
             </span>
@@ -52,7 +57,7 @@ export default function MainLandingpage() {
             </div>
           </div>
 
-          <div className="box cards">
+          <div className="box cards" onClick={() => handleCategoryClick('History')}>
             <span class="material-symbols-outlined homeicons">
               network_intelligence_history
             </span>
@@ -61,24 +66,24 @@ export default function MainLandingpage() {
             </div>
           </div>
 
-          <div className="box cards">
+          <div className="box cards" onClick={() => handleCategoryClick('Logical reasoning')}>
             {/* <i className="fas fa-user-graduate"></i> */}
 
             <span className="material-symbols-outlined homeicons">
               psychology
             </span>
             <div>
-              <h4 className='cardtext text-center' >Logical Reasoning</h4>
+              <h4 className='cardtext text-center' >Reasoning</h4>
             </div>
           </div>
 
 
-          <div className="box cards">
+          <div className="box cards" onClick={() => handleCategoryClick('Computer') }>
             <span class="material-symbols-outlined homeicons">
-              public
+              computer
             </span>
             <div>
-              <h4 className='cardtext text-center'>Current Affairs</h4>
+              <h4 className='cardtext text-center'>Computer</h4>
             </div>
           </div>
 
@@ -95,36 +100,36 @@ export default function MainLandingpage() {
           </div>
 
           <ul>
-            <li>
-              MBA Test Series<span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('Current affairs')} >
+            Current affairs Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
-            <li>
-              RRB Test Series<span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('Economics')}>
+              Economics Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
-            <li>
-              MPSE Test Series<span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('Geography')}>
+              Geography Test Series<span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
 
-            <li>
-              JEE Test Series <span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('Mathematics')}>
+              Mathematics Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
-            <li>
-              NEET Test Series <span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('General knowledge')}>
+              General knowledge Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>
-            <li>
-              IELTS Test Series <span className='badge bg-danger mx-2 blink'>
+            <li onClick={() => handleCategoryClick('All')}>
+              All Test Series <span className='badge bg-danger mx-2 blink'>
                 New
               </span>
             </li>

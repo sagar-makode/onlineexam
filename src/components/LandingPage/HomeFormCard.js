@@ -17,6 +17,7 @@ import Current_affairs from "../assets/all_card_image/Current affairs.jpg"
 import General_knowledge from "../assets/all_card_image/General knowledge.jpg"
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 
 
@@ -34,8 +35,7 @@ function HomeFormCard() {
         dispatch(fetchTests());
         dispatch(fetchAllCretaterforHomePage());
     }, [dispatch]);
-    const [showAll, setShowAll] = useState(false);
-    const [showAllCreators, setShowAllCreators] = useState(false);
+
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
     const getCategoryImage = (category) => {
@@ -66,9 +66,14 @@ function HomeFormCard() {
     const testsData = useSelector(state => state.tests.tests);
 
     const allCreterData = useSelector(state => state.landingpagedata.allCreterData);
-    const visibleTests = showAll ? testsData : testsData.slice(0, 4);
+    const loading = useSelector(state => state.tests.loading);
+    const loadingforhome = useSelector(state => state.tests.loadingforhome);
+
+    
+
+    const visibleTests =  testsData.slice(0, 4);
     // const visibleCreators = showAllCreators ? allCreterData : allCreterData.slice(0, 10);
-    const maxCreatorsToShow = showAllCreators ? allCreterData.length : isMobile ? 6 : 8;
+    const maxCreatorsToShow = isMobile ? 6 : 8;
 
     const visibleCreators = allCreterData.slice(0, maxCreatorsToShow);
     const navigate = useNavigate()
@@ -81,10 +86,16 @@ function HomeFormCard() {
     return (
         <>
             <div className="container mt-4 home-card">
-                <div className="row">
+                {loading ? (
+                    <div className="d-flex justify-content-center align-items-center text-primary" style={{ height: '30vh' }}>
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                ) : (<div className="row">
+
                     {visibleTests.map((tests, index) => {
                         const creator = allCreterData.find(creator => creator.name === tests.teacherName);
-                        console.log(creator);
                         const creatorImage = creator ? creator.imagepath : profileimag;
                         const categoryImage = getCategoryImage(tests.category);
                         return (
@@ -111,13 +122,21 @@ function HomeFormCard() {
                             </div>
                         )
                     })}
-                </div>
-                {!showAll && <div className="text-center mb-2"><button className="btn btn-primary" onClick={handelShowallTest}>Show All</button></div>}
+                </div>)}
+
+
+                <div className="text-center mb-2"><button className="btn btn-primary" onClick={handelShowallTest}>Show All</button></div>
 
 
                 <div className='creator-list-container'>
                     <h4><span style={{ color: "red" }}>-- </span>ALL Top Creators<span style={{ color: "red" }}> --</span></h4>
-                    <div className="creator-list" >
+                    {loadingforhome ? (
+                        <div className="d-flex justify-content-center align-items-center text-primary" style={{ height: '30vh' }}>
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (<div className="creator-list" >
                         {visibleCreators.map((creater, index) => (
                             <div key={index} className="creator-item">
                                 <div className="creator-item-content">
@@ -127,8 +146,10 @@ function HomeFormCard() {
                                 </div>
                             </div>
                         ))}
-                    </div>
-                    {!showAllCreators && <div className="text-center p-3"><button className="btn btn-primary" onClick={handelShowallCreators}>Show All Creators</button></div>}
+                    </div>)}
+
+
+                  <div className="text-center p-3"><button className="btn btn-primary" onClick={handelShowallCreators}>Show All Creators</button></div>
 
                 </div>
             </div>
