@@ -12,38 +12,32 @@ import { AuthProvider } from './components/Navbar/AuthContext';
 import AllTestRecords from './components/LandingPage/AllTestRecords';
 import AllTopCreators from './components/LandingPage/AllTopCreators';
 import AboutPage from './components/About/AboutPage';
-
+import Forgot from './components/UserSignUp/ForgotPassword/Forgot';
 
 function App() {
- 
 
   return (
-    
+
     <Router>
-        <AuthProvider>
+      <AuthProvider>
+        <Navbar />
 
-          <Navbar />
-   
+        <Routes>
+          <Route exact path='/' element={<AdminHome />} />
+          <Route exact path='/liveexam' element={<LiveExam />} />
+          <Route exact path="/register" element={<Signup />} />
+          <Route exact path="/login" element={<SignIn />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/result" element={<TestResult />} />
+          <Route exact path="/alltest" element={<AllTestRecords />} />
+          <Route exact path="/allcreators" element={<AllTopCreators />} />
+          <Route exact path="/aboutus" element={<AboutPage />} />
+          <Route exact path="/forgot" element={<Forgot />} />
+        </Routes>
 
-          <Routes>
-            <Route exact path='/' element={<AdminHome />} />
-            <Route exact path='/liveexam' element={<LiveExam />} />
-            <Route exact path="/register" element={<Signup/>} />
-            <Route exact path="/login" element={<SignIn/>} />
-            <Route exact path="/dashboard" element={<Dashboard/>} />
-            <Route exact path="/result" element={<TestResult/>} />
-            <Route exact path="/alltest" element={<AllTestRecords/>} />
-            <Route exact path="/allcreators" element={<AllTopCreators/>} />
-            <Route exact path="/aboutus" element={<AboutPage/>} />
-
-
-
-          </Routes>
-          <Footer/>
-          </AuthProvider>
-      
-      </Router>
-    
+        <Footer />
+      </AuthProvider>
+    </Router>
 
   );
 }
