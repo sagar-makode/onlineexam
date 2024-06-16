@@ -156,7 +156,7 @@ useEffect(() => {
                 <div className="field" style={{marginTop:"20px"}}>
                   <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
                 </div>
-                <div className="pass-link"><a href="/forgot" >Forgot password?</a></div>
+                <div className="pass-link"><Link to="/forgot">Forgot password?</Link></div>
                 <div className="field lbtn">
                   <div className="lbtn-layer"></div>
                   <input type="submit" className='submit' value="Login" />
@@ -173,13 +173,11 @@ useEffect(() => {
                 <div className="field" style={{marginTop:"20px"}} >
                   <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Your Password" />
                 </div>
-                <div className="pass-link"><a href="/">Forgot password?</a></div>
+                <div className="pass-link"><Link to="/forgot">Forgot password?</Link></div>
                 <div className="field lbtn">
                   <div className="lbtn-layer"></div>
                   <input type="submit" className='submit' value="Login" />
-
                 </div>
-
                 <div className="signup-link">
                   Not a member? <Link to="/register">Signup now</Link>
                 </div>

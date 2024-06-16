@@ -22,7 +22,7 @@ export default function Forgot() {
   const [otpVerified, setOtpVerified] = useState(false);
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
   const [varifiedOTPNotification, setVarifiedOTPNotification] = useState(false);
-
+  const [errors, setErrors] = useState({});
 
   const varifiedOtpFlag = useSelector(state => state.user.varifiedOtp);
 
@@ -37,6 +37,7 @@ export default function Forgot() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
+ 
 
  //For adding data in form
   const handleChange = (e) => {
@@ -46,6 +47,8 @@ export default function Forgot() {
     if(e.target.name==="email"){
       setIsEmailValid(isValidEmail(e.target.value));
     }
+
+    setErrors(errors);
   };
 
   const isValidEmail = (email) => {
@@ -266,16 +269,33 @@ export default function Forgot() {
       setVarifiedOTPNotification(true);
   };
 
+  const validateForm=()=>{
+console.log("checked password")
+    if (!forgotFormData.password.trim()) {
+      errors.password = 'Password is required';
+    } else if (forgotFormData.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+console.log(errors)
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  
+}
+
   //Password Reset Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      email: forgotFormData.email,
-      isStudent: isStudentLogin,
-      password: forgotFormData.password
+    if(validateForm()){
+      
+      const data = {
+        email: forgotFormData.email,
+        isStudent: isStudentLogin,
+        password: forgotFormData.password
+      }
+      dispatch(resetPassword(data));
+      setPasswordResetFlag(true);
     }
-    dispatch(resetPassword(data));
-    setPasswordResetFlag(true);
   };
 
   return (
@@ -379,6 +399,8 @@ export default function Forgot() {
                     </div>
                   </>
                 )}
+                {errors.password && <div className="  error">{errors.password}</div>}
+
                 <div className="field lbtn" style={{marginTop:"2rem"}}>
                   <div className="lbtn-layer"></div>
                   <input type="submit" className="submit" value="Reset Password" style={{ backgroundColor: emailDisable ? '' : 'gray' }} disabled={!emailDisable} onClick={handleSubmit}/>
@@ -404,6 +426,7 @@ export default function Forgot() {
                     type="button"
                     className="verifyOtpButton"
                     onClick={handleSendOTP}
+                    disabled={emailDisable || !isEmailValid}
                   >
                     {otpGenerated ? 'Sent' : 'Send OTP'}
                   </button>
@@ -457,9 +480,11 @@ export default function Forgot() {
                     </div>
                   </>
                 )}
+                {errors.password && <div className="  error">{errors.password}</div>}
+                
                 <div className="field lbtn" style={{marginTop:"2rem"}}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className="submit" value="Reset Password" disabled={!emailDisable} onClick={handleSubmit}/>
+                  <input type="submit" className="submit" value="Reset Password"style={{ backgroundColor: emailDisable ? '' : 'gray' }} disabled={!emailDisable} onClick={handleSubmit}/>
                 </div>
                 <div className="signup-link">
                   Not a member? <Link to="/register">Signup now</Link>
