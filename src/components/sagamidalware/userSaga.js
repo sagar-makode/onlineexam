@@ -16,7 +16,7 @@ function* generateOtp(action){
   try {
     const response = yield call(axios.post, "http://localhost:5000/generateopt", action.payload);
     if (response.data) {
-      console.log(response.data.message)
+
       yield put({ type: OTP_REQUEST_SUCCESS, payload: response.data.message});
     }
   } catch (error) {
@@ -29,11 +29,11 @@ function* resetPassword(action){
   try {
     const response = yield call(axios.post, "http://localhost:5000/reset", action.payload);
     if (response.data) {
-      console.log(response.data);
+   
       yield put({ type: FORGOT_PASSWORD_SUCCESS, payload: response.data.message});
     }
   } catch (error) {
-    console.error(error);
+ 
     yield put({ type: FORGOT_PASSWORD_FAILURE });
   }
 }
@@ -109,7 +109,7 @@ function* handleSignup(action) {
   function* handleUpdateProfile(action) {
     try {
       // Make the API call to update the profile
-      console.log("this is axios",action.payload);
+
       const response = yield call(axios.put, "http://localhost:5000/updateprofile", action.payload, {
         headers: {
           'Content-Type': 'multipart/form-data' // Set the content type to multipart/form-data

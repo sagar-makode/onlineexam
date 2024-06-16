@@ -6,14 +6,13 @@ import { Spinner } from 'react-bootstrap';
 import profileImage from "../../assets/profile image.png"
 
 import { Link } from 'react-router-dom';
-import TestSeries from './TestSeries';
 import TestResults from './TestResults';
 import AllTests from './AllTests';
 import Subcriptions from './Subcriptions';
 import ALLCreater from './ALLCreater';
 import AuthContext from '../../Navbar/AuthContext';
 import UserProfile from './UserProfile';
-import { fetchStudentSubcriptions } from '../../actions/subscribers';
+import { fetchAllCretater, fetchStudentSubcriptions } from '../../actions/subscribers';
 import GetfirstAndLastName from '../../common/GetfirstAndLastName';
 import Index from './Index';
 
@@ -33,6 +32,8 @@ function StudentDashBoard() {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    setIsSidebarOpen(false); // Close the sidebar when a tab is clicked
+
   };
 
   const handleLogout = () => {
@@ -46,13 +47,16 @@ function StudentDashBoard() {
     dispatch(fetchTests());
     dispatch(fetchStudentTestresult())
     dispatch(fetchStudentSubcriptions())
+    dispatch(fetchAllCretater());
+
 
 
     setLoading(false)
   }, [dispatch]);
 
+
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const [isDarkMode, setIsDarkMode] = useState(false);
 
   const sidebarRef = useRef(null);
 
@@ -74,10 +78,6 @@ function StudentDashBoard() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  // const toggleDarkMode = () => {
-  //   setIsDarkMode(!isDarkMode);
-  // };
-
 
 
   return (
@@ -136,14 +136,14 @@ function StudentDashBoard() {
                   </li>
 
 
-
+{/* 
                   <li className={`nav-link ${activeTab === 'testSeries' ? 'active' : ''}`} onClick={() => handleTabClick('testSeries')}>
                     <Link >
                       <i className='bx bxs-folder-open icon'></i>
 
                       <span className="text nav-text">Test Series</span>
                     </Link>
-                  </li>
+                  </li> */}
 
                   <li className={`nav-link ${activeTab === 'testresult' ? 'active' : ''}`} onClick={() => handleTabClick('testresult')}>
                     <Link >
@@ -175,21 +175,21 @@ function StudentDashBoard() {
                       <span className="text nav-text">ALL Creaters</span>
                     </Link>
                   </li>
-                  <li className={`nav-link ${activeTab === 'wishlist' ? 'active' : ''}`} onClick={() => handleTabClick('wishlist')}>
+                  {/* <li className={`nav-link ${activeTab === 'wishlist' ? 'active' : ''}`} onClick={() => handleTabClick('wishlist')}>
                     <Link >
                       <i className='bx bx-bookmark-heart icon'></i>
                       <span className="text nav-text">Wishlist</span>
 
                     </Link>
-                  </li>
+                  </li> */}
 
 
-                  <li className="nav-link">
+                  {/* <li className="nav-link">
                     <Link >
                       <i className='bx bx-bell icon'></i>
                       <span className="text nav-text">Notifications</span>
                     </Link>
-                  </li>
+                  </li> */}
                   <li className={`nav-link ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => handleTabClick('profile')}>
                     <Link >
 
@@ -236,7 +236,7 @@ function StudentDashBoard() {
             {activeTab === 'dashboard' && (
               <div>
                 {/* Dashboard content */}
-                <h1>Dashboard Content</h1>
+                <h2 className='m-3'>Dashboard</h2>
                 {/* <SmallStudentDahboard/> */}
                 <Index/>
 
@@ -244,6 +244,10 @@ function StudentDashBoard() {
             )}
             {activeTab === 'liveTest' && (
               <div>
+                <h2 style={{marginLeft:"15px", marginTop:"15px"}} className='mb-0 p-0'>All Live Test</h2>
+                {/* <h2>Live Test</h2> */}
+
+
                 <AllTests />
               </div>
 
@@ -257,6 +261,8 @@ function StudentDashBoard() {
 
             {activeTab === 'testresult' && (
               <div>
+                <h2 style={{marginLeft:"15px", marginTop:"15px"}} className='mb-0 p-0'>Results</h2>
+
 
                 <TestResults />
               </div>

@@ -28,9 +28,8 @@ function StudentResult() {
   }, [dispatch]);
 
   return (
-    <div>
-      <div style={{ marginTop: "10px" }} >
-        <h1>Student Results</h1>
+  
+    
         <div className='main-content-table' >
 
           <div className="row">
@@ -103,10 +102,7 @@ function StudentResult() {
             </div>
           </div>
         </div>
-      </div>
-
-
-    </div>
+    
 
 
 

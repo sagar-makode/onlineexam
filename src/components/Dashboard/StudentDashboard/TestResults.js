@@ -20,11 +20,9 @@ function TestResults() {
   
 
   return (
-    <div>
-
+  
    
-    <div style={{ marginTop: "10px" }} >
-      <h1>Results</h1>
+    <div >
       <div className='main-content-table' >
 
         <div className="row">
@@ -86,7 +84,6 @@ function TestResults() {
           </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }

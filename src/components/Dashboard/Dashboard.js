@@ -18,7 +18,6 @@ const Dashboard = () => {
   const isAuthenticated = useSelector(state => state.user.isAuthenticated);
   const [loading, setLoading] = useState(true);
   
-  console.log(isAuthenticated);
 useEffect(()=>{
   const token = sessionStorage.getItem('token');
   if (!token || !isAuthenticated) {

@@ -58,7 +58,7 @@ export default function MainLandingpage() {
           </div>
 
           <div className="box cards" onClick={() => handleCategoryClick('History')}>
-            <span class="material-symbols-outlined homeicons">
+            <span className="material-symbols-outlined homeicons">
               network_intelligence_history
             </span>
             <div>
@@ -79,7 +79,7 @@ export default function MainLandingpage() {
 
 
           <div className="box cards" onClick={() => handleCategoryClick('Computer') }>
-            <span class="material-symbols-outlined homeicons">
+            <span className="material-symbols-outlined homeicons">
               computer
             </span>
             <div>

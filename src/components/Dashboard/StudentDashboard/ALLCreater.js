@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCretater, subscribeToTeacher, unsubscribetoTeacher } from '../../actions/subscribers';
-import img from '../../assets/pngegg.png';
+import img from '../../assets/profile image.png';
 import { Button, Spinner } from 'react-bootstrap';
 
 function ALLCreater() {
@@ -47,12 +47,12 @@ function ALLCreater() {
 
   return (
     <div>
-      <h1>ALL Creator</h1>
-      <div>
+      {/* <h1>ALL Creator</h1> */}
+      {/* <div>
         {allCreterwithSubStatus.map((subscription, index) => (
           <div key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <img src={img} alt="Creator" style={{ borderRadius: '50%', width: '100px', height: '100px' }} />
+              <img src={subscription.imagepath || img} alt="Creator" style={{ borderRadius: '50%', width: '100px', height: '100px' }} />
               <div>{subscription.name}</div>
               <div>Subscribers: {subscription.subscribers.length}</div>
               {subscription.isSubscribed ? (
@@ -65,9 +65,34 @@ function ALLCreater() {
                 </Button>
               )}
             </div>
+           
           </div>
         ))}
-      </div>
+      </div> */}
+
+      <div className="mt-4">
+            <h4 className='text-center'><span style={{ color: "red" }}>-- </span>ALL Top Creators<span style={{ color: "red" }}> --</span></h4>
+            <div className="creator-list">
+              {allCreterwithSubStatus.map((creater, index) => (
+                <div key={index} className="creator-item" >
+                  <div className="creator-item-content mt-2">
+                    <img src={creater.imagepath ? creater.imagepath : img} alt="Creator" className="creator-item-img" />
+                    <div>{creater.name}</div>
+                    <div>Subscribers: {creater.subscribers.length}</div>
+                    {creater.isSubscribed ? (
+                <Button variant="danger"  className = "card-text-button "onClick={() => handleUnsubscribe(creater._id)} disabled={loading[creater._id]}>
+                  {loading[creater._id] ? <Spinner animation="border" size="sm" /> : 'Unsubscribe'}
+                </Button>
+              ) : (
+                <Button variant="primary" className = "card-text-button " onClick={() => handleSubscribe(creater._id)} disabled={loading[creater._id]}>
+                  {loading[creater._id] ? <Spinner animation="border" size="sm" /> : 'Subscribe'}
+                </Button>
+              )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
     </div>
   );
 }

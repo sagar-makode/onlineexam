@@ -32,6 +32,37 @@
  margin-top: .5rem;
 }
 
+@media screen and (max-width: 530px){
+ .card-user-subcriber{
+   font-size: 8px !important;
+}
+.card-user-name{
+
+ font-size: 11px !important;
+}
+.card-title{
+ font-size: 12px;
+}
+.card-text{
+ font-size: 11px !important;
+}
+.card-text-button{
+ font-size: 11px !important;
+ padding: 3px !important;
+
+
+}
+.creator-item-img {
+ width: 30px !important;
+ height: 30px !important;
+}
+.creator-list {
+
+ gap: 3px !important;
+}
+
+}
+
 @media (max-width: 768px) {
  .card-user-name{
 
@@ -103,6 +134,8 @@
  flex-direction: column;
  align-items: center;
  margin: 10px;
+ cursor: pointer;
+
 
 }
 

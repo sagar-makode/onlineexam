@@ -50,7 +50,6 @@ function AllCreatedTest() {
 
         return (
         <div>
-            <h1>All Created Test</h1>
             <div className="row">
                 {trachertestData.map((test, index) => (
                     <div className="col-md-4" key={index}>

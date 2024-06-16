@@ -32,7 +32,7 @@ const handelCancel = ()=>{
             const file = new File([blob], 'cropped_image.jpg', { type: 'image/jpeg' });
 
             // Pass the file to handleImageUpload
-            console.log(file);
+
             await handleImageUpload(file);
 
             handelCancel()

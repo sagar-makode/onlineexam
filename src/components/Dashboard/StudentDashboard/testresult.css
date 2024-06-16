@@ -1,7 +1,7 @@
 @media screen and (max-width: 530px) {
     .main-content-table {
         /* Apply styles for mobile view */
-        width: 68vw;
+        width: 72vw !important;
     }
 	.table-responsive{
 		padding: 2px;
@@ -13,6 +13,11 @@
 		font-size: smaller !important;
 		font-weight: bold !important;
 	}
+}
+
+.main-content-table {
+	/* Apply styles for mobile view */
+	width: 90vw;
 }
 
 

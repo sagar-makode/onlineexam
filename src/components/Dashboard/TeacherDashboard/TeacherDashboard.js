@@ -24,7 +24,11 @@ function TeacherDashboard() {
       logout();
     };
     const handleTabClick = (tab) => {
-      setActiveTab(tab);  };
+      setActiveTab(tab);  
+      setIsSidebarOpen(false); // Close the sidebar when a tab is clicked
+    
+    };
+
   
   
     useEffect(() => {  
@@ -192,6 +196,8 @@ function TeacherDashboard() {
           <div>
             {/* Dashboard content */}
             {/* <h1>Dashboard Content</h1> */}
+            <h2 className='m-3'>Dashboard</h2>
+
             <Index />
           </div>
         )}
@@ -199,12 +205,15 @@ function TeacherDashboard() {
           <div>
             {/* Live Test content */}
             {/* <h1>Create your test</h1> */}
+
             <CreateTest/>
           
           </div>
         )}
         {activeTab === 'allcreatedtest' && (
           <div>
+            <h2 className='m-3'>Created Test</h2>
+
           <AllCreatedTest/>
 
           </div>
@@ -220,7 +229,9 @@ function TeacherDashboard() {
           <div>
             
            {/* <studentresults/> */}
-           {/* <h1>Student Result</h1> */}
+      
+           <h2 style={{marginLeft:"15px", marginTop:"15px"}}>Student Result</h2>
+
            <StudentResult/>
 
           </div>
@@ -237,6 +248,8 @@ function TeacherDashboard() {
                 {/* Test Series content */}
                 {/* <h1>Wishlist Content</h1>
                */}
+           <h2 className='m-3'>User Profile</h2>
+
                 <UserProfile />
               </div>
               

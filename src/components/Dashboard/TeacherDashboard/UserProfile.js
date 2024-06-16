@@ -25,10 +25,10 @@ function UserProfile() {
         let failCount = 0;
         studenttresultforteacher.forEach(student =>{
             student.submitedBy.forEach(status =>{
-                console.log("call 1");
+             
                 if (status.passStatus === "Pass") {
                     passCount++;
-                    console.log(passCount);
+                   
                 }else if (status.passStatus === "Fail") {
                     failCount++;
                 }
@@ -120,7 +120,7 @@ function UserProfile() {
     const handleImageUpload = (croppedImage) => {
         if (croppedImage) {
             setImgLoading(true)
-            console.log("ths is cropped image", croppedImage);
+   
             const newFormdata = {
                 ...formData,
                 image: croppedImage
@@ -159,7 +159,6 @@ function UserProfile() {
     return (
         <>
             <div className="user-profile-container container-fluid">
-                <h1>User Profile</h1>
                 <div className="main-body">
                     <div className="row">
 

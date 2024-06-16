@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { Card, Row, Col, Pagination } from "react-bootstrap";
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 
 
 
@@ -14,6 +15,7 @@ function Index() {
   const trachertestData = useSelector(state => state.tests.teacherCreatedTest);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -27,10 +29,10 @@ function Index() {
     let failCount = 0;
     studenttresultforteacher.forEach(student => {
       student.submitedBy.forEach(status => {
-        console.log("call 1");
+    
         if (status.passStatus === "Pass") {
           passCount++;
-          console.log(passCount);
+    
         } else if (status.passStatus === "Fail") {
           failCount++;
         }
@@ -46,82 +48,118 @@ function Index() {
   return (
     <div style={{ marginTop: "1.3%" }}>
       <Row>
-        <Col lg="3" sm="6">
+
+        <Col lg="3" sm="6" xs="6">
           <Card className="card-stats">
             <Card.Body>
               <Row className="align-items-center">
-                <Col xs="5" className="d-flex justify-content-center align-items-center">
+                <Col xs="5" className="d-flex justify-content-center align-items-center icon-col">
                   <div className="icon-big text-center icon-warning">
                     <span className="material-symbols-outlined text-danger custom-icon">subscriptions</span>
                   </div>
                 </Col>
-                <Col xs="7" className="d-flex flex-column justify-content-center">
+                <Col xs="7" className="d-flex flex-column justify-content-center text-col">
                   <div className="numbers">
-                    <p className="card-category">Subscribers</p>
-                    <Card.Title as="h4">{teacherProfileData.subscribers.length}</Card.Title>
+                   
+                    {isMobile?<div>
+                      <p className="card-category">Subscribers  : <span style={{fontWeight:"bold"}}>{teacherProfileData.subscribers.length}</span></p>
+                    
+                    </div>:<div>   
+                    <p className="card-category">Subscribers </p>
+                    <Card.Title as="h4">{teacherProfileData.subscribers.length}</Card.Title>          
+
+                    </div>}
                   </div>
                 </Col>
               </Row>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg="3" sm="6">
+
+
+        <Col lg="3" sm="6" xs="6">
           <Card className="card-stats">
             <Card.Body>
               <Row className="align-items-center">
-                <Col xs="5" className="d-flex justify-content-center align-items-center">
+                <Col xs="5" className="d-flex justify-content-center align-items-center icon-col">
                   <div className="icon-big text-center icon-warning">
                     <span className="material-symbols-outlined text-primary custom-icon">quiz</span>
                   </div>
                 </Col>
-                <Col xs="7" className="d-flex flex-column justify-content-center">
+                <Col xs="7" className="d-flex flex-column justify-content-center text-col">
                   <div className="numbers">
+                   
+                    {isMobile?<div>
+                      <p className="card-category">Test Created : <span style={{fontWeight:"bold"}}>{trachertestData.length}</span></p>
+                    
+                    </div>:<div>   
                     <p className="card-category">Test Created</p>
-                    <Card.Title as="h4">{trachertestData.length}</Card.Title>
+                    <Card.Title as="h4">{trachertestData.length}</Card.Title>        
+                    </div>}
                   </div>
                 </Col>
               </Row>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg="3" sm="6">
+
+
+        <Col lg="3" sm="6" xs="6">
           <Card className="card-stats">
             <Card.Body>
               <Row className="align-items-center">
-                <Col xs="5" className="d-flex justify-content-center align-items-center">
+                <Col xs="5" className="d-flex justify-content-center align-items-center icon-col">
                   <div className="icon-big text-center icon-warning">
                     <span className="material-symbols-outlined text-success custom-icon">emoji_events</span>
                   </div>
                 </Col>
-                <Col xs="7" className="d-flex flex-column justify-content-center">
+                <Col xs="7" className="d-flex flex-column justify-content-center text-col">
                   <div className="numbers">
+                   
+                    {isMobile?<div>
+                      <p className="card-category">Passed Student : <span style={{fontWeight:"bold"}}>{passCount}</span></p>
+                    
+                    </div>:<div>   
                     <p className="card-category">Passed Student</p>
-                    <Card.Title as="h4">{passCount}</Card.Title>
+                    <Card.Title as="h4">{passCount}</Card.Title>   
+
+                    </div>}
                   </div>
                 </Col>
               </Row>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg="3" sm="6">
+
+        <Col lg="3" sm="6" xs="6">
           <Card className="card-stats">
             <Card.Body>
               <Row className="align-items-center">
-                <Col xs="5" className="d-flex justify-content-center align-items-center">
+                <Col xs="5" className="d-flex justify-content-center align-items-center icon-col">
                   <div className="icon-big text-center icon-warning">
                     <span className="material-symbols-outlined text-warning custom-icon">thumb_down</span>
                   </div>
                 </Col>
-                <Col xs="7" className="d-flex flex-column justify-content-center">
+                <Col xs="7" className="d-flex flex-column justify-content-center text-col">
                   <div className="numbers">
+                   
+                    {isMobile?<div>
+                      <p className="card-category">Failed Student : <span style={{fontWeight:"bold"}}>{failCount}</span></p>
+                    
+                    </div>:<div>   
                     <p className="card-category">Failed Student</p>
                     <Card.Title as="h4">{failCount}</Card.Title>
+
+                    </div>}
                   </div>
                 </Col>
               </Row>
             </Card.Body>
           </Card>
         </Col>
+
+
+      
       </Row>
 
 

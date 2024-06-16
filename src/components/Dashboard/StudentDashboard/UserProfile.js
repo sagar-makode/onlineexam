@@ -104,7 +104,7 @@ function UserProfile() {
     const handleImageUpload = (croppedImage) => {
         if (croppedImage) {
             setImgLoading(true)
-            console.log("ths is cropped image", croppedImage);
+        
             const newFormdata = {
                 ...formData,
                 image: croppedImage

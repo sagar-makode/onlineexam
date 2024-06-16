@@ -355,13 +355,28 @@ font-size:4rem; /* Adjust this value to match the text size */
 .sidebar {
 margin-top: 71px;
 padding: 5px 5px;
+width: 215px !important;
 }
 .sidebar.close {
-  width: 70px;
+  width: 70px !important;
 }
+.createdbytitle{
+font-size: 15px;
+margin-top: 14px;
+}
+.catagorytitle{
+font-size: 15px;
+}
+
 .main-content{
-padding-left: 4px;
+padding-left: 0px;
+margin-left: 80px !important; /* Always 90px for mobile view */
+margin-top: 70px !important;
 }
+/* .livetest{
+font-size: 20px;
+} */
+
 /* .row {
 
 padding-left: 0;
@@ -373,4 +388,33 @@ padding-left: 0;
 .table-responsive {
 padding: 2px;
 margin-left: calc(var(--bs-gutter-x)* .5);
+}
+.numbers p {
+margin-top: 0;
+margin-bottom: 0;
+}
+
+/* styles.css or your appropriate CSS file */
+@media (max-width: 768px) {
+.card-stats .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.custom-icon{
+  font-size: 3rem !important;
+}
+
+.card-stats .numbers {
+  text-align: center;
+  font-size: 13px;
+}
+
+.card-stats .icon-col, .card-stats .text-col {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
 }

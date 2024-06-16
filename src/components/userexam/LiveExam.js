@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const LiveExam = () => {
     const location = useLocation();
-    const { seletedTestData, studentProfileData } = location.state
+    const { test, studentProfileData } = location.state
     const testSubmitted = useSelector(state => state.tests.testSubmitted);
 
 
-    const questions = seletedTestData.questions
+    const questions = test.questions
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [userAnswers, setUserAnswers] = useState(Array(questions.length).fill(null));
     const [remainingTime, setRemainingTime] = useState(0); // Remaining time in seconds
@@ -103,7 +103,7 @@ const LiveExam = () => {
 
     const data = {
         userAnswers: userAnswers,
-        testId: seletedTestData._id,
+        testId: test._id,
     
         name: studentProfileData.name,
         submitterId: studentProfileData._id

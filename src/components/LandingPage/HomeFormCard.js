@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import "./HomeFormCard.css"
 import other from "../assets/all_card_image/others.jpg";
@@ -37,6 +37,14 @@ function HomeFormCard() {
     }, [dispatch]);
 
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const studentProfileData = useSelector(state => state.dashboard.userData);
+    const handleAttemptTest = async (test) => {
+        navigate(`/terms&conditions`, { state: { test, studentProfileData } });
+
+    };
+    const handleShowCreatorTests = (creatorId) => {
+        navigate(`/creator/${creatorId}/tests`);
+    };
 
     const getCategoryImage = (category) => {
         switch (category) {
@@ -67,7 +75,7 @@ function HomeFormCard() {
 
     const allCreterData = useSelector(state => state.landingpagedata.allCreterData);
     const loading = useSelector(state => state.tests.loading);
-    const loadingforhome = useSelector(state => state.tests.loadingforhome);
+    const loadingforhome = useSelector(state => state.landingpagedata.loadingforhome);
 
     
 
@@ -116,7 +124,7 @@ function HomeFormCard() {
                                         <p className="card-text"><small className="text-muted">Duration : {tests.totalMinutes} Minutes</small></p>
                                         <p className="card-text"><small className="text-muted">Category : {tests.category}</small></p>
 
-                                        <button className='btn btn-primary card-text-button mt-1'>Start Test</button>
+                                        <button className='btn btn-primary card-text-button mt-1'onClick={()=>handleAttemptTest(tests)}>Start Test</button>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +146,7 @@ function HomeFormCard() {
                         </div>
                     ) : (<div className="creator-list" >
                         {visibleCreators.map((creater, index) => (
-                            <div key={index} className="creator-item">
+                            <div key={index} className="creator-item" onClick={() => handleShowCreatorTests(creater._id)}>
                                 <div className="creator-item-content">
                                     <img src={creater.imagepath ? creater.imagepath : profileimag} alt="Creator" className="creator-item-img" />
                                     <div>{creater.name}</div>

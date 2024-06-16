@@ -11,7 +11,7 @@ function* getsubscribers(action) {
     const testId = action.payload.testId
     const studentId = action.payload.studentId
     const response = yield call(axios.get, `http://localhost:5000/subcount/${testId}/${studentId}`);
-    console.log(response);
+
 
     const teacherdata = response.data.teacherProfile;
     const isSubscribed = response.data.isSubscribed

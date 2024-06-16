@@ -3,6 +3,7 @@ import profileimag from "../assets/profile image.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCretaterforHomePage } from '../actions/landingPageActions';
 import { Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 function AllTopCreators() {
@@ -14,6 +15,11 @@ function AllTopCreators() {
 
         dispatch(fetchAllCretaterforHomePage());
     }, [dispatch]);
+const navigate = useNavigate();
+    const handleShowCreatorTests = (creatorId) => {
+        navigate(`/creator/${creatorId}/tests`);
+    };
+
     return (
 
         <div>
@@ -28,7 +34,7 @@ function AllTopCreators() {
                     <h4 className='text-center'><span style={{ color: "red" }}>-- </span>ALL Top Creators<span style={{ color: "red" }}> --</span></h4>
                     <div className="creator-list">
                         {allCreterData.map((creater, index) => (
-                            <div key={index} className="creator-item">
+                            <div key={index} className="creator-item" onClick={() => handleShowCreatorTests(creater._id)}>
                                 <div className="creator-item-content">
                                     <img src={creater.imagepath ? creater.imagepath : profileimag} alt="Creator" className="creator-item-img" />
                                     <div>{creater.name}</div>
