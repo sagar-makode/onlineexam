@@ -289,7 +289,7 @@ function UserSignUp() {
 
 
   return (
-    <div className='maindiv'>
+    <div className='maindiv' style={{height:"90%",marginTop:"15px"}}>
       <div className='userSignupBody' style={{ alignItems: emailVarification ? "center" : "" }} >
         <div className="wrapper"  >
           <div className="title-text">
