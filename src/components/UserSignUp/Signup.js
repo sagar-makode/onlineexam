@@ -16,7 +16,6 @@ function UserSignUp() {
   const signupSuccessMessage = useSelector(state => state.user.SignupSucess);
   const [isStudentSignup, setStudentSignup] = useState(true);
   const [SignupFormMarginLeft, setSignupFormMarginLeft] = useState(0);
-  const [varifyOtps, setVarifyOtp] = useState('');
   const [emailVarification, setEmailVarification] = useState(false);
   const [OTPsentnotification, setOTPsentnotification] = useState(false);
   const [varifiedOTPNotification, setVarifiedOTPNotification] = useState(false);
@@ -49,12 +48,12 @@ function UserSignUp() {
     setErrors({ ...errors, [e.target.name]: '' });
 
     if(e.target.name==="email"){
-      setIsEmailValid(isValidEmail(formData.email));
+      setIsEmailValid(isValidEmail(e.target.value));
     }
   };
 
   const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
 
@@ -94,7 +93,6 @@ function UserSignUp() {
         mobileNumber: '',
         role: "Student"
       });
-      setVarifyOtp('');
 
     }
   };
@@ -160,30 +158,35 @@ function UserSignUp() {
     else if(otpGenerated && OTPsentnotification && otpSuccess==="User Already Registered"){
       setOTPsentnotification(false);
       openNotification6();
-      dispatch(clearMessage());
-
     }
     else if (otpGeneratedError && OTPsentnotification) {
       openNotification5();
       setOTPsentnotification(false);
     }
+    dispatch(clearMessage());
   }, [otpGenerated, OTPsentnotification,dispatch,otpSuccess, otpGeneratedError]);
 
   // varified OTP Notification
   useEffect(() => {
-    if (varifiedOTPNotification && varifyOtps && varifiedOTP === "otp varified") {
+    if (varifiedOTPNotification  && varifiedOTP === "otp varified") {
       openNotification2();
       setVarifiedOTPNotification(false);
       setEmailDisable(true);
+    }
+    else if (varifiedOTPNotification  && varifiedOTP === "otp not varified") {
+      openNotification7();
+      setVarifiedOTPNotification(false);
+      setEmailDisable(false);
+     
     }
     else if (varifiedOTPError && varifiedOTPNotification) {
       openNotification3();
       setVarifiedOTPNotification(false);
       setEmailDisable(false);
     }
+    dispatch(clearMessage());
 
-
-  }, [varifiedOTPError, varifiedOTPNotification, varifyOtps, varifiedOTP])
+  }, [varifiedOTPError, varifiedOTPNotification, dispatch,varifiedOTP])
 
   //Account creation Notification
   useEffect(() => {
@@ -237,7 +240,7 @@ function UserSignUp() {
   const openNotification5 = () => {
     const args = {
       message: "Error",
-      description: "Please check your OTP",
+      description: "Something Went Wrong, Try again Later",
       duration: 2,
     };
     notification.open(args);
@@ -250,15 +253,21 @@ function UserSignUp() {
     };
     notification.open(args);
   };
+  const openNotification7 = () => {
+    const args = {
+      message: "Error",
+      description: "OTP Not Varified",
+      duration: 2,
+    };
+    notification.open(args);
+  };
 
 
   //handle OTP Varification
   const handleVerifyOtp = () => {
-     setVarifyOtp(otp.join('')) 
-    
     const data = {
       email: formData.email,
-      otp: varifyOtps
+      otp: otp.join("")
     }
     dispatch(varifyOtp(data));
     setVarifiedOTPNotification(true);
@@ -352,7 +361,7 @@ function UserSignUp() {
                      type="button"
                      className="verifyOtpButton bg-success"
                      onClick={handleVerifyOtp}
-                     disabled={isButtonDisabled}
+                     disabled={isButtonDisabled || (varifiedOTP === "otp varified")}
                    >
                      Verify OTP
                    </button>
@@ -379,7 +388,7 @@ function UserSignUp() {
 
                 <div className="field lbtn" style={{ marginTop: errors.password ? '15px' : '20px' }}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className='submit' value="Signup" style={{ backgroundColor: varifiedOtp ? '' : 'gray' }} disabled={!varifiedOtp} />
+                  <input type="submit" className='submit' value="Signup" style={{ backgroundColor: varifiedOtp ? '' : 'gray' }} disabled={!(varifiedOTP === "otp varified")} />
 
                 </div>
                 <div className="signup-link">
@@ -447,7 +456,7 @@ function UserSignUp() {
                      type="button"
                      className="verifyOtpButton bg-success"
                      onClick={handleVerifyOtp}
-                     disabled={isButtonDisabled}
+                     disabled={isButtonDisabled || (varifiedOTP === "otp varified")}
                    >
                      Verify OTP
                    </button>
@@ -467,7 +476,7 @@ function UserSignUp() {
 
                 <div className="field lbtn " style={{ marginTop: errors.password ? '15px' : '20px' }}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className='submit' value="Signup" />
+                  <input type="submit" className='submit' value="Signup" style={{ backgroundColor: varifiedOtp ? '' : 'gray' }} disabled={!(varifiedOTP === "otp varified")} />
                 </div>
                 <div className="signup-link">
                   Already have an account? <Link to="/login">Login here</Link>
