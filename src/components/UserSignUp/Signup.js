@@ -92,7 +92,7 @@ function UserSignUp() {
         email: '',
         password: '',
         mobileNumber: '',
-        role: "Student"
+        role: "Student",
       });
 
     }
@@ -248,16 +248,32 @@ function UserSignUp() {
   };
   const openNotification6 = () => {
     const args = {
-      message: "Error",
-      description: "User Already Registered",
+      message: (<span style={{ color: 'red' }}>
+       User Already Registered
+      </span>
+      ),
+      description: (
+        <span style={{ color: 'red' }}>
+          Please login or enter another email
+        </span>
+      ),
       duration: 2,
     };
     notification.open(args);
   };
   const openNotification7 = () => {
     const args = {
-      message: "Error",
-      description: "OTP Not Varified",
+      message: (
+        <span style={{ color: 'red' }}>
+          OTP is Not Correct
+        </span>
+      ),
+      description:
+      (
+        <span style={{ color: 'red' }}>
+        Please enter valid Otp
+        </span>
+      ),
       duration: 2,
     };
     notification.open(args);

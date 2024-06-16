@@ -171,8 +171,8 @@ export default function Forgot() {
   //OTP Generated Successfull Notification
   const openNotification2 = () => {
     const args = {
-      message: "OTP Generated",
-      description: "OTP Generated Successfully",
+      message: "OTP Sent",
+      description: "OTP Sent To Your Email ID",
       duration: 2,
     };
     notification.open(args);
@@ -201,8 +201,17 @@ export default function Forgot() {
     //OTP not Varified
     const openNotification5 = () => {
       const args = {
-        message: "OTP not Varified",
-        description: "Your OTP not Varified, Check your OTP",
+        message: (
+          <span style={{ color: 'red' }}>
+            OTP is Not Correct
+          </span>
+        ),
+        description:
+        (
+          <span style={{ color: 'red' }}>
+          Please enter valid Otp
+          </span>
+        ),
         duration: 2,
       };
       notification.open(args);
