@@ -81,8 +81,9 @@ function UserSignUp() {
 
 
   const handleSubmit = e => {
+   
     e.preventDefault();
-    if (validateForm() && varifiedOtp) {
+    if (validateForm()) {
 
       dispatch(signupRequest(formData));
       // Reset form data after successful submission
@@ -168,12 +169,12 @@ function UserSignUp() {
 
   // varified OTP Notification
   useEffect(() => {
-    if (varifiedOTPNotification  && varifiedOTP === "otp varified") {
+    if (varifiedOTPNotification && varifiedOtp && varifiedOTP === "otp varified") {
       openNotification2();
       setVarifiedOTPNotification(false);
       setEmailDisable(true);
     }
-    else if (varifiedOTPNotification  && varifiedOTP === "otp not varified") {
+    else if (varifiedOTPNotification &&varifiedOtp && varifiedOTP === "otp not varified") {
       openNotification7();
       setVarifiedOTPNotification(false);
       setEmailDisable(false);
@@ -186,7 +187,7 @@ function UserSignUp() {
     }
     dispatch(clearMessage());
 
-  }, [varifiedOTPError, varifiedOTPNotification, dispatch,varifiedOTP])
+  }, [varifiedOTPError, varifiedOTPNotification, varifiedOtp,dispatch,varifiedOTP])
 
   //Account creation Notification
   useEffect(() => {
@@ -361,9 +362,9 @@ function UserSignUp() {
                      type="button"
                      className="verifyOtpButton bg-success"
                      onClick={handleVerifyOtp}
-                     disabled={isButtonDisabled || (varifiedOTP === "otp varified")}
+                     disabled={isButtonDisabled || emailDisable}
                    >
-                     Verify OTP
+                     {!emailDisable?" Varify OTP":"Varified"}
                    </button>
                  </div>
                 )}
@@ -388,7 +389,7 @@ function UserSignUp() {
 
                 <div className="field lbtn" style={{ marginTop: errors.password ? '15px' : '20px' }}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className='submit' value="Signup" style={{ backgroundColor: varifiedOtp ? '' : 'gray' }} disabled={!(varifiedOTP === "otp varified")} />
+                  <input type="submit" className='submit' value="Signup" onClick={handleSubmit} style={{ backgroundColor: emailDisable ? '' : 'gray' }} disabled={!emailDisable}  />
 
                 </div>
                 <div className="signup-link">
@@ -456,9 +457,9 @@ function UserSignUp() {
                      type="button"
                      className="verifyOtpButton bg-success"
                      onClick={handleVerifyOtp}
-                     disabled={isButtonDisabled || (varifiedOTP === "otp varified")}
+                     disabled={isButtonDisabled || emailDisable}
                    >
-                     Verify OTP
+                     {!emailDisable?" Varify OTP":"Varified"}
                    </button>
                  </div>
                 )}
@@ -476,7 +477,7 @@ function UserSignUp() {
 
                 <div className="field lbtn " style={{ marginTop: errors.password ? '15px' : '20px' }}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className='submit' value="Signup" style={{ backgroundColor: varifiedOtp ? '' : 'gray' }} disabled={!(varifiedOTP === "otp varified")} />
+                  <input type="submit" className='submit' value="Signup" onClick={handleSubmit} style={{ backgroundColor: emailDisable ? '' : 'gray' }} disabled={!emailDisable}  />
                 </div>
                 <div className="signup-link">
                   Already have an account? <Link to="/login">Login here</Link>

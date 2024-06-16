@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import './Forgot.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,15 +8,15 @@ import { notification } from 'antd';
 export default function Forgot() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [otp, setOtp] = useState(['', '', '', '']);
   const [isStudentLogin, setStudentLogin] = useState(true);
   const [loginFormMarginLeft, setLoginFormMarginLeft] = useState(0);
   const [forgotFormData, setforgotFormData] = useState({
     email: '',
-    OTP: '',
     password: ''
   });
 
+  const inputRefs = useRef([]);
   const [forgotEmailVarification, setforgotEmailVarification] = useState(false);
   const [OTPsentnotification,setOTPsentnotification]=useState(false)
   const [otpVerified, setOtpVerified] = useState(false);
@@ -24,21 +24,59 @@ export default function Forgot() {
   const [varifiedOTPNotification, setVarifiedOTPNotification] = useState(false);
 
 
+  const varifiedOtpFlag = useSelector(state => state.user.varifiedOtp);
 
   const otpGenerated =useSelector(state => state.user.otpGenerated);
-  const otpFailure=useSelector(state => state.user.otpGeneratedError);
+  const otpGeneratedError=useSelector(state => state.user.otpGeneratedError);
+  const otpSuccess=useSelector(state=>state.user.otpSuccess);
   const forgotPasswordSuccess = useSelector(state => state.user.forgotPassword);
   const forgotPasswordFailure=useSelector(state=>state.user.forgotPasswordFailure);
   const varifiedOTPError = useSelector(state => state.user.varifiedOTPError);
   const varifiedOTP = useSelector(state => state.user.message);
   const [emailDisable, setEmailDisable] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
 
  //For adding data in form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setforgotFormData({ ...forgotFormData, [name]: value });
+
+    if(e.target.name==="email"){
+      setIsEmailValid(isValidEmail(e.target.value));
+    }
   };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const handleOtpChange = (index, value) => {
+    if (/[^0-9]/.test(value)) return; // Only allow digits
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Automatically focus the next input if a digit was entered
+    if (value && index < 3) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+  };
+
+  useEffect(() => {
+    // Check if all fields are filled
+    const allFieldsFilled = otp.every(value => value !== '');
+    setIsButtonDisabled(!allFieldsFilled);
+  }, [otp]);
 
 
   //Toggle Feature Between Teacher and Student
@@ -52,35 +90,45 @@ export default function Forgot() {
     setStudentLogin(false);
   };
 
-
   //OTP Send Success
   useEffect(() => {
-    if (otpGenerated && OTPsentnotification) {
+    if (otpGenerated && OTPsentnotification && otpSuccess==="key generated") {
       openNotification2();
       setOTPsentnotification(false);
       setforgotEmailVarification(true);
     }
-    else if (otpFailure && OTPsentnotification) {
+    else if(otpGenerated && OTPsentnotification && otpSuccess==="Email Dosen't Exist in the database"){
+      setOTPsentnotification(false);
+      openNotification6();
+    }
+    else if (otpGeneratedError && OTPsentnotification) {
       openNotification3();
       setOTPsentnotification(false);
     }
-  }, [otpGenerated, OTPsentnotification, otpFailure]);
+    dispatch(clearMessage());
+  }, [otpGenerated, OTPsentnotification,dispatch,otpSuccess, otpGeneratedError]);
 
   // varified OTP Notification
   useEffect(() => {
-    if (varifiedOTPNotification && varifiedOTP === "otp varified") {
-      openNotification2();
-      setVarifiedOTPNotification(false);
+    if (varifiedOTPNotification && varifiedOtpFlag && varifiedOTP === "otp varified") {
       setOtpVerified(true);
+      openNotification4();
+      setVarifiedOTPNotification(false);
       setEmailDisable(true);
     }
-    else if (varifiedOTPError && varifiedOTPNotification) {
+    else if (varifiedOTPNotification && varifiedOtpFlag  && varifiedOTP === "otp not varified") {
+      openNotification5();
       setVarifiedOTPNotification(false);
-      openNotification3();
+      setEmailDisable(false);
+     
+    }
+    else if (varifiedOTPError && varifiedOTPNotification) {
+      openNotification7();
+      setVarifiedOTPNotification(false);
       setEmailDisable(false);
     }
-
-  }, [varifiedOTPError, varifiedOTPNotification, varifiedOTP])
+    dispatch(clearMessage());
+  }, [varifiedOTPError, varifiedOTPNotification,dispatch,varifiedOTP, varifiedOtpFlag])
 
 
   // Update Password Success
@@ -88,15 +136,14 @@ export default function Forgot() {
     if (forgotPasswordSuccess && passwordResetFlag) {
       openNotification();
       setPasswordResetFlag(false);
-      dispatch(clearMessage())
       navigate('/login');
     }
     else if(forgotPasswordFailure && passwordResetFlag){
       openNotification1();
       setPasswordResetFlag(false);
       navigate('/login');
-      dispatch(clearMessage());
     }
+    dispatch(clearMessage());
 
   }, [forgotPasswordSuccess, dispatch, passwordResetFlag,forgotPasswordFailure, navigate]);
 
@@ -141,6 +188,47 @@ export default function Forgot() {
     notification.open(args);
   };
 
+    //OTP Varified
+    const openNotification4 = () => {
+      const args = {
+        message: "OTP Varified",
+        description: "Congratulations,Your OTP Varified Successful",
+        duration: 2,
+      };
+      notification.open(args);
+    };
+    
+    //OTP not Varified
+    const openNotification5 = () => {
+      const args = {
+        message: "OTP not Varified",
+        description: "Your OTP not Varified, Check your OTP",
+        duration: 2,
+      };
+      notification.open(args);
+    };
+
+  //User Dosen't exist
+  const openNotification6 = () => {
+    const args = {
+      message: "OTP NOT Generated",
+      description: "User Not Exist in the Database",
+      duration: 2,
+    };
+    notification.open(args);
+  };
+
+
+
+  const openNotification7 = () => {
+    const args = {
+      message: "OTP not Varified",
+      description: "Something went Wrong, Try agian Later",
+      duration: 2,
+    };
+    notification.open(args);
+  };
+
 
   //Handling OTP Generation
   const handleSendOTP = () => {
@@ -151,7 +239,6 @@ export default function Forgot() {
         "newuser":false
       }
       dispatch(generateOtp(data))
-      // setforgotEmailVarification(true);       // Assuming OTP is sent successfully
       setOTPsentnotification(true);
       
     } else {
@@ -161,19 +248,13 @@ export default function Forgot() {
 
   //Handling OTP Varification
   const handleVerifyOTP = () => {
-    if (forgotFormData.OTP) {
       // dispatch action to verify OTP
       const data = {
         email: forgotFormData.email,
-        otp: forgotFormData.OTP,
-
+        otp: otp.join(''),
       }
       dispatch(varifyOtp(data))
       setVarifiedOTPNotification(true);
-      // setOtpVerified(true); // Assuming OTP is verified successfully
-    } else {
-      alert('Please enter the OTP');
-    }
   };
 
   //Password Reset Submit
@@ -234,34 +315,48 @@ export default function Forgot() {
                     type="button"
                     className="verifyOtpButton"
                     onClick={handleSendOTP}
-                    disabled={emailDisable}
+                    disabled={emailDisable || !isEmailValid}
 
                   >
                     {otpGenerated ? 'Sent' : 'Send OTP'}
                   </button>
                 </div>
                 {forgotEmailVarification && (
-                  <div className="field" style={{ marginTop: '20px' }}>
-                    <input
-                      type="text"
-                      name="OTP"
-                      value={forgotFormData.OTP}
-                      onChange={handleChange}
-                      placeholder="Enter Your OTP"
-                    disabled={emailDisable}
-
-                    />
+                  
+                    <div className="field" style={{ marginTop: '20px' }}>
+                    {otp.map((value, index) => (
+                      <input
+                        key={index}
+                        ref={(el) => (inputRefs.current[index] = el)}
+                        id={`otp-inputStudent-${index}`}
+                        type="text"
+                        className="signUpInput"
+                        value={value}
+                        onChange={(e) => handleOtpChange(index, e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(index, e)}
+                        maxLength="1"
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          textAlign: 'center',
+                          marginRight: '15px',
+                          border: '1px solid black',
+                          borderRadius:"5px",
+                         marginTop:"10px"
+                        }}
+                      />
+                    ))}
                     <button
                       type="button"
-                      className="verifyOtpButton"
+                      className="verifyOtpButton bg-success"
                       onClick={handleVerifyOTP}
-                    disabled={emailDisable}
-
+                      disabled={isButtonDisabled || emailDisable}
                     >
-                      Verify OTP
+                     {!emailDisable?" Varify OTP":"Varified"}
                     </button>
                   </div>
-                )}
+                 )}
+                
                 {otpVerified && (
                   <>
                     <div className="field" style={{ marginTop: '20px' }}>
@@ -275,9 +370,9 @@ export default function Forgot() {
                     </div>
                   </>
                 )}
-                <div className="field lbtn">
+                <div className="field lbtn" style={{marginTop:"2rem"}}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className="submit" value="Reset Password" disabled={!emailDisable} />
+                  <input type="submit" className="submit" value="Reset Password" style={{ backgroundColor: emailDisable ? '' : 'gray' }} disabled={!emailDisable} onClick={handleSubmit}/>
                 </div>
                 <div className="signup-link">
                   Not a member? <Link to="/register">Signup now</Link>
@@ -286,7 +381,7 @@ export default function Forgot() {
 
               {/* Forgot Form for admin Portal */}
 
-              <form onSubmit={handleSubmit} className={`signup ${!isStudentLogin ? 'active' : ''}`}>
+             {!isStudentLogin && <form onSubmit={handleSubmit} className={`signup ${!isStudentLogin ? 'active' : ''}`}>
                 <div className="field" style={{ marginTop: '20px' }}>
                   <input
                     type="text"
@@ -305,23 +400,41 @@ export default function Forgot() {
                   </button>
                 </div>
                 {forgotEmailVarification && (
+                  
                   <div className="field" style={{ marginTop: '20px' }}>
+                  {otp.map((value, index) => (
                     <input
+                      key={index}
+                      ref={(el) => (inputRefs.current[index] = el)}
+                      id={`otp-inputStudent-${index}`}
                       type="text"
-                      name="OTP"
-                      value={forgotFormData.OTP}
-                      onChange={handleChange}
-                      placeholder="Enter Your OTP"
+                      className="signUpInput"
+                      value={value}
+                      onChange={(e) => handleOtpChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      maxLength="1"
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        textAlign: 'center',
+                        marginRight: '15px',
+                        border: '1px solid black',
+                        borderRadius:"5px",
+                       marginTop:"10px"
+                      }}
                     />
-                    <button
-                      type="button"
-                      className="verifyOtpButton"
-                      onClick={handleVerifyOTP}
-                    >
-                      Verify OTP
-                    </button>
-                  </div>
-                )}
+                  ))}
+                  <button
+                    type="button"
+                    className="verifyOtpButton bg-success"
+                    onClick={handleVerifyOTP}
+                    disabled={isButtonDisabled || emailDisable}
+                  >
+                    {!emailDisable?" Varify OTP":"Varified"}
+                  </button>
+                </div>
+               )}
+                
                 {otpVerified && (
                   <>
                     <div className="field" style={{ marginTop: '20px' }}>
@@ -335,12 +448,14 @@ export default function Forgot() {
                     </div>
                   </>
                 )}
-                <div className="pass-link"><a href="/">Forgot password?</a></div>
-                <div className="field lbtn">
+                <div className="field lbtn" style={{marginTop:"2rem"}}>
                   <div className="lbtn-layer"></div>
-                  <input type="submit" className="submit" value="Reset Password" disabled={!emailDisable}/>
+                  <input type="submit" className="submit" value="Reset Password" disabled={!emailDisable} onClick={handleSubmit}/>
                 </div>
-              </form>
+                <div className="signup-link">
+                  Not a member? <Link to="/register">Signup now</Link>
+                </div>
+              </form>}
             </div>
           </div>
         </div>
